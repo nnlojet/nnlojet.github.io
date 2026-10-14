@@ -98,7 +98,8 @@ def main() -> None:
             children = ''
             if target == 'manual.html' and name in manual_names:
                 children = '<ol>' + ''.join(f'<li><a href="{html.escape(p["file"], quote=True)}">{html.escape(p["title"])}</a></li>' for p in navigation) + '</ol>'
-            sidebar.append(f'<li><a href="{target}">{title}</a>{children}</li>')
+            new_tab = ' target="_blank" rel="noopener"' if target.endswith('.pdf') else ''
+            sidebar.append(f'<li><a href="{target}"{new_tab}>{title}</a>{children}</li>')
         page = (template.replace('SIDEBAR', '\n'.join(sidebar))
                 .replace('MANUAL\n', manual_scripts if name in manual_names else '')
                 .replace('CONTENT', content))
