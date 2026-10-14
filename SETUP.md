@@ -233,6 +233,7 @@ sudo apt-get update
 sudo apt-get install --no-install-recommends -y \
   latexmk texlive-latex-extra texlive-fonts-extra \
   texlive-fonts-recommended cm-super \
+  texlive-lang-japanese lmodern \
   poppler-utils python3-lxml
 
 export PYTHON=/usr/bin/python3

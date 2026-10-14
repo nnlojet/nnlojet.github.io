@@ -28,12 +28,15 @@ jobs:
         with:
           persist-credentials: false
 
+      # lwarp needs ifptex.sty (shipped only by texlive-lang-japanese) and
+      # lmodern.sty (only a Recommends, so list it explicitly).
       - name: Install the manual toolchain
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y \
             latexmk texlive-latex-extra texlive-fonts-extra \
             texlive-fonts-recommended cm-super \
+            texlive-lang-japanese lmodern \
             poppler-utils python3-lxml
 
       - name: Build PDF and HTML manual
