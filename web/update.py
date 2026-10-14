@@ -66,12 +66,9 @@ def main() -> None:
     if args.preview:
         contents['releases.html'] = ''.join(lhtml.tostring(c, encoding='unicode') for c in release_doc)
     template = (WEB / 'TEMPLATE.html').read_text(encoding='utf-8')
-    template = template.replace('CSS1\n', '<link rel="stylesheet" href="index_files/hepforge.css">\n')
-    template = template.replace('CSS2\n', '<link rel="stylesheet" href="index_files/hepforge-override.css">\n')
     notice = '<p role="status"><strong>Local preview — not for publication.</strong> Unavailable release downloads are disabled.</p>' if args.preview else ''
     template = template.replace('BANNER\n', notice)
-    manual_scripts = '''<link rel="stylesheet" href="index_files/hepforge-override-manual.css">
-<script src="index_files/lwarp.js"></script>
+    manual_scripts = '''<script src="index_files/lwarp.js"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>'''
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
@@ -103,7 +100,7 @@ def main() -> None:
         page = (template.replace('SIDEBAR', '\n'.join(sidebar))
                 .replace('MANUAL\n', manual_scripts if name in manual_names else '')
                 .replace('CONTENT', content))
-        # Repair legacy fragment nesting locally, rather than relying on HEPForge.
+        # Repair legacy fragment nesting.
         doc = lhtml.document_fromstring(page)
         doc.set('lang', 'en')
         (OUTPUT / name).write_text(lhtml.tostring(doc, encoding='unicode', method='html', doctype='<!DOCTYPE html>'), encoding='utf-8')

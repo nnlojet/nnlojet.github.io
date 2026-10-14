@@ -12,7 +12,7 @@ See [VALIDATION.md](VALIDATION.md) for the local test results and limitations.
 ## Editing
 
 - Website content: `web/*.html` (ordinary page fragments).
-- Shared layout: `web/TEMPLATE.html`; styling: `web/index_files/`.
+- Shared layout: `web/TEMPLATE.html`; styling: `web/index_files/nnlojet.css`.
 - Manual: `manual/NNLOJET.tex`, its bibliography, and its figures.
 - Release-download destinations: `web/releases.html`.
 
