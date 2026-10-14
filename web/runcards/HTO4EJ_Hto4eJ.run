@@ -1,0 +1,76 @@
+
+PROCESS  Hto4eJ
+
+  collider = LHC
+  sqrts = 13000.0
+  jet = antikt[0.4]  jet_exclusive = .false.  jet_recomb = V4
+  decay_type = 2
+
+END_PROCESS
+
+RUN Hto4e
+  PDF = PDF4LHC15_nnlo_mc[0]
+  tcut = 1d-8
+  iseed   = 28
+  reset_vegas_grid = .true.
+  angular_average  = .true.
+  cache_kinematics = .false.
+  multi_channel    = .false.
+  lips_reduce      = .true. 
+
+
+  production = 10000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.004029643852
+END_PARAMETERS
+
+SELECTORS
+        select jets_pt          min = 30
+        select jets_abs_y       max = 4.4
+
+        select ptem2      min = 5
+        select abs_yem2   max = 2.7
+        select ptep2      min = 5
+        select abs_yep2   max = 2.7
+        select ptem1      min = 7
+        select abs_yem1   max = 2.47
+        select ptep1      min = 7
+        select abs_yep1   max = 2.47
+
+END_SELECTORS
+
+HISTOGRAMS
+
+        njets   nbins=4        min=-0.5     max=3.5   
+
+        ptj1  > ptj1_wide     nbins=50       min=0        max=500
+        ptj1  > ptj1_narrow   [30,40,55,75,120,350]
+
+        pth   > pth_wide      nbins=50       min=0        max=500
+        pth   > pth_narrow    [0,30,60,80,120,350]
+
+END_HISTOGRAMS
+
+SCALES
+
+  muf =  0.5 * pth     mur =  0.5 * pth
+  muf =        pth     mur =        pth
+  muf = 0.25 * pth     mur = 0.25 * pth
+  muf =  0.5 * pth     mur =        pth
+  muf =        pth     mur =  0.5 * pth
+  muf =  0.5 * pth     mur = 0.25 * pth
+  muf = 0.25 * pth     mur =  0.5 * pth
+
+END_SCALES
+
+
+CHANNELS
+
+END_CHANNELS
+
+
+
+

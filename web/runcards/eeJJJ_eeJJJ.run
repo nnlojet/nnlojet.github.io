@@ -1,0 +1,64 @@
+
+PROCESS  eeJJJ
+
+  collider = epem
+  sqrts = 200.0
+  jet = jade[0]
+
+END_PROCESS
+
+RUN eeJJJ
+  PDF = NNPDF31_nnlo_as_0118[0] 
+  iseed   = 1
+  
+  warmup = 10000[3]
+END_RUN
+
+PARAMETERS
+END_PARAMETERS
+
+SELECTORS
+        select njets min = 0 
+        OR  
+        select 1mT min = 0.001
+        select C   min = 0.001
+        select HJM min = 0.001
+        select WJB min = 0.001
+        select TJB min = 0.001
+        END_OR
+END_SELECTORS
+
+
+HISTOGRAMS
+
+   C   nbins = 50 min = 0 max = 1d0 
+   HJM nbins = 25 min = 0 max = 0.5d0
+   TJB nbins = 25 min = 0 max = 0.5d0 
+   WJB nbins = 25 min = 0 max = 0.5d0 
+   1mT nbins = 25 min = 0 max = 0.5d0
+   y23 nbins = 10 min=0 max=1
+
+END_HISTOGRAMS
+
+SCALES
+
+    muf = 1.0 * 91.1876     mur = 1.0 * 91.1876
+    muf = 0.5 * 91.1876     mur = 0.5 * 91.1876 
+    muf = 2.0 * 91.1876     mur = 2.0 * 91.1876
+    muf = 1.0 * 91.1876     mur = 0.5 * 91.1876
+    muf = 1.0 * 91.1876     mur = 2.0 * 91.1876
+    muf = 0.5 * 91.1876     mur = 1.0 * 91.1876
+    muf = 2.0 * 91.1876     mur = 1.0 * 91.1876
+
+END_SCALES
+
+
+CHANNELS
+	
+  LO	
+
+END_CHANNELS
+
+
+
+

@@ -1,0 +1,116 @@
+!Run card according to CMS 8 TeV 3D dijet measurement in 1705.02628
+!Result of this runcard is also presented in 2204.10173
+PROCESS  2jetfc
+  collider = pp  sqrts = 8000
+  jet = antikt[0.7]  jet_exclusive = .false.  jet_recomb = V4
+  decay_type = 0
+END_PROCESS
+
+RUN  RRa  ! <--- this is the JOB name
+  PDF = NNPDF31_nnlo_as_0118[0]
+  tcut = 1d-8
+  iseed   = 16
+  cache_kinematics = .true.
+  reset_vegas_grid = .true.
+  lips_reduce      = .true. 
+  angular_average  = .true.
+  multi_channel    = 1
+
+  warmup     = 140000000[10]!please keep this line as it is
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.004029643852
+  MASS[Z]  = 91.1876
+  WIDTH[Z] = 2.4952
+  MASS[W]  = 80.398
+  WIDTH[W] = 2.1054
+  MASS[t]  = 173.2
+  WIDTH[t] = 1.41
+  MASS[b]  = 4.18
+  MASS[c]  = 1.275
+  MASS[tau]  = 1.777
+END_PARAMETERS
+
+SELECTORS
+        select jets_pt min = 50
+        select jets_abs_y max = 5.0
+        select njets min = 2
+END_SELECTORS
+
+HISTOGRAMS
+
+      ptavg_j12 > fnl3832_yb0_ys0_ptavgj12 [133,153,174,196,220,245,272,300,330,362,395,430,468,507,548,592,638,686,737,790,846,905,967,1032,1101,1172,1248,1327,1410,1497,1588,1784]
+      HISTOGRAM_SELECTORS
+          select abs_yj1 max=3.0
+          select abs_yj2 max=3.0
+          select yboost  min=0.0 max=1.0
+          select ystar   min=0.0 max=1.0
+      END_HISTOGRAM_SELECTORS
+
+      ptavg_j12 > fnl3832_yb0_ys1_ptavgj12 [133,153,174,196,220,245,272,300,330,362,395,430,468,507,548,592,638,686,737,790,846,905,967,1032,1101,1172,1248]
+      HISTOGRAM_SELECTORS
+          select abs_yj1 max=3.0
+          select abs_yj2 max=3.0
+          select yboost  min=0.0 max=1.0
+          select ystar   min=1.0 max=2.0
+      END_HISTOGRAM_SELECTORS
+
+      ptavg_j12 > fnl3832_yb0_ys2_ptavgj12 [133,153,174,196,220,245,272,300,330,362,395,430,468,507,548]
+      HISTOGRAM_SELECTORS
+          select abs_yj1 max=3.0
+          select abs_yj2 max=3.0
+          select yboost  min=0.0 max=1.0
+          select ystar   min=2.0 max=3.0
+      END_HISTOGRAM_SELECTORS
+
+      ptavg_j12 > fnl3832_yb1_ys0_ptavgj12 [133,153,174,196,220,245,272,300,330,362,395,430,468,507,548,592,638,686,737,790,846,905,967,1032]
+      HISTOGRAM_SELECTORS
+          select abs_yj1 max=3.0
+          select abs_yj2 max=3.0
+          select yboost  min=1.0 max=2.0
+          select ystar   min=0.0 max=1.0
+      END_HISTOGRAM_SELECTORS
+
+      ptavg_j12 > fnl3832_yb1_ys1_ptavgj12 [133,153,174,196,220,245,272,300,330,362,395,430,468,507,548,592,638,686]
+      HISTOGRAM_SELECTORS
+          select abs_yj1 max=3.0
+          select abs_yj2 max=3.0
+          select yboost  min=1.0 max=2.0
+          select ystar   min=1.0 max=2.0
+      END_HISTOGRAM_SELECTORS
+
+      ptavg_j12 > fnl3832_yb2_ys0_ptavgj12 [133,153,174,196,220,245,272,300,330,362,395,430]
+      HISTOGRAM_SELECTORS
+          select abs_yj1 max=3.0
+          select abs_yj2 max=3.0
+          select yboost  min=2.0 max=3.0
+          select ystar   min=0.0 max=1.0
+      END_HISTOGRAM_SELECTORS
+
+END_HISTOGRAMS
+
+SCALES
+
+    muf = 1.0 * m12     mur = 1.0 * m12
+    muf = 0.5 * m12     mur = 0.5 * m12 
+    muf = 2.0 * m12     mur = 2.0 * m12
+    muf = 1.0 * m12     mur = 0.5 * m12
+    muf = 1.0 * m12     mur = 2.0 * m12
+    muf = 0.5 * m12     mur = 1.0 * m12
+    muf = 2.0 * m12     mur = 1.0 * m12
+
+END_SCALES
+
+REWEIGHT ptj1**6
+
+CHANNELS
+
+  RRa
+
+END_CHANNELS
+
+
+
+

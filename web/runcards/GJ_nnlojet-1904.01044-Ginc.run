@@ -1,0 +1,89 @@
+
+PROCESS  GJ
+
+  collider = pp
+  jet = none[0]
+  sqrts = 13000.0
+  photon_isolation = frix[R=0.1, ETmax_epsilon=0.1, n=2]  &
+    &       + etsum[R=0.4, ETmax_const=5, ETmax_epsilon=0, ET_threshold=0]
+  decay_type = 2
+
+END_PROCESS
+
+RUN  LO
+  PDF = NNPDF31_nnlo_as_0118_mc[0]
+  tcut = 1d-8
+  iseed   = 1
+  warmup     = 10000[10]
+  production = 100000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125.09
+  WIDTH[H] = 0.004029643852
+  MASS[Z]  = 91.1876
+  WIDTH[Z] = 2.4952
+  MASS[W]  = 80.385
+  WIDTH[W] = 2.085
+  MASS[t]  = 173.21
+  WIDTH[t] = 1.41
+  MASS[b]  = 4.18
+  MASS[c]  = 1.275
+  MASS[tau]  = 1.77
+  SCHEME[ALPHA]  = FIX
+  ALPHA          = 7.562460e-03
+END_PARAMETERS
+
+SELECTORS
+  select njets   min = 0
+  select pt_gam min = 190
+  select abs_y_gam max = 2.5
+  reject abs_y_gam min = 1.44 max = 1.57
+END_SELECTORS
+
+HISTOGRAMS
+  pt_gam  > Et_gam_bin1_CMS [190,200,220,250,300,350,400,500,750,1000]
+  HISTOGRAM_SELECTORS
+    select abs_y_gam max = 0.8
+  END_HISTOGRAM_SELECTORS
+
+  pt_gam  > Et_gam_bin2_CMS [190,200,220,250,300,350,400,500,750,1000]
+  HISTOGRAM_SELECTORS
+    select abs_y_gam min = 0.8 max = 1.44
+  END_HISTOGRAM_SELECTORS
+
+  pt_gam  > Et_gam_bin3_CMS [190,200,220,250,300,350,400,500,750,1000]
+  HISTOGRAM_SELECTORS
+    select abs_y_gam min = 1.57 max = 2.1
+  END_HISTOGRAM_SELECTORS
+
+  pt_gam  > Et_gam_bin4_CMS [190,200,220,250,300,350,400,500,750]
+  HISTOGRAM_SELECTORS
+    select abs_y_gam min = 2.1 max = 2.5
+  END_HISTOGRAM_SELECTORS
+
+  abs_y_gam   > abs_y_gam_CMS [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.44,1.57,1.6,1.7,1.8,1.9,2.0,2.1,2.2,2.3,2.4,2.5]
+END_HISTOGRAMS
+
+SCALES
+
+    muf = 1.0 * pt_gam     mur = 1.0 * pt_gam
+    muf = 0.5 * pt_gam     mur = 0.5 * pt_gam 
+    muf = 2.0 * pt_gam     mur = 2.0 * pt_gam
+    muf = 1.0 * pt_gam     mur = 0.5 * pt_gam
+    muf = 1.0 * pt_gam     mur = 2.0 * pt_gam
+    muf = 0.5 * pt_gam     mur = 1.0 * pt_gam
+    muf = 2.0 * pt_gam     mur = 1.0 * pt_gam
+
+END_SCALES
+
+
+CHANNELS
+
+  LO
+
+END_CHANNELS
+
+
+
+

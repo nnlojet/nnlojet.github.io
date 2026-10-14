@@ -1,0 +1,86 @@
+<h2>Quick start</h2>
+
+<h3>External dependencies</h3>
+
+<p>
+The NNLOJET code is mainly written in modern Fortran with some modules,
+dependencies and driver files written in C++ and Python.  Multi-threading
+capabilities are supported through OpenMP.  The NNLOJET installation requires
+compilers for Fortran/C/C++, a Python 3 interpreter (minimum version 3.10), as
+well as CMake (minimum version 3.18) to be available on the system.
+</p><p>
+In addition, <a href="https://lhapdf.hepforge.org/" target="_blank">LHAPDF 6</a>
+must be present, ideally with the <kbd>lhapdf-config</kbd> executable searchable
+from the <kbd>$PATH</kbd> of the system. The user is responsible for downloading
+the necessary PDF sets to be used in the calculation.
+</p>
+
+<h3>Installing NNLOJET</h3>
+
+<p>
+The source files can be downloaded from the <a href="releases.html">release page</a> as a tarball, which unpacks into a folder <kbd>nnlojet-X.Y.Z</kbd>.
+To build NNLOJET requires the following commands:
+<kbd class="display">
+$ cd nnlojet-X.Y.Z <br>
+$ mkdir build <br>
+$ cd build <br>
+$ cmake .. <br>
+$ make [-jN] <br>
+$ make install <br>
+</kbd>
+Compilation can be run in parallel on N cores with the <kbd>-jN</kbd> optional argument.
+</p><p>
+After successful completion of the build and installation, the NNLOJET executable will be located at: <kbd>nnlojet-X.Y.Z/install/bin/NNLOJET</kbd>.
+It is recommended to add the location of the NNLOJET <kbd>bin</kbd> folder to the system <kbd>$PATH</kbd> variable.
+</p><p>
+The <kbd>cmake</kbd> command can be invoked with additional options using <kbd>-D &lt;var&gt;=&lt;value&gt;</kbd> to control the build process:</p>
+<ul>
+    <li> <kbd>CMAKE_BUILD_TYPE=Debug|Release|RelWithDebInfo|MinSizeRel</kbd>: <br>choose how to build NNLOJET (default: <kbd>Release</kbd>);</li>
+   <li> <kbd>LHAPDF_ROOT_DIR=/path/to/LHAPDF</kbd>: <br>CMake will attempt to find the library automatically, but the path can be supplied manually;</li>
+   <li> <kbd>Python3_ROOT_DIR=/path/to/python</kbd>: <br>CMake will attempt to find a python installation automatically, but the path can be supplied manually;</li>
+   <li> <kbd>DOKAN=ON|OFF</kbd>:<br>optionally skip the installation of the <kbd>dokan</kbd> workflow script <kbd>nnlojet-run</kbd> (default: <kbd>ON</kbd>);</li>
+   <li> <kbd>OPENMP=ON|OFF</kbd>:<br> enable OpenMP support (default: <kbd>OFF</kbd>).</li>
+</ul>
+<p>
+For system-dependent settings (e.g. compiler preferences and options) the user should consult the <kbd>cmake</kbd> documentation for details.
+The <kbd>ccmake</kbd> command offers a GUI to access such additional settings.
+</p>
+
+<h3>Using NNLOJET</h3>
+
+<p>
+The recommended running mode of NNLOJET is through the Python workflow described
+in <a href="manual6.html">Section 6</a> of the manual. The
+process selection, parameter input and output control of NNLOJET are steered
+through a plain-ASCII runcard file.
+Example runcards can be found either in the <kbd>example</kbd> folder of the NNLOJET
+tarball or on the <a href="examples.html">examples</a> page.
+</p><p>
+Let's calculate NLO predictions for the Drell-Yan process, with settings as specified in the <a href="exampleZ.run">exampleZ.run</a> runcard.
+We first run the <kbd>init</kbd> subcommand of the <kbd>nnlojet-run</kbd> executable to initialise a new run folder with the necessary input and configuration files:
+<kbd class="display">
+$ nnlojet-run init exampleZ.run <br>
+</kbd>
+The command should create a new folder with name <kbd>example_run_Z_8TeV</kbd> (as then <kbd>RUN</kbd> name specified in the input runcard).
+The <kbd>init</kbd> command will first display the relevant references for the selected process that should be cited in a scientific publication using results obtained from the NNLOJET calculation; these references will also be saved as <kbd>.tex</kbd> and <kbd>.bib</kbd> files in the run folder. Subsequently, the user will be prompted to set several configuration options that are necessary for the execution. Here we choose <kbd>local</kbd> as policy, <kbd>nlo</kbd> as order and <kbd>0.1</kbd> as target relative accuracy, while leaving all the other options with their default values.
+</p><p>
+The main calculation can then be triggered using the <kbd>submit</kbd> subcommand:
+<kbd class="display">
+$ nnlojet-run submit example_run_Z_8TeV --job-max-runtime 5m <br>
+</kbd>
+where we have overridden temporarily the <kbd>job-max-runtime</kbd> variable with the CLI option, to limit the maximum runtime for an individual job to 5 minutes.
+</p><p>
+Once the <kbd>submit</kbd> sub-command is executed, the workflow is started and the process remains active for the entirety of the calculation, spawning sub-processes to execute the core <kbd>NNLOJET</kbd> program. The full calculation is divided into separate components and further decomposed into independent partonic luminosities. On a laptop with 8 cores, it should take around 15 minutes.
+</p><p>
+  Upon termination of all jobs, a summary of the calculation is given by printing the final cross section number with its associated uncertainty. The final results of the calculation are saved to the <kbd>example_run_Z_8TeV/results/final</kbd> folder.
+  For instance, the <kbd>example_run_Z_8TeV/result/final/lo.cross.dat</kbd> contains the LO fiducial cross section and
+  <kbd>example_run_Z_8TeV/result/final/nlo.cross.dat</kbd> the NLO one. The result should be:</p>
+  <ul>
+    <li> LO: 9.82(9) x 10^5 [fb]</li>
+    <li> NLO: 1.14(1) x 10^6 [fb]</li>
+  </ul>
+ <p>
+ (NNLOJET adopts standard units of [fb] for cross sections and [GeV] for dimensionful quantities).
+ </p><p>
+  Within this example runcard, some histograms are additionally computed. For instance, <kbd>example_run_Z_8TeV/result/final/nlo.mll.dat</kbd> contains the invariant mass distribution of the lepton pair at NLO: the first three columns are the lower bound, the center, and the upper bound of the bin; the fourth and fifth columns represent the value and the associated Monte Carlo integration uncertainty for the central scale choice. In the remaining columns, results for the other scale choices specified in the <kbd>SCALES</kbd> block of the runcard are provided.
+</p>

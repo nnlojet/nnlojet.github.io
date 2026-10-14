@@ -1,0 +1,24 @@
+<h2>Frequently Asked Questions</h2>
+<ul>
+  <li><b>Is it possible to store events generated with NNLOJET?</b>
+    <p>Short answer: No.<br>
+    Long answer: NNLOJET produces fixed-order fiducial cross sections and differential distributions, as specified in the runcard. Internally, it generates weighted events that are analysed on-the-fly to fill histograms. At higher orders, each event carries multiple weights corresponding to infrared counterterms with different kinematics, which must be treated in a correlated way. In its current version, NNLOJET does not support storing this information for later processing.</p>
+  </li>
+  <li><b>Do I have to relaunch NNLOJET to add a new histogram?</b>
+    <p>Short answer: Yes.<br>
+    Long answer: Because NNLOJET does not store events, any additional histogram must be defined in an updated runcard, and the code must be rerun.</p>
+  </li>
+  <li><b>Can I compute PDF uncertainties automatically?</b>
+    <p>Short answer: No.<br>
+    Long answer: In the current version of NNLOJET, each member of the PDF set must be run separately to evaluate PDF uncertainties in the final result. Future releases will include grid generation, allowing a posteriori variation of PDF sets.</p>
+  </li>
+  <li><b>How can I update the nnlojet-run workflow to the latest development version?</b>
+    <p>If you encounter issues with the nnlojet-run workflow, we recommend updating to the latest development version before submitting a bug report or opening an issue ticket. <br> To replace your current workflow with the development version:<br>
+      1. Delete the dokan directory in the root of the nnlojet folder.<br>
+      2. Clone the latest development version by running:
+      <kbd class="display">
+	$ git clone git@github.com:aykhuss/dokan.git <br>
+      </kbd>
+      3. Follow the installation instructions to rebuild the nnlojet-run workflow from this version.<br>
+  </li>
+</ul>

@@ -1,0 +1,56 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+PROCESS  Z
+  collider = pp  sqrts = 13000.0
+  jet = none[0]
+END_PROCESS
+
+RUN  LHCB_Z0_13TEV_DIMUON-Y
+  PDF = NNPDF40_nnlo_as_01180[0]
+  tcut = 1e-07
+  iseed = 1
+  warmup = 20000[7]
+  production = 100000[10]
+END_RUN
+
+PARAMETERS
+  MASS[Z] = 91.1876
+  WIDTH[Z] = 2.4955
+  MASS[W] = 80.377
+  WIDTH[W] = 2.085
+  CKM = FULL
+  SCHEME[ALPHA] = GF
+  SCHEME[WIDTH_V] = CMS
+  GF = 1.1663787e-05
+END_PARAMETERS
+
+SELECTORS
+  select yz  min = 2.0 max = 4.5
+  select ylp  min = 2.0 max = 4.5
+  select ylm  min = 2.0 max = 4.5
+  select ptlp  min = 20.0
+  select ptlm  min = 20.0
+  select mll  min = 60.0 max = 120.0
+END_SELECTORS
+
+HISTOGRAMS
+  yz > y [2.0, 2.125, 2.25, 2.375, 2.5, 2.625, 2.75, 2.875, 3.0, 3.125, 3.25, 3.375, 3.5, 3.625, 3.75, 3.875, 4.0, 4.25, 4.5]
+END_HISTOGRAMS
+
+SCALES
+  mur = etz  muf = etz
+END_SCALES
+
+CHANNELS 
+  LO
+END_CHANNELS
+
+

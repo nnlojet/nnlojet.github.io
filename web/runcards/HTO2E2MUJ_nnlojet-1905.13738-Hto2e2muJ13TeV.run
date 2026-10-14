@@ -1,0 +1,101 @@
+
+PROCESS  Hto2e2muJ
+
+  collider = LHC
+  sqrts = 13000.0
+  jet = antikt[0.4]  jet_exclusive = .false.  jet_recomb = V4
+  decay_type = 2
+
+END_PROCESS
+
+RUN  RV  ! <--- this is the JOB name
+  PDF = PDF4LHC15_nnlo_mc[0]
+  tcut = 1d-8
+  iseed   = 28
+  reset_vegas_grid = .true.
+  angular_average  = .true.
+  cache_kinematics = .false.
+  multi_channel    = .false.
+  lips_reduce      = .true. 
+
+
+  production = 10000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.004029643852
+END_PARAMETERS
+
+SELECTORS
+        select jets_pt          min = 30
+        select jets_abs_y       max = 4.4
+        select jets_min_dr_muj  min = 0.1
+        select jets_min_dr_ej   min = 0.2
+
+        select ptmum      min = 5
+        select abs_ymum   max = 2.7
+        select ptmup      min = 5
+        select abs_ymup   max = 2.7
+        select ptem       min = 7
+        select abs_yem    max = 2.47
+        select ptep       min = 7
+        select abs_yep    max = 2.47
+
+        select ptl1st     min = 20
+        select ptl2nd     min = 15
+        select ptl3rd     min = 10
+
+        select m2lnearmZ  min = 50 max = 106
+        select m2lfarmZ   min = 12 max = 115
+
+        select min_dr_sf  min = 0.1
+        select min_dr_df  min = 0.2
+END_SELECTORS
+
+HISTOGRAMS
+
+        njets > njets_ATLAS_HJ_2e2mu  nbins=4        min=-0.5     max=3.5   
+
+        ptj1  > ptj1_HJ_2e2mu  nbins=50       min=0        max=500
+        ptj1  > ptj1_ATLAS_HJ_2e2mu   [30,40,55,75,120,350]
+
+        pth   > pth_HJ_2e2mu      nbins=50       min=0        max=500
+        pth   > pth_ATLAS_HJ_2e2mu_10_b [0,30,60,80,120,350]
+        HISTOGRAM_SELECTORS
+           select njets  min = 1  max = 1
+        END_HISTOGRAM_SELECTORS
+
+        ptl1st    > ptl1_HJ_2e2mu     nbins=50       min=0        max=500
+        abs_yl1st > abs_yl1_HJ_2e2mu  nbins=30       min=0        max=3
+        ptl2nd    > ptl2_HJ_2e2mu     nbins=50       min=0        max=500
+        abs_yl2nd > abs_yl2_HJ_2e2mu  nbins=30       min=0        max=3
+        ptl3rd    > ptl3_HJ_2e2mu     nbins=50       min=0        max=500
+        abs_yl3rd > abs_yl3_HJ_2e2mu  nbins=30       min=0        max=3
+        ptl4th    > ptl4_HJ_2e2mu     nbins=50       min=0        max=500
+        abs_yl4th > abs_yl4_HJ_2e2mu  nbins=30       min=0        max=3
+
+END_HISTOGRAMS
+
+SCALES
+
+  muf =  0.5 * eth     mur =  0.5 * eth
+  muf =        eth     mur =        eth
+  muf = 0.25 * eth     mur = 0.25 * eth
+  muf =  0.5 * eth     mur =        eth
+  muf =        eth     mur =  0.5 * eth
+  muf =  0.5 * eth     mur = 0.25 * eth
+  muf = 0.25 * eth     mur =  0.5 * eth
+
+END_SCALES
+
+
+CHANNELS
+
+  RV
+
+END_CHANNELS
+
+
+
+

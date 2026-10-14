@@ -1,0 +1,147 @@
+
+PROCESS  Hto2l1pJ
+
+  collider = LHC
+  sqrts = 13000.0
+  jet = none[0]
+  decay_type = 2
+
+END_PROCESS
+
+RUN  RRb  ! <--- this is the JOB name
+  PDF = NNPDF31_nnlo_as_0118[0]
+  tcut = 1d-8
+  iseed   = 31
+  reset_vegas_grid = .true.
+  angular_average  = .true.
+  cache_kinematics = .true.
+  multi_channel    = .false.
+  lips_reduce      = .true. 
+
+
+  production = 30000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.004088
+END_PARAMETERS
+
+SELECTORS
+  select njets  min = 0
+  select m23  min = 81.2 max = 101.2
+  select min_dr_lp min = 0.3
+  select ptgamma min = 15
+  select abs_ygamma max = 2.37
+  select ptl1st min = 10
+  select ptl2nd min = 10
+  select abs_yl1st max = 2.7 
+  select abs_yl2nd max = 2.7
+  select pth min = 10
+END_SELECTORS
+
+HISTOGRAMS
+  cross > cross_e
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  cross > cross_mu
+
+  pth > pth_e  min = 0  max = 400  nbins = 40 
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  pth > pth_mu  min = 0  max = 400  nbins = 40 
+
+  ptgamma > ptgamma_e min = 0 max = 200 nbins = 20
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  ptgamma > ptgamma_mu min = 0 max = 200 nbins = 20
+
+  ptl1st > ptl1st_e min = 0 max = 200 nbins = 20
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  ptl1st > ptl1st_mu min = 0 max = 200 nbins = 20
+
+  ptl2nd > ptl2nd_e min = 0 max = 200 nbins = 20
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  ptl2nd > ptl2nd_mu min = 0 max = 200 nbins = 20
+
+  yl1st > yl1st_e min = -2.4 max = 2.4 nbins = 24
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  yl1st > yl1st_mu min = -2.4 max = 2.4 nbins = 24
+
+  yl2nd > yl2nd_e min = -2.4 max = 2.4 nbins = 24
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  yl2nd > yl2nd_mu min = -2.4 max = 2.4 nbins = 24
+
+  m23  > m23_e   min = 82  max = 101  nbins = 38
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  m23  > m23_mu   min = 82  max = 101  nbins = 38 
+
+  yh > yh_e min = -3 max = 3 nbins = 24
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  yh > yh_mu min = -3 max = 3 nbins = 24
+
+  ygamma > ygamma_e min = -3 max = 3 nbins = 24
+  HISTOGRAM_SELECTORS
+  select abs_yl1st max = 2.47 
+  select abs_yl2nd max = 2.47
+  END_HISTOGRAM_SELECTORS
+
+  ygamma > ygamma_mu min = -3 max = 3 nbins = 24
+
+END_HISTOGRAMS
+
+SCALES
+
+    muf = 1.0 * eth     mur = 1.0 * eth
+    muf = 0.5 * eth     mur = 0.5 * eth 
+    muf = 2.0 * eth     mur = 2.0 * eth
+    muf = 1.0 * eth     mur = 0.5 * eth
+    muf = 1.0 * eth     mur = 2.0 * eth
+    muf = 0.5 * eth     mur = 1.0 * eth
+    muf = 2.0 * eth     mur = 1.0 * eth
+
+END_SCALES
+
+
+CHANNELS
+
+  RRb
+
+END_CHANNELS
+
+
+
+

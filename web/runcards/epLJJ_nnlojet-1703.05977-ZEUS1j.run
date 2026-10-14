@@ -1,0 +1,144 @@
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!##                                RUNCARD    ##!
+!###############################################!
+
+
+PROCESS  epLJJ
+  collider = ep    Ebeam1 = 27.5  Ebeam2 = 920
+  jet = kt[1]  jet_exclusive = .false.  jet_recomb = Et
+END_PROCESS
+
+
+RUN  ZEUS1j
+  PDF = NNPDF30_nnlo_as_0118[0]
+  iseed   = -1
+  imethod = 2
+  angular_average    = .true.
+  multi_channel      = 5
+  scale_coefficients = .true.
+END_RUN
+
+
+PARAMETERS
+  SCHEME[ALPHA] = ALPHA0
+END_PARAMETERS
+
+SELECTORS
+
+  ! --- incJets: hep-ex/0608048 [hep-ex]
+  select q2            min = 125
+  select cosgammah     min = -0.65  max = 0.65
+  select jets_pt       min = 8
+  select jets_eta      min = -1.5   max = 2
+  select njets         min = 1
+
+END_SELECTORS
+
+
+HISTOGRAMS
+
+  ! ------------------------------------------------------------------------------- !
+  !    Fig. 6 [1703.05977] --- ZEUS incl. jets
+  ! ------------------------------------------------------------------------------- !
+  COMPOSITE > ptji_q2_125_250 [8,10,14,18,25,100]  output_type = 0
+    HISTOGRAM_SELECTORS
+      select  q2  min = 125  max = 250
+    END_HISTOGRAM_SELECTORS
+    ptj1  mu0 = dsclj1
+    ptj2  mu0 = dsclj2
+    ptj3  mu0 = dsclj3
+    ptj4  mu0 = dsclj4
+  END_COMPOSITE
+  COMPOSITE > ptji_q2_250_500 [8,10,14,18,25,100]  output_type = 0
+    HISTOGRAM_SELECTORS
+      select  q2  min = 250  max = 500
+    END_HISTOGRAM_SELECTORS
+    ptj1  mu0 = dsclj1
+    ptj2  mu0 = dsclj2
+    ptj3  mu0 = dsclj3
+    ptj4  mu0 = dsclj4
+  END_COMPOSITE
+  COMPOSITE > ptji_q2_500_1000 [8,10,14,18,25,100]  output_type = 0
+    HISTOGRAM_SELECTORS
+      select  q2  min = 500  max = 1000
+    END_HISTOGRAM_SELECTORS
+    ptj1  mu0 = dsclj1
+    ptj2  mu0 = dsclj2
+    ptj3  mu0 = dsclj3
+    ptj4  mu0 = dsclj4
+  END_COMPOSITE
+  COMPOSITE > ptji_q2_1000_2000 [8,10,14,18,25,100]  output_type = 0
+    HISTOGRAM_SELECTORS
+      select  q2  min = 1000  max = 2000
+    END_HISTOGRAM_SELECTORS
+    ptj1  mu0 = dsclj1
+    ptj2  mu0 = dsclj2
+    ptj3  mu0 = dsclj3
+    ptj4  mu0 = dsclj4
+  END_COMPOSITE
+  COMPOSITE > ptji_q2_2000_5000 [8,10,14,18,25,100]  output_type = 0
+    HISTOGRAM_SELECTORS
+      select  q2  min = 2000  max = 5000
+    END_HISTOGRAM_SELECTORS
+    ptj1  mu0 = dsclj1
+    ptj2  mu0 = dsclj2
+    ptj3  mu0 = dsclj3
+    ptj4  mu0 = dsclj4
+  END_COMPOSITE
+  COMPOSITE > ptji_q2_5000_10000 [8,10,14,18,25,100]  output_type = 0
+    HISTOGRAM_SELECTORS
+      select  q2  min = 5000  max = 10000
+    END_HISTOGRAM_SELECTORS
+    ptj1  mu0 = dsclj1
+    ptj2  mu0 = dsclj2
+    ptj3  mu0 = dsclj3
+    ptj4  mu0 = dsclj4
+  END_COMPOSITE
+  COMPOSITE > ptji_q2_5000_100000 [8,10,14,18,25,100]  output_type = 0
+    HISTOGRAM_SELECTORS
+      select  q2  min = 5000  max = 100000
+    END_HISTOGRAM_SELECTORS
+    ptj1  mu0 = dsclj1
+    ptj2  mu0 = dsclj2
+    ptj3  mu0 = dsclj3
+    ptj4  mu0 = dsclj4
+  END_COMPOSITE
+  COMPOSITE > ptji_q2_5000__ [8,10,14,18,25,100]  output_type = 0
+    HISTOGRAM_SELECTORS
+      select  q2  min = 5000
+    END_HISTOGRAM_SELECTORS
+    ptj1  mu0 = dsclj1
+    ptj2  mu0 = dsclj2
+    ptj3  mu0 = dsclj3
+    ptj4  mu0 = dsclj4
+  END_COMPOSITE
+
+END_HISTOGRAMS
+
+REWEIGHT  ht_part
+
+CHANNELS
+END_CHANNELS
+
+PDF_INTERPOLATION
+
+SCALES
+
+  mur = 1.0 * dsclj1   muf = 1.0 * dsclj1
+  mur = 0.5 * dsclj1   muf = 0.5 * dsclj1
+  mur = 2.0 * dsclj1   muf = 2.0 * dsclj1
+
+  mur = 1.0 * dsclj1   muf = 0.5 * dsclj1
+  mur = 1.0 * dsclj1   muf = 2.0 * dsclj1
+
+  mur = 0.5 * dsclj1   muf = 1.0 * dsclj1
+  mur = 2.0 * dsclj1   muf = 1.0 * dsclj1
+
+END_SCALES
+

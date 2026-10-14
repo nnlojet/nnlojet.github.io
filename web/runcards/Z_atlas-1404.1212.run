@@ -1,0 +1,55 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+PROCESS  Z
+  collider = pp  sqrts = 7000.0
+  jet = none[0]
+END_PROCESS
+
+RUN  ATLAS_Z0_7TEV_LOMASS_M
+  PDF = NNPDF40_nnlo_as_01180[0]
+  tcut = 1e-07
+  iseed = 1
+  warmup = 20000[7]
+  production = 100000[10]
+END_RUN
+
+PARAMETERS
+  MASS[Z] = 91.1876
+  WIDTH[Z] = 2.4955
+  MASS[W] = 80.377
+  WIDTH[W] = 2.085
+  CKM = FULL
+  SCHEME[ALPHA] = GF
+  SCHEME[WIDTH_V] = CMS
+  GF = 1.1663787e-05
+END_PARAMETERS
+
+SELECTORS
+  select abs_ylp  min = 0.0 max = 2.4
+  select abs_ylm  min = 0.0 max = 2.4
+  select ptl1  min = 9.0
+  select ptl2  min = 6.0
+  select mll  min = 12.0 max = 66.0
+END_SELECTORS
+
+HISTOGRAMS
+  mll > M [12.0, 17.0, 22.0, 28.0, 36.0, 46.0, 66.0]
+END_HISTOGRAMS
+
+SCALES
+  mur = etz  muf = etz
+END_SCALES
+
+CHANNELS 
+  LO
+END_CHANNELS
+
+

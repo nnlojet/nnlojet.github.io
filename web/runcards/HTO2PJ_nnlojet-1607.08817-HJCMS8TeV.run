@@ -1,0 +1,87 @@
+
+PROCESS  HTO2PJ
+
+  collider = LHC
+  sqrts = 8000.0
+  jet = antikt[0.5]  jet_exclusive = .false.  jet_recomb = V4
+  photon_isolation = etsum[R=0.4, ETmax_const=10]
+  decay_type = 3
+
+END_PROCESS
+
+RUN  RRa  ! <--- this is the JOB name
+  PDF = PDF4LHC15_nnlo_30[0]
+  tcut = 1d-8
+  iseed   = 30
+  reset_vegas_grid = .true.
+  angular_average  = .true.
+  cache_kinematics = .true.
+  multi_channel    = .false.
+  lips_reduce      = .true. 
+
+
+  production = 25000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.004029643852
+  MASS[Z]  = 91.1876
+  WIDTH[Z] = 2.4952
+  MASS[W]  = 80.398
+  WIDTH[W] = 2.1054
+  MASS[t]  = 173.2
+  WIDTH[t] = 1.41
+END_PARAMETERS
+
+SELECTORS
+    select jets_pt    min = 25
+    select jets_abs_y max = 2.5
+
+    select abs_yg1 max=2.5
+    select abs_yg2 max=2.5
+    select ptg1 min=41.67
+    select ptg2 min=31.25
+    select min_dr_gj min=0.5
+END_SELECTORS
+
+HISTOGRAMS
+
+    ptj1       > ptj1_lin       nbins = 60    min = 5    max = 605d0
+    ptj2       > ptj2_lin       nbins = 60    min = 5    max = 605d0
+    yj1        > yj1_lin        nbins = 50    min =-2.5  max = 2.5d0
+    yj2        > yj2_lin        nbins = 50    min =-2.5  max = 2.5d0
+    yh         > yh_lin         nbins = 60    min =-3    max = 3d0
+    etah       > etah_lin       nbins = 60    min =-3    max = 3d0
+    deltay_hj1 > deltay_hj1_lin nbins = 25    min =0     max =2.5d0
+    njets      > njets_lin      nbins=4       min=-0.5   max=3.5
+
+    ptj1 > ptj1_cms [25,40,64,104,200]
+    deltay_hj1 > deltay_hj1_cms [0,0.62,1.25,1.92]
+    pth > pth_inc [0,5,15,25,35,45,55,65,75,85,95,105,115,125,135,145,155,165,175,185,195,205,215,225,235,245,255,265,275,285,295,305,315,325,335,345,355,365,375,385,395,405]
+
+
+END_HISTOGRAMS
+
+SCALES
+
+    muf =  0.5 * eth     mur =  0.5 * eth 
+    muf =  1.0 * eth     mur =  1.0 * eth
+    muf = 0.25 * eth     mur = 0.25 * eth
+    muf =  1.0 * eth     mur =  0.5 * eth
+    muf =  0.5 * eth     mur =  1.0 * eth
+    muf = 0.25 * eth     mur =  0.5 * eth
+    muf =  0.5 * eth     mur = 0.25 * eth
+
+END_SCALES
+
+
+CHANNELS
+
+  RRa
+
+END_CHANNELS
+
+
+
+

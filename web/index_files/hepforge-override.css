@@ -1,0 +1,53 @@
+body#hf_body { margin: 0; }
+
+#hf_banner a { text-decoration:none; color:#933; }
+#hf_banner a:hover { color:#639; }
+
+:link, :visited {
+	border-bottom: none;
+}
+
+.hspacer { width:100%; }
+
+body hr { border:0; background:#cca; }
+
+#hepforge-content { padding:1em; padding-top:0; margin-top:3ex;}
+#hepforge-content-nosidebar { padding-top:0;}
+
+.hepforge-column {
+    vertical-align:top;
+}
+
+#hepforge-sidebarbox {
+    white-space:nowrap;
+    background:#eec; 
+    border:#cca 5px solid; 
+    padding:1em; 
+    padding-left:2em; 
+    margin-right:2em; 
+    margin-top:0
+}
+
+#hf_header {
+    background: #ddb;
+    padding-top: 0.4ex;
+    padding-bottom: 0.3ex; 
+    border-bottom:#996 solid 2px;
+    font-family:sans-serif; 
+    vertical-align:middle;
+    font-size: small;
+    color: #333;
+    overflow: auto;
+}
+#hf_banner {
+    padding: 0.2ex 1em 0.2ex 0;
+    float: right;
+    padding-right:0.5em;
+}
+
+a.result-link {
+    color: green !important;
+}
+a:hover.result-link {
+    color: mediumblue !important;
+}

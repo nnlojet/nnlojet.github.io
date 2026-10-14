@@ -1,0 +1,80 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+PROCESS  Z
+  collider = pp  sqrts = 8000.0
+  jet = none[0]
+END_PROCESS
+
+RUN  ATLAS_Z0_8TEV_HIMASS_M-Y
+  PDF = NNPDF40_nnlo_as_01180[0]
+  tcut = 1e-07
+  iseed = 1
+  warmup = 20000[7]
+  production = 100000[10]
+END_RUN
+
+PARAMETERS
+  MASS[Z] = 91.1876
+  WIDTH[Z] = 2.4955
+  MASS[W] = 80.377
+  WIDTH[W] = 2.085
+  CKM = FULL
+  SCHEME[ALPHA] = GF
+  SCHEME[WIDTH_V] = CMS
+  GF = 1.1663787e-05
+END_PARAMETERS
+
+SELECTORS
+  select abs_ylp  min = 0.0 max = 2.5
+  select abs_ylm  min = 0.0 max = 2.5
+  select ptl1  min = 40.0
+  select ptl2  min = 30.0
+  select mll  min = 116.0 max = 1500.0
+  select abs_yz  min = 0.0 max = 2.4
+END_SELECTORS
+
+HISTOGRAMS
+  abs_yz > etay_bin_0 [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4]
+  HISTOGRAM_SELECTORS
+      select mll  min = 116.0 max = 150.0
+  END_HISTOGRAM_SELECTORS
+
+  abs_yz > etay_bin_1 [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4]
+  HISTOGRAM_SELECTORS
+      select mll  min = 150.0 max = 200.0
+  END_HISTOGRAM_SELECTORS
+
+  abs_yz > etay_bin_2 [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4]
+  HISTOGRAM_SELECTORS
+      select mll  min = 200.0 max = 300.0
+  END_HISTOGRAM_SELECTORS
+
+  abs_yz > etay_bin_3 [0.0, 0.4, 0.8, 1.2, 1.6, 2.0, 2.4]
+  HISTOGRAM_SELECTORS
+      select mll  min = 300.0 max = 500.0
+  END_HISTOGRAM_SELECTORS
+
+  abs_yz > etay_bin_4 [0.0, 0.4, 0.8, 1.2, 1.6, 2.0, 2.4]
+  HISTOGRAM_SELECTORS
+      select mll  min = 500.0 max = 1500.0
+  END_HISTOGRAM_SELECTORS
+
+END_HISTOGRAMS
+
+SCALES
+  mur = etz  muf = etz
+END_SCALES
+
+CHANNELS 
+  LO
+END_CHANNELS
+
+

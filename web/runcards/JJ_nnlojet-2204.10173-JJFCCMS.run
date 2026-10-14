@@ -1,0 +1,163 @@
+
+PROCESS  1jetfc
+
+  collider = LHC
+  sqrts = 13000.0
+  jet = antikt[0.7]  jet_exclusive = .false.  jet_recomb = V4
+  decay_type = 0
+
+END_PROCESS
+
+RUN  RRa  ! <--- this is the JOB name
+  PDF = NNPDF40_nnlo_as_01180[0]
+  tcut = 1d-8
+  iseed   = 30
+  reset_vegas_grid = .true.
+  angular_average  = .true.
+  cache_kinematics = .true.
+  multi_channel    = 1
+  lips_reduce      = .true. 
+
+
+  production = 3000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.004029643852
+  MASS[Z]  = 91.1876
+  WIDTH[Z] = 2.4952
+  MASS[W]  = 80.398
+  WIDTH[W] = 2.1054
+  MASS[t]  = 173.2
+  WIDTH[t] = 1.41
+END_PARAMETERS
+
+SELECTORS
+        select jets_pt min = 97 max = 3103
+        select jets_abs_y max = 2.5
+        select njets min = 1
+END_SELECTORS
+
+HISTOGRAMS
+
+COMPOSITE > fnl5362h_y0_ptjet [97.0,133.0,174.0,220.0,272.0,330.0,395.0,468.0,548.0,638.0,737.0,846.0,967.0,1101.0,1248.0,1410.0,1588.0,1784.0,2000.0,2238.0,2500.0,2787.0,3103.0]
+      ptj1
+      HISTOGRAM_SELECTORS
+          select abs_yj1 min=0.0 max=0.5
+      END_HISTOGRAM_SELECTORS
+      ptj2
+      HISTOGRAM_SELECTORS
+          select abs_yj2 min=0.0 max=0.5
+      END_HISTOGRAM_SELECTORS
+      ptj3
+      HISTOGRAM_SELECTORS
+          select abs_yj3 min=0.0 max=0.5
+      END_HISTOGRAM_SELECTORS
+      ptj4
+      HISTOGRAM_SELECTORS
+          select abs_yj4 min=0.0 max=0.5
+      END_HISTOGRAM_SELECTORS
+END_COMPOSITE
+
+COMPOSITE > fnl5362h_y1_ptjet [97.0,133.0,174.0,220.0,272.0,330.0,395.0,468.0,548.0,638.0,737.0,846.0,967.0,1101.0,1248.0,1410.0,1588.0,1784.0,2000.0,2238.0,2500.0,2787.0]
+      ptj1
+      HISTOGRAM_SELECTORS
+          select abs_yj1 min=0.5 max=1.0
+      END_HISTOGRAM_SELECTORS
+      ptj2
+      HISTOGRAM_SELECTORS
+          select abs_yj2 min=0.5 max=1.0
+      END_HISTOGRAM_SELECTORS
+      ptj3
+      HISTOGRAM_SELECTORS
+          select abs_yj3 min=0.5 max=1.0
+      END_HISTOGRAM_SELECTORS
+      ptj4
+      HISTOGRAM_SELECTORS
+          select abs_yj4 min=0.5 max=1.0
+      END_HISTOGRAM_SELECTORS
+END_COMPOSITE
+
+COMPOSITE > fnl5362h_y2_ptjet [97.0,133.0,174.0,220.0,272.0,330.0,395.0,468.0,548.0,638.0,737.0,846.0,967.0,1101.0,1248.0,1410.0,1588.0,1784.0,2000.0,2238.0,2500.0]
+      ptj1
+      HISTOGRAM_SELECTORS
+          select abs_yj1 min=1.0 max=1.5
+      END_HISTOGRAM_SELECTORS
+      ptj2
+      HISTOGRAM_SELECTORS
+          select abs_yj2 min=1.0 max=1.5
+      END_HISTOGRAM_SELECTORS
+      ptj3
+      HISTOGRAM_SELECTORS
+          select abs_yj3 min=1.0 max=1.5
+      END_HISTOGRAM_SELECTORS
+      ptj4
+      HISTOGRAM_SELECTORS
+          select abs_yj4 min=1.0 max=1.5
+      END_HISTOGRAM_SELECTORS
+END_COMPOSITE
+
+COMPOSITE > fnl5362h_y3_ptjet [97.0,133.0,174.0,220.0,272.0,330.0,395.0,468.0,548.0,638.0,737.0,846.0,967.0,1101.0,1248.0,1410.0,1588.0,1784.0,2000.0]
+      ptj1
+      HISTOGRAM_SELECTORS
+          select abs_yj1 min=1.5 max=2.0
+      END_HISTOGRAM_SELECTORS
+      ptj2
+      HISTOGRAM_SELECTORS
+          select abs_yj2 min=1.5 max=2.0
+      END_HISTOGRAM_SELECTORS
+      ptj3
+      HISTOGRAM_SELECTORS
+          select abs_yj3 min=1.5 max=2.0
+      END_HISTOGRAM_SELECTORS
+      ptj4
+      HISTOGRAM_SELECTORS
+          select abs_yj4 min=1.5 max=2.0
+      END_HISTOGRAM_SELECTORS
+END_COMPOSITE
+
+COMPOSITE > fnl5362h_y4_ptjet [97.0,133.0,174.0,220.0,272.0,330.0,395.0,468.0,548.0,638.0,737.0,846.0,967.0,1101.0,1248.0,1410.0,1588.0] 
+      ptj1
+      HISTOGRAM_SELECTORS
+          select abs_yj1 min=2.0 max=2.5
+      END_HISTOGRAM_SELECTORS
+      ptj2
+      HISTOGRAM_SELECTORS
+          select abs_yj2 min=2.0 max=2.5
+      END_HISTOGRAM_SELECTORS
+      ptj3
+      HISTOGRAM_SELECTORS
+          select abs_yj3 min=2.0 max=2.5
+      END_HISTOGRAM_SELECTORS
+      ptj4
+      HISTOGRAM_SELECTORS
+          select abs_yj4 min=2.0 max=2.5
+      END_HISTOGRAM_SELECTORS
+END_COMPOSITE
+
+END_HISTOGRAMS
+
+SCALES
+
+    muf =  1.0 * ht_part     mur =  1.0 * ht_part
+    muf =  2.0 * ht_part     mur =  2.0 * ht_part
+    muf =  0.5 * ht_part     mur =  0.5 * ht_part 
+    muf =  1.0 * ht_part     mur =  0.5 * ht_part
+    muf =  0.5 * ht_part     mur =  1.0 * ht_part
+    muf =  1.0 * ht_part     mur =  2.0 * ht_part
+    muf =  2.0 * ht_part     mur =  1.0 * ht_part
+
+END_SCALES
+
+REWEIGHT ht_part**6.5
+
+CHANNELS
+
+  RRa
+
+END_CHANNELS
+
+
+
+

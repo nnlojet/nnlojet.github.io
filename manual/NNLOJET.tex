@@ -1,0 +1,2207 @@
+% =========================================================================
+% SciPost LaTeX template
+% Version 2024-07
+%
+% Submissions to SciPost Journals should make use of this template.
+%
+% INSTRUCTIONS: simply look for the `TODO:' tokens and adapt your file.
+% ========================================================================
+
+\documentclass{SciPost}
+
+% Prevent all line breaks in inline equations.
+\binoppenalty=10000
+\relpenalty=10000
+
+\hypersetup{
+    pdftitle=NNLOJET,
+    pdfauthor=NNLOJET,
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black},
+    bookmarksnumbered=true
+}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{rotating,float,caption}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{framed}
+\usepackage{xspace}
+
+\usepackage[bitstream-charter]{mathdesign}
+\urlstyle{same}
+
+% Code is not rendered correctly in LuaLaTeX
+\usepackage{ifluatex}
+\ifluatex\errmessage{Please use PDFLaTeX to compile}\fi
+
+% Fix \cal and \mathcal characters look (so it's not the same as \mathscr)
+\DeclareSymbolFont{usualmathcal}{OMS}{cmsy}{m}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{usualmathcal}
+
+
+% math fonts
+\DeclareRobustCommand{\ensuremathrm}[1]{\ensuremath{\mathrm{#1}}}
+\DeclareRobustCommand{\ensuremathbf}[1]{\ensuremath{\mathbf{#1}}}
+\DeclareRobustCommand{\ensuremathbb}[1]{\ensuremath{\mathbb{#1}}}
+\DeclareRobustCommand{\ensuremathcal}[1]{\ensuremath{\mathcal{#1}}}
+
+\DeclareRobustCommand{\rd}{\ensuremathrm{d}}
+\DeclareRobustCommand{\ri}{\ensuremathrm{i}}
+\DeclareRobustCommand{\re}{\ensuremathrm{e}}
+
+\DeclareRobustCommand{\rs}{\ensuremathrm{s}}
+\DeclareRobustCommand{\rw}{\ensuremathrm{w}}
+\DeclareRobustCommand{\rew}{\ensuremathrm{ew}}
+
+\DeclareRobustCommand{\alphas}{\ensuremath{\alpha_\rs}}
+
+\DeclareRobustCommand{\rB}{\ensuremathrm{B}}
+\DeclareRobustCommand{\rV}{\ensuremathrm{V}}
+\DeclareRobustCommand{\rC}{\ensuremathrm{C}}
+\DeclareRobustCommand{\rA}{\ensuremathrm{A}}
+\DeclareRobustCommand{\rT}{\ensuremathrm{T}}
+\DeclareRobustCommand{\rR}{\ensuremathrm{R}}
+\DeclareRobustCommand{\rF}{\ensuremathrm{F}}
+\DeclareRobustCommand{\rL}{\ensuremathrm{L}}
+\DeclareRobustCommand{\rM}{\ensuremathrm{M}}
+\DeclareRobustCommand{\rW}{\ensuremathrm{W}}
+\DeclareRobustCommand{\rS}{\ensuremathrm{S}}
+\DeclareRobustCommand{\rU}{\ensuremathrm{U}}
+\DeclareRobustCommand{\rRR}{\ensuremathrm{RR}}
+\DeclareRobustCommand{\rRV}{\ensuremathrm{RV}}
+\DeclareRobustCommand{\rVV}{\ensuremathrm{VV}}
+\DeclareRobustCommand{\rMF}{\ensuremathrm{MF}}
+\DeclareRobustCommand{\rFF}{\ensuremathrm{FF}}
+\DeclareRobustCommand{\rIF}{\ensuremathrm{IF}}
+\DeclareRobustCommand{\rII}{\ensuremathrm{II}}
+
+\DeclareRobustCommand{\jet}{{\mathrm{jet}}\xspace}
+\DeclareRobustCommand{\jets}{{\mathrm{jets}}\xspace}
+
+%% bosons
+\DeclareRobustCommand{\PH}{{\ensuremathrm{H}}\xspace}
+\DeclareRobustCommand{\PZ}{{\ensuremathrm{Z}}\xspace}
+\DeclareRobustCommand{\PW}{{\ensuremathrm{W}}\xspace}
+\DeclareRobustCommand{\PWp}{{\ensuremathrm{W^+}}\xspace}
+\DeclareRobustCommand{\PWm}{{\ensuremathrm{W^-}}\xspace}
+\DeclareRobustCommand{\PWpm}{{\ensuremathrm{W^\pm}}\xspace}
+\DeclareRobustCommand{\PWmp}{{\ensuremathrm{W^\mp}}\xspace}
+\DeclareRobustCommand{\Pg}{{\ensuremathrm{g}}\xspace}
+\DeclareRobustCommand{\Pgg}{{\ensuremathrm{\gamma}}\xspace}
+
+%% fermions
+\DeclareRobustCommand{\Pf}{{\ensuremath{f}}\xspace}
+
+%% leptons
+\DeclareRobustCommand{\Pl}{{\ensuremath{\ell}}\xspace}
+\DeclareRobustCommand{\Pal}{{\ensuremath{\bar{\ell}}}\xspace}
+\DeclareRobustCommand{\Plp}{{\ensuremath{\ell^+}}\xspace}
+\DeclareRobustCommand{\Plm}{{\ensuremath{\ell^-}}\xspace}
+\DeclareRobustCommand{\Plpm}{{\ensuremath{\ell^\pm}}\xspace}
+\DeclareRobustCommand{\Plmp}{{\ensuremath{\ell^\mp}}\xspace}
+
+\DeclareRobustCommand{\Pgn}{{\ensuremath{\nu}}\xspace}
+\DeclareRobustCommand{\Pagn}{{\ensuremath{\bar{\nu}}}\xspace}
+\DeclareRobustCommand{\Pgnl}{{\ensuremath{\nu_\ell}}\xspace}
+\DeclareRobustCommand{\Pagnl}{{\ensuremath{\bar{\nu}_\ell}}\xspace}
+
+\DeclareRobustCommand{\Pe}{{\ensuremathrm{e}}\xspace}
+\DeclareRobustCommand{\Pep}{{\ensuremathrm{e^+}}\xspace}
+\DeclareRobustCommand{\Pem}{{\ensuremathrm{e^-}}\xspace}
+\DeclareRobustCommand{\Pepm}{{\ensuremathrm{e^\pm}}\xspace}
+\DeclareRobustCommand{\Pemp}{{\ensuremathrm{e^\mp}}\xspace}
+
+\DeclareRobustCommand{\Pgm}{{\ensuremath{\mu}}\xspace}
+\DeclareRobustCommand{\Pgmp}{{\ensuremath{\mu^+}}\xspace}
+\DeclareRobustCommand{\Pgmm}{{\ensuremath{\mu^-}}\xspace}
+\DeclareRobustCommand{\Pgmpm}{{\ensuremath{\mu^\pm}}\xspace}
+\DeclareRobustCommand{\Pgmmp}{{\ensuremath{\mu^\mp}}\xspace}
+
+\DeclareRobustCommand{\Pgt}{{\ensuremath{\tau}}\xspace}
+\DeclareRobustCommand{\Pgtp}{{\ensuremath{\tau^+}}\xspace}
+\DeclareRobustCommand{\Pgtm}{{\ensuremath{\tau^-}}\xspace}
+\DeclareRobustCommand{\Pgtpm}{{\ensuremath{\tau^\pm}}\xspace}
+\DeclareRobustCommand{\Pgtmp}{{\ensuremath{\tau^\mp}}\xspace}
+
+\DeclareRobustCommand{\Pgne}{{\ensuremathrm{\nu_{\!e}}}\xspace}
+\DeclareRobustCommand{\Pagne}{{\ensuremathrm{\bar{\nu}_{\!e}}}\xspace}
+\DeclareRobustCommand{\Pgngm}{{\ensuremath{\nu_{\!\mu}}}\xspace}
+\DeclareRobustCommand{\Pagngm}{{\ensuremath{\bar{\nu}_{\!\mu}}}\xspace}
+
+%% quarks
+\DeclareRobustCommand{\Pq}{{{q}}\xspace}
+\DeclareRobustCommand{\Paq}{{{\bar{q}}}\xspace}
+\DeclareRobustCommand{\Pqu}{{\ensuremathrm{u}}\xspace}
+\DeclareRobustCommand{\Pqc}{{\ensuremathrm{c}}\xspace}
+\DeclareRobustCommand{\Pqt}{{\ensuremathrm{t}}\xspace}
+\DeclareRobustCommand{\Pqd}{{\ensuremathrm{d}}\xspace}
+\DeclareRobustCommand{\Pqs}{{\ensuremathrm{s}}\xspace}
+\DeclareRobustCommand{\Pqb}{{\ensuremathrm{b}}\xspace}
+\DeclareRobustCommand{\Paqu}{{\ensuremathrm{\bar{u}}}\xspace}
+\DeclareRobustCommand{\Paqc}{{\ensuremathrm{\bar{c}}}\xspace}
+\DeclareRobustCommand{\Paqt}{{\ensuremathrm{\bar{t}}}\xspace}
+\DeclareRobustCommand{\Paqd}{{\ensuremathrm{\bar{d}}}\xspace}
+\DeclareRobustCommand{\Paqs}{{\ensuremathrm{\bar{s}}}\xspace}
+\DeclareRobustCommand{\Paqb}{{\ensuremathrm{\bar{b}}}\xspace}
+% more quarks (not in heppennames.sty!)
+\DeclareRobustCommand{\PQ}{{\math{Q}}\xspace}
+\DeclareRobustCommand{\PaQ}{{\math{\bar{Q}}}\xspace}
+
+%% nucleons
+\DeclareRobustCommand{\Pp}{{\ensuremathrm{p}}\xspace}
+\DeclareRobustCommand{\Pap}{{\ensuremathrm{\bar{p}}}\xspace}
+% units
+\DeclareRobustCommand{\eV}{\ensuremathrm{eV}\xspace}
+\DeclareRobustCommand{\keV}{\ensuremathrm{keV}\xspace}
+\DeclareRobustCommand{\MeV}{\ensuremathrm{MeV}\xspace}
+\DeclareRobustCommand{\GeV}{\ensuremathrm{GeV}\xspace}
+\DeclareRobustCommand{\TeV}{\ensuremathrm{TeV}\xspace}
+\DeclareRobustCommand{\nb}{\ensuremathrm{nb}\xspace}
+\DeclareRobustCommand{\pb}{\ensuremathrm{pb}\xspace}
+\DeclareRobustCommand{\fb}{\ensuremathrm{fb}\xspace}
+
+\DeclareRobustCommand{\mur}{{\mu_\mathrm{R}}\xspace}
+\DeclareRobustCommand{\muR}{\mur}
+\DeclareRobustCommand{\muf}{{\mu_\mathrm{F}}\xspace}
+\DeclareRobustCommand{\muF}{\muf}
+
+\DeclareRobustCommand{\order}[1]{{{\mathcal{O}\!\left(#1\right)}}\xspace}
+
+
+\colorlet{shadecolor}{black!5}
+
+% Catpuccin ftw
+\preparecolorset{RGB/HTML}{CatLatte}{}{%
+  Rosewater,220,138,120/DC8A78;%
+  Flamingo,221,120,120/DD7878;%
+  Pink,234,118,203/EA76CB;%
+  Mauve,136,57,239/8839EF;%
+  Red,210,15,57/D20F39;%
+  Maroon,230,69,83/E64553;%
+  Peach,254,100,11/FE640B;%
+  Yellow,223,142,29/DF8E1D;%
+  Green,64,160,43/40A02B;%
+  Teal,23,146,153/179299;%
+  Sky,4,165,229/04A5E5;%
+  Sapphire,32,159,181/209FB5;%
+  Blue,30,102,245/1E66F5;%
+  Lavender,114,135,253/7287FD;%
+  Text,76,79,105/4C4F69;%
+  Subtext1,92,95,119/5C5F77;%
+  Subtext0,108,111,133/6C6F85;%
+  Overlay2,124,127,147/7C7F93;%
+  Overlay1,140,143,161/8C8FA1;%
+  Overlay0,156,160,176/9CA0B0;%
+  Surface2,172,176,190/ACB0BE;%
+  Surface1,188,192,204/BCC0CC;%
+  Surface0,204,208,218/CCD0DA;%
+  Base,239,241,245/EFF1F5;%
+  Mantle,230,233,239/E6E9EF;%
+  Crust,220,224,232/DCE0E8%
+}
+\colorlet{codebg}{CatLatteBase}
+\colorlet{codetxt}{CatLatteText}
+\colorlet{codecmt}{CatLatteSubtext0}
+\colorlet{codevar}{CatLatteGreen}
+\colorlet{codestr}{CatLatteYellow}
+\colorlet{codefade}{CatLatteOverlay0}
+\colorlet{codekey1}{CatLatteMauve}
+\colorlet{codekey2}{CatLatteBlue}
+\colorlet{codekey3}{CatLatteLavender}
+\colorlet{codekey4}{CatLatteSubtext1}
+\colorlet{codekey5}{CatLatteYellow}%{CatLattePeach}
+\colorlet{codekey6}{CatLattePink}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  commentstyle=\color{codecmt},
+  keywordstyle=[1]\color{codekey1}\bfseries,
+  keywordstyle=[2]\color{codekey2},
+  keywordstyle=[3]\color{codekey2},%{codekey3},
+  keywordstyle=[4]\color{codekey1},
+  keywordstyle=[5]\color{codekey5},
+  keywordstyle=[6]\color{codekey6},
+  keywordstyle=[7]\color{codefade}\itshape,
+  %identifierstyle=\color{blue},
+  stringstyle=\color{codestr},
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numberstyle=\color{codetxt},
+  numbers=none, % left
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  escapeinside={(*@}{@*)},
+}
+
+\lstdefinelanguage{nnlojet}{
+  %otherkeywords = {=,[,],+,*,&},
+  otherkeywords = {&},
+  alsoletter = {.-},
+  keywords = [1]{PROCESS,END_PROCESS,RUN,END_RUN,PARAMETERS,END_PARAMETERS,SELECTORS,END_SELECTORS,HISTOGRAMS,END_HISTOGRAMS,SCALES,END_SCALES,CHANNELS,END_CHANNELS,MULTI_RUN,END_MULTI_RUN,SETUP,END_SETUP,REWEIGHT,PDF_INTERPOLATION,UNIT_PHASE},
+  keywords = [2]{collider,beam1,beam2,sqrts,Ebeam1,Ebeam2,jet,jet_exclusive,jet_recomb,lepton_isolation,photon_isolation,photon_recomb,photon_fragmentation,V_NC,L_NC,pol,lab_ordereta,dis_eventshapes,eprc,dis_frame,decay_type,select,reject,select_if_valid,reject_if_valid,PDF,PDF1,PDF2,iseed,imethod,warmup,production,tcut,reset_vegas_grid,phase_space,angular_average,cache_kinematics,scale_coefficients,multi_channel,match_obs,lips_reduce,iplot,print_max_weight,pole_check,point_check,MASS,WIDTH,alpha,alpha0,alphaMZ,GF,hard_photon_alpha0,SCHEME,ckm,mur,muf},
+  keywords = [3]{%
+    Z,ZJ,ZJJ,ZJJJ,W,WJ,WJJ,WJJJ,Wp,WpJ,WpJJ,WpJJJ,Wm,WmJ,WmJJ,WmJJJ,H,HJ,HJJ,HJJJ,H2,H2J,H2JJ,H2JJJ,HTO2P,HTO2PJ,HTO2PJJ,HTO2PJJJ,HTO2TAU,HTO2TAUJ,HTO2TAUJJ,HTO2TAUJJJ,H3,H3J,H3JJ,H3JJJ,HTO2L1P,HTO2L1PJ,HTO2L1PJJ,HTO2L1PJJJ,H4,H4J,H4JJ,H4JJJ,HTO4E,HTO4EJ,HTO4EJJ,HTO4EJJJ,HTO2E2MU,HTO2E2MUJ,HTO2E2MUJJ,HTO2E2MUJJJ,HTO2L2N,HTO2L2NJ,HTO2L2NJJ,HTO2L2NJJJ,GJ,GJJ,GJJJ,GG,JJ,eeJJ,eeJJJ,epLJ,epLJJ,epNJ,epNJJ,epNbJ,epNbJJ,%
+    u,d,s,c,b,t,el,mu,tau,proton,% masses
+    MV,GV,ALPHA,% schemes
+    min,max,nbins,region,fac,option,stepfac,mu0,run_group,binning,output_type,cumulant,rcone,stepfac
+  },
+  %keywords = [4]{=,[,],+,*},
+  keywords = [4]{},
+  keywords = [5]{STR,INT,BOOL,DBLE,.false.,.true.},
+  keywords = [6]{HISTOGRAM_SELECTORS,END_HISTOGRAM_SELECTORS,RUN_SELECTORS,END_RUN_SELECTORS,OR,END_OR,COMPOSITE,END_COMPOSITE},
+  keywords = [7]{&,...},
+  sensitive = false,
+  comment = [l]{!},
+  moredelim=[s][\color{codevar}]{<}{>},
+  moredelim=[is][\color{black}]{(blk)}{(/blk)},
+  moredelim=[is][\color{codekey2}]{(key)}{(/key)},
+  moredelim=[is][\color{codekey5}]{(lit)}{(/lit)}
+}
+
+% The default style adds spaces around dashes, which is misleading for shell commands. To avoid this, define a new language.
+\lstdefinelanguage{commands}{
+  alsoletter = {.-},
+  keywords = [2]{cmake,make,mkdir,cd},
+  keywords = [4]{\$},
+  comment = [l]{\#},
+  morecomment = [l]{*},
+  moredelim=[s][\color{codekey5}]{[}{]},
+  moredelim=[s][\color{codevar}]{<}{>},
+  moredelim=[is][\color{codekey2}]{(key)}{(/key)},
+  moredelim=[is][\color{codekey5}]{(lit)}{(/lit)}
+}
+
+% Inline runcard syntax may only be broken at spaces
+\newcommand{\runcard}[1]{\runcardHelper#1 \relax}
+\def\runcardHelper#1 #2\relax{\runcardImpl{#1}\ifx\relax#2\relax{}\else{ \runcardHelper#2\relax}\fi}
+\DeclareRobustCommand{\runcardImpl}[1]{\makebox{\lstinline[language=nnlojet]|#1|}}
+\DeclareRobustCommand{\command}[1]{\makebox{\lstinline[language=commands]^#1^}}
+
+\newcommand{\myurl}[1]{\href{#1}{#1}}
+
+\fancypagestyle{SPstyle}{
+\fancyhf{}
+\lhead{\colorbox{scipostblue}{\bf \color{white} ~SciPost Physics Codebases }}
+\rhead{{\bf \color{scipostdeepblue} ~Submission }}
+\renewcommand{\headrulewidth}{1pt}
+\fancyfoot[C]{\textbf{\thepage}}
+}
+
+\begin{document}
+
+\pagestyle{SPstyle}
+
+\vspace*{-3.5em}
+\begin{flushright}
+CERN-TH-2025-012, IPPP/25/09, ZU-TH 11/25
+\end{flushright}
+
+\begin{center}
+{\Large \textbf{\color{scipostdeepblue}{
+  NNLOJET: a parton-level event generator for\\
+  jet cross sections at NNLO QCD accuracy
+}}}
+\end{center}
+
+\begin{center}
+  \includegraphics[width=0.13\textwidth]{nnlogo_col.pdf}
+  \\*\medskip
+  \textbf{NNLOJET Collaboration}
+\end{center}
+
+\begin{center}\textbf{
+A.~Huss$^{1,\star}$, L.~Bonino$^{2}$, O.~Braun-White$^{3}$, S.~Caletti$^4$, X.~Chen$^{5}$, J.~Cruz--Martinez$^{1}$, J.~Currie$^{3}$, Y.S. Dai$^{5}$, W.~Feng$^{2}$,
+G.~Fontana$^{2}$,  E.~Fox$^{3}$, R.~Gauld$^{6}$, A.~Gehrmann--De~Ridder$^{2,4}$,
+T.~Gehrmann$^{2}$, E.W.N.~Glover$^{3}$, M.~H\"ofer$^{7}$,
+P.~Jakub\v{c}\'{i}k$^{2}$, M.~Jaquier$^{8}$, M.~L\"ochner$^{2}$,
+F.~Lorkowski$^{2}$, I.~Majer$^{4}$, M.~Marcoli$^{3}$, P.~Meinzinger$^{2}$, F.~Merlotti$^{4}$, J.~Mo$^{2}$,
+T.~Morgan$^{3}$, J.~Niehues$^{3,9}$,
+J.~Pires$^{10,11}$, C.~T.~Preuss$^{12,13}$, A.~Rodriguez Garcia$^4$, K.~Sch\"onwald$^{2}$,
+R.~Sch\"urmann$^{2}$, V.~Sotnikov$^{2}$, G.~Stagnitto$^{14}$, H.T. Sun$^{5}$, D.~Walker$^{3}$, S.~Wells$^{3}$, J.~Whitehead$^{15}$, T.Z.~Yang$^{2}$ and
+H.~Zhang$^{16}$
+}\end{center}
+
+\begin{center}
+% affiliations - Format: institute, city, country
+{\bf 1} Theoretical Physics Department, CERN, 1211 Geneva 23, Switzerland
+\\
+{\bf 2} Physik-Institut, Universit\"at Z\"urich, Winterthurerstrasse 190, 8057 Z\"urich, Switzerland
+\\
+{\bf 3} Institute for Particle Physics Phenomenology, Department of Physics,\\ University of Durham, Durham, DH1 3LE, UK
+\\
+{\bf 4} Institute for Theoretical Physics, ETH, CH-8093 Z\"urich, Switzerland
+\\
+{\bf 5} School of Physics, Shandong University, Jinan, Shandong 250100, China
+\\
+{\bf 6} Max-Planck-Institut f\"ur Physik, Werner-Heisenberg-Institut, 85748 Garching, Germany
+\\
+{\bf 7} Institute for Theoretical Physics, KIT, 76131 Karlsruhe, Germany
+\\
+{\bf 8} Institute for Theoretical Particle Physics, KIT, 76131 Karlsruhe, Germany
+\\
+{\bf 9} EKFZ for Digital Health, TU Dresden, 01307 Dresden, Germany
+\\
+{\bf 10}  LIP, Avenida Professor Gama Pinto 2, 1649-003 Lisboa, Portugal
+\\
+{\bf 11} Faculdade de Ciências, Universidade de Lisboa, 1749-016 Lisboa, Portugal
+\\
+{\bf 12} Department of Physics, University of Wuppertal, 42119 Wuppertal, Germany
+\\
+{\bf 13} Institut f\"ur Theoretische Physik, Georg-August-Universität G\"ottingen, \\  37077 G\"ottingen, Germany
+\\
+{\bf 14} Universit\`{a} degli Studi di Milano-Bicocca and INFN, \\Piazza della Scienza 3, 20126 Milano, Italy
+\\
+{\bf 15} Jagiellonian University,
+ul.\ prof.\ Stanislawa \L{}ojasiewicza 11, 31-342 Krak\'ow, Poland\\
+{\bf 16} PSI Center for Neutron and Muon Sciences, 5232 Villigen PSI, Switzerland
+% email address of corresponding author(s)
+\\[\baselineskip]
+$\star$ \href{mailto:alexander.huss@cern.ch}{\small alexander.huss@cern.ch}
+%\,,\quad
+%$\dagger$ \href{mailto:email2}{\small email2}
+\end{center}
+
+
+\section*{\color{scipostdeepblue}{Abstract}}
+{\boldmath\textbf{%
+The antenna subtraction method for NNLO QCD calculations is implemented in the NNLOJET parton-level event generator code
+to compute jet cross sections and related observables in electron--positron, lepton--hadron and hadron--hadron collisions. We describe the open-source
+NNLOJET code and its usage.
+}}
+
+\vspace{\baselineskip}
+% \vfill
+
+%%%%%%%%%% BLOCK: Copyright information
+% This block will be filled during the proof stage, and finilized just before publication.
+% It exists here only as a placeholder, and should not be modified by authors.
+\noindent\textcolor{white!90!black}{%
+\fbox{\parbox{0.975\linewidth}{%
+\textcolor{white!40!black}{\begin{tabular}{lr}%
+  \begin{minipage}{0.6\textwidth}%
+    {\small Copyright attribution to authors. \newline
+    This work is a submission to SciPost Physics Codebases. \newline
+    License information to appear upon publication. \newline
+    Publication information to appear upon publication.}
+  \end{minipage} & \begin{minipage}{0.4\textwidth}
+    {\small Received Date \newline Accepted Date \newline Published Date}%
+  \end{minipage}
+\end{tabular}}
+}}
+}
+%%%%%%%%%% BLOCK: Copyright information
+
+
+
+\vspace{10pt}
+%\clearpage
+\noindent\rule{\textwidth}{1pt}
+\tableofcontents
+\noindent\rule{\textwidth}{1pt}
+\vspace{10pt}
+
+
+
+%--------------------
+\section{Introduction}
+\label{sec:intro}
+%--------------------
+
+The Standard Model of particle physics is firmly established as the theoretical framework describing the interaction of
+elementary particles up to the highest energy scales that are accessible at particle collider experiments.
+Increasingly accurate experimental measurements allow to test the Standard Model and to
+determine its parameters at an unprecedented level of quantitative precision. To enable these
+precision physics studies, a close interplay between experimental measurements and theoretical
+predictions is required.
+
+Many precision observables are derived from hadronic final states, typically in the form of identified jets, which
+can be related to the production of quarks and gluons (partons) in hard scattering
+processes~\cite{Ellis:1996mzs,Campbell:2017hsr}. These jet observables provide
+clean probes of the dynamics of the strong interaction (quantum chromodynamics, QCD)
+at electron--positron colliders and they affect all types of precision measurements at lepton--hadron or hadron--hadron
+colliders due to the partonic structure of the colliding hadrons.
+The theoretical description of these observables must take account of the detailed
+definition of the final state that is applied in the experimental measurement by incorporating the
+jet clustering algorithm and any fiducial cuts and isolation requirements on the final-state objects. The resulting
+predictions for fiducial cross sections can then be compared directly to the experimental data, thereby
+  they stress-test the Standard Model and refine the determination of the parameters
+(Standard Model couplings and masses, parton distribution functions) that enter the theoretical predictions.
+
+Theoretical predictions rely on a perturbation theory expansion in the coupling constants. In the case
+of hadron-collider processes and jet observables, QCD corrections are particularly important due to
+the large value of the strong coupling constant $\alphas$ compared to the other Standard Model interactions.
+At higher orders in perturbation theory, a Born-level process
+with given final-state multiplicity receives two types of contributions: virtual
+corrections from closed particle loops in the underlying scattering amplitudes and real-radiation corrections from
+final states with higher multiplicity. At next-to-leading order (NLO), these correspond to one-loop virtual corrections (V)
+and single real emission corrections (R). With increasing orders, corrections can be of mixed type, with
+next-to-next-to-leading order (NNLO) consisting of two-loop double virtual (VV), mixed one-loop single real emission
+(RV) and tree-level double-real emission corrections (RR) and so on.
+Each individual subprocess contribution contains infrared singularities arising from soft or collinear momentum
+configurations in loop integrals and real-radiation processes; only the sum
+of all subprocesses contributing to a well-defined (infrared-safe,~\cite{Sterman:1977wj})
+final state is finite and physically meaningful.
+These infrared singularities are explicit (as poles in
+the dimensional regularization parameter) only in the virtual loop amplitudes~\cite{Catani:1998bh,Becher:2009cu,Gardi:2009qi,Dixon:2009gx},
+ while leading to divergent
+phase-space integrals in the real-radiation processes. To obtain numerically finite
+predictions from real-radiation corrections, their infrared singularity structure must be made explicit.
+
+For this task, various
+infrared subtraction methods have been proposed and implemented for NLO calculations~\cite{Giele:1993dj,Catani:1996vz,Frixione:1995ms}. When combined with generic procedures for
+the evaluation
+of one-loop virtual amplitudes~\cite{Ossola:2007ax,Ellis:2011cr,Cascioli:2011va,GoSam:2014iqq} for any
+process, these methods have enabled the full automation of NLO corrections in QCD and the electroweak theory,
+becoming part of
+multi-purpose event simulation programs~\cite{Alioli:2010xd,Alwall:2014hca,Bellm:2015jjp,Sherpa:2019gpd,Bierlich:2022pfr}, which are complemented
+by the dedicated libraries for NLO processes in \textsc{MCFM}~\cite{Campbell:2019dru} and \textsc{VBFNLO}~\cite{Arnold:2008rz}.
+These perturbative fixed-order calculations are implemented as parton-level Monte Carlo event generation programs. Such a program contains
+ the infrared-finite remainders of all parton-level subprocesses. These
+are evaluated over their respective phase spaces of different multiplicities, producing weighted parton-level events
+with full kinematic information that can be analysed according to the experimental fiducial cross section definition.
+
+Building upon the universal factorization of QCD real-radiation amplitudes in their infrared
+limits~\cite{Campbell:1997hg,Catani:1999ss,Catani:2000pi,Kosower:1999rx,Bern:1999ry}, several
+NNLO subtraction methods have been
+formulated~\cite{Binoth:2004jv,Anastasiou:2003gr,Catani:2007vq,Gehrmann-DeRidder:2005btv,Czakon:2010td,Boughezal:2011jf,Boughezal:2015eha,Gaunt:2015pea,Cacciari:2015jma,Caola:2017dug,DelDuca:2016ily,Magnea:2020trj}.
+These methods have enabled the calculation of
+NNLO QCD corrections to a large number of collider processes~\cite{Heinrich:2020ybq}
+with up to three identified final-state objects. Such calculations are performed
+on a case-by-case basis in the framework of parton-level Monte Carlo event generation, typically requiring
+high-performance computing resources to yield stable and numerically reliable results. The resulting codes
+often require dedicated tuning and post-processing for each observable. They are usually not broadly
+available as open-source. Notable exceptions are
+\textsc{EERAD3}~\cite{Gehrmann-DeRidder:2014hxk,Aveleira:2025svg} for jet production in electron-positron annihilation, the \textsc{MATRIX}~\cite{Grazzini:2017mhc} and MiNNLOPS~\cite{Monni:2019whf,Monni:2020nks}
+codes  for
+processes with colour-neutral or heavy-quark final states,
+ and the NNLO-upgrade of the \textsc{MCFM} code~\cite{Campbell:2019dru,Campbell:2022gdq} for selected di-boson processes, as well as a range of codes each covering individual processes at NNLO accuracy~\cite{Catani:2007vq,Anastasiou:2003yy,Catani:2009sm,Gavin:2010az,Catani:2011qz,Cacciari:2015jma,Camarda:2019zyx,DelDuca:2024ovc,Sherpa:2024mfk}.
+
+
+In this work, we present the open-source release of the NNLOJET parton-level event generator
+code, which employs the antenna subtraction method~\cite{Gehrmann-DeRidder:2005btv,Daleo:2006xa,Currie:2013vh}
+to compute the NNLO QCD  corrections to several classes of jet production processes in hadron--hadron,
+lepton--hadron and electron--positron collisions.
+In the following, we review the antenna subtraction method in Sect.~\ref{sec:ant}, describe the
+NNLOJET installation and general usage in Sect.~\ref{sec:framework} and the currently available processes in
+Sect.~\ref{sec:procs}. The detailed usage of NNLOJET is documented through its
+runcard syntax and process workflow in Sections~\ref{sec:runcard}--\ref{sec:user}. The NNLOJET code
+is available on HEPForge: \myurl{http://nnlojet.hepforge.org} and is distributed under the GNU General Public License v3.0.
+
+
+%--------------------
+\section{Antenna subtraction}
+\label{sec:ant}
+%--------------------
+The differential cross section $\rd\sigma$ for a specific final state at a hadron collider is obtained by the convolution of parton distributions $f_{i|h}$ with
+parton-level cross sections $\rd\hat{\sigma}$
+\begin{align}
+  \rd\sigma = \sum_{a,b} \rd\hat{\sigma}_{ab} \otimes f_{a|h_1}\otimes f_{b|h_2}
+  \;.
+\end{align}
+These parton-level cross sections are computed in perturbative QCD as an expansion in the strong coupling:
+\begin{align}
+  \rd\hat{\sigma}_{ab} = \rd\hat{\sigma}_{ab,{\rm LO}} + \rd\hat{\sigma}_{ab,{\rm NLO}} + \rd\hat{\sigma}_{ab,{\rm NNLO}} + \ldots
+  \;.
+\end{align}
+Their computation must account for the definition of the final state (jet and object reconstruction as well as fiducial cuts on the final-state objects) and allow the extraction of
+differential distributions in all desired kinematic variables. This flexibility can only be attained by analysing
+all parton-level contributions to the cross section at a given perturbative order at the level of the respective partonic kinematics. The resulting implementation is a parton-level
+event generator, which can compute the differential cross sections for any infrared-safe observable that can be derived from a given Born-level process.
+
+The leading-order contribution $\rd\hat{\sigma}_{ab,{\rm LO}}$ defines this Born-level process for $n$ final-state objects:
+\begin{align}
+  \rd\hat{\sigma}_{ab,{\rm LO}} = \int_n \rd\hat{\sigma}_{ab}^{B}
+  \;,
+\end{align}
+where $\rd\hat{\sigma}_{ab}^{B}$ is the Born-level differential cross section including the $n$-object final-state definition
+and $\int_n$ indicates the integration over the $n$-particle final-state phase space.
+At LO, each final-state object is described by a single particle, such that the event reconstruction amounts to a simple check that all final-state objects are non-overlapping in phase space and are all within the fiducial acceptance.
+
+The NLO contribution
+\begin{align}
+\label{eq:NLOcs}
+  \rd\hat{\sigma}_{ab,{\rm NLO}}=\int_{n}\left(\rd\hat{\sigma}^{V}_{ab,{\rm NLO}}+\rd\hat{\sigma}^{MF}_{ab,{\rm NLO}}\right)+
+  \int_{n+1}\rd\hat{\sigma}^{R}_{ab,{\rm NLO}}
+\end{align}
+consists of virtual one-loop corrections $\rd\hat{\sigma}^{V}$, real-radiation corrections $\rd\hat{\sigma}^{R}$,
+ and mass-factorization counterterms
+$\rd\hat{\sigma}^{MF}$ associated
+with unresolved radiation from the incoming partons.
+All three contributions are separately infrared-divergent and only their sum is infrared-finite and physically well-defined.
+The singularities are commonly made explicit by working in dimensional regularization in $d=4-2\epsilon$ dimensions.
+
+At NNLO, the cross section consists of double-virtual (two loop and one-loop squared) corrections $\rd\hat{\sigma}^{VV}$, mixed real--virtual
+corrections $\rd\hat{\sigma}^{RV}$, and double-real-radiation corrections $\rd\hat{\sigma}^{RR}$, as well as mass-factorization terms $\rd\hat{\sigma}^{MF,1}$
+and $\rd\hat{\sigma}^{MF,2}$ associated with single and double initial-state radiation:
+\begin{align}
+\label{eq:NNLOcs}
+  \rd\hat{\sigma}_{ab,{\rm NNLO}}
+  &=
+  \int_{n}\left(\rd\hat{\sigma}^{VV}_{ab,{\rm NNLO}}+\rd\hat{\sigma}^{MF,2}_{ab,{\rm NNLO}}\right)
+  \nonumber \\ &\quad +
+  \int_{n+1}\left(\rd\hat{\sigma}^{RV}_{ab,{\rm NNLO}}+\rd\hat{\sigma}^{MF,1}_{ab,{\rm NNLO}}\right) +
+  \int_{n+2}\rd\hat{\sigma}^{RR}_{ab,{\rm NNLO}}
+  \;.
+\end{align}
+All five contributions are infrared-divergent; the cancellation of infrared singularities is accomplished only if they are all summed together.
+
+The infrared singularities at NLO and NNLO are of two forms: explicit $\epsilon$-poles from loop integrals in the virtual
+corrections~\cite{Catani:1998bh} and implicit soft and/or collinear singularities
+in the real corrections~\cite{Campbell:1997hg,Catani:1999ss,Catani:2000pi,Kosower:1999rx,Bern:1999ry},
+which become explicit only upon integration over the respective phase space. Consequently,
+it is not possible to implement equations~\eqref{eq:NLOcs} and \eqref{eq:NNLOcs} directly in a numerical code. To accomplish the cancellation of infrared singularities among the
+different contributions at NLO and NNLO, one introduces a subtraction procedure that extracts the implicit infrared singularities from real-radiation processes,
+makes them explicit by phase-space integration and combines them with the virtual corrections. The resulting expressions read
+\begin{align}
+  \label{eq:NLOsub}
+  \rd\hat{\sigma}_{ab,{\rm NLO}}
+  &=
+  \int_{n+1} \left(
+  \rd\hat{\sigma}^{R}_{ab,{\rm NLO}} - \rd\hat{\sigma}^{S}_{ab,{\rm NLO}}
+  \right)
+  \nonumber \\ &\quad  +
+  \int_{n}\left(\rd\hat{\sigma}^{V}_{ab,{\rm NLO}}-\rd\hat{\sigma}^{T}_{ab,{\rm NLO}}\right)
+\end{align}
+and
+\begin{align}
+  \label{eq:NNLOsub}
+  \rd\hat{\sigma}_{ab,{\rm NNLO}}
+  &=
+  \int_{n+2} \left(
+  \rd\hat{\sigma}^{RR}_{ab,{\rm NNLO}} - \rd\hat{\sigma}^{S}_{ab,{\rm NNLO}}
+  \right)
+  \nonumber \\ &\quad +
+  \int_{n+1}\left(\rd\hat{\sigma}^{RV}_{ab,{\rm NNLO}}-\rd\hat{\sigma}^{T}_{ab,{\rm NNLO}}\right)
+  \nonumber \\ &\quad +
+  \int_{n}\left(\rd\hat{\sigma}^{VV}_{ab,{\rm NNLO}}-\rd\hat{\sigma}^{U}_{ab,{\rm NNLO}}\right)
+  \;.
+\end{align}
+The subtraction terms relate among each other as follows:
+\begin{align}
+\label{eq:sub}
+  \rd\hat{\sigma}^{T}_{ab,{\rm NLO}}
+  &= - \int_1 \rd\hat{\sigma}^{S}_{ab,{\rm NLO}} - \rd\hat{\sigma}^{MF}_{ab,{\rm NLO}}
+  \;, \nonumber \\
+  \rd\hat{\sigma}^{S}_{ab,{\rm NNLO}}
+  &= \rd\hat{\sigma}^{S,1}_{ab,{\rm NNLO}} + \rd\hat{\sigma}^{S,2}_{ab,{\rm NNLO}}
+  \;, \nonumber \\
+  \rd\hat{\sigma}^{T}_{ab,{\rm NNLO}}
+  &= \rd\hat{\sigma}^{T,1}_{ab,{\rm NNLO}} - \int_1 \rd\hat{\sigma}^{S,1}_{ab,{\rm NNLO}} - \rd\hat{\sigma}^{MF,1}_{ab,{\rm NNLO}}
+  \;, \nonumber \\
+  \rd\hat{\sigma}^{U}_{ab,{\rm NNLO}}
+  &= - \int_1 \rd\hat{\sigma}^{T,1}_{ab,{\rm NNLO}} - \int_2 \rd\hat{\sigma}^{S,2}_{ab,{\rm NNLO}} - \rd\hat{\sigma}^{MF,2}_{ab,{\rm NNLO}}
+  \;.
+\end{align}
+Here $\int_i$ denotes the integration over the phase space associated with $i$ unresolved partons and the decomposition into $\rd\hat{\sigma}^{S,(1,2)}$ separates
+single- and double-unresolved configurations.
+By introducing these subtraction terms, each line in equations~\eqref{eq:NLOsub} and \eqref{eq:NNLOsub} is free of implicit and explicit singularities, thus allowing a numerical
+implementation in a parton-level event generator.
+
+
+NNLOJET implements the antenna subtraction method~\cite{Gehrmann-DeRidder:2005btv,Daleo:2006xa,Currie:2013vh}, which derives the subtraction terms starting from
+colour-ordered decompositions of all real-radiation contributions. The colour-ordering allows identifying each unresolved real-radiation configuration with a pair of hard radiator partons, which emit the unresolved partons. This configuration is then described by an antenna function consisting of the hard radiators and unresolved radiation in between them.
+Antenna functions were derived at NLO and NNLO for quark--antiquark~\cite{Gehrmann-DeRidder:2004ttg},
+quark--gluon~\cite{Gehrmann-DeRidder:2005svg} and gluon--gluon~\cite{Gehrmann-DeRidder:2005alt} pairs as hard radiators. All quarks are treated as massless.
+The unintegrated subtraction
+terms are obtained from products of antenna functions and reduced matrix elements of lower partonic multiplicity, which are summed over all
+configurations of hard radiators and unresolved partons. The kinematics of the antenna functions and
+the reduced matrix elements are factorized from each other through a phase-space mapping~\cite{Kosower:2002su,Daleo:2006xa}, such that the
+antenna function can be integrated over the antenna phase space of the hard radiator partons and the unresolved radiation while leaving the
+kinematics of the reduced matrix element unaffected.
+The integrated antenna functions enter the subtraction terms $\rd\hat{\sigma}^{T}$ and $\rd\hat{\sigma}^{U}$ where they
+establish the explicit cancellation of infrared $\epsilon$-poles between real and virtual contributions.
+They were computed up to NNLO
+for all different configurations of the hard radiators: final--final~\cite{Gehrmann-DeRidder:2005btv}, initial--final~\cite{Daleo:2009yj} and
+initial--initial~\cite{Gehrmann:2011wi,Boughezal:2010mc,Gehrmann-DeRidder:2012too}.
+
+With these ingredients, all terms in equation~\eqref{eq:sub} can be implemented in the antenna subtraction formalism, as
+described in detail in~\cite{Currie:2013vh}. For all processes available in NNLOJET, this implementation has
+been made on a process-by-process basis, usually starting from the implicit infrared singularity structure of the double-real-radiation process $\rd\hat{\sigma}^{RR}$.
+A fully automated construction of the antenna subtraction terms in colour space is currently under development~\cite{Chen:2022ktf,Gehrmann:2023dxm}.
+
+
+%--------------------
+\section{The NNLOJET framework}
+\label{sec:framework}
+%--------------------
+The NNLOJET code is a parton-level event generator that provides the framework for the implementation
+of jet production processes to NNLO accuracy in QCD, using the antenna subtraction method. It contains
+the event generator infrastructure (Monte Carlo phase-space integration, event handling and analysis routines) and
+provides the unintegrated and integrated antenna functions and the phase-space mappings for all kinematic
+configurations.
+The NNLOJET phase-space integration is based on optimized parametrizations of the respective subprocess
+phase spaces (described in detail in~\cite{Gehrmann:2018szu}), which are then integrated using the adaptive Monte Carlo routine \textsc{Vegas}~\cite{Lepage:1977sw}.
+
+
+The implementation of processes in the NNLOJET framework requires the availability of the matrix
+elements for all RR, RV, and VV contributions, as well as
+the construction of the antenna subtraction terms. The subtraction terms have been validated by verifying their
+point-wise convergence to the respective subprocess matrix elements in all limits, as described in detail
+in~\cite{NigelGlover:2010kwr,Chen:2022ktf}.
+Some of the one-loop subprocess matrix elements were taken from the \textsc{MCFM} code~\cite{Campbell:2019dru},
+in particular for processes involving vector bosons~\cite{Campbell:2002tg}. The two-loop virtual corrections to
+all processes with four-point kinematics or beyond contain various special functions, in particular harmonic
+polylogarithms~\cite{Remiddi:1999ew} and their generalizations. These are evaluated using
+\textsc{HPLOG}~\cite{Gehrmann:2001pz}, \textsc{TDHPL}~\cite{Gehrmann:2001jv} and \textsc{CHAPLIN}~\cite{Buehler:2011ev}, which
+are all included as part of the NNLOJET distribution, with explicit consent of the respective code authors and thus
+in line with the underlying licensing provisions.
+The evaluation of parton distributions and of the strong coupling constant is performed using the
+standard \textsc{LHAPDF}~\cite{Buckley:2014ana} interface.
+
+%----------
+\subsection{External dependencies}
+\label{sec:framework:deps}
+%----------
+The NNLOJET code is mainly written in modern Fortran with some modules, dependencies and driver files written in C++ and Python.
+Multi-threading capabilities are supported through \textsc{OpenMP}.
+The NNLOJET installation requires compilers for Fortran/C/C++, a Python 3 interpreter (minimum version 3.10),
+as well as CMake (minimum version 3.18) to be available on the system.
+In addition, \textsc{LHAPDF\,6}~\cite{Buckley:2014ana} must be present, ideally with the \command{lhapdf-config} executable searchable from the \command{\$PATH} of the system. The user is responsible for downloading the necessary PDF sets to be used in the calculation.
+
+
+%----------
+\subsection{Installation}
+\label{sec:framework:inst}
+%----------
+The source files
+can be downloaded from \myurl{https://nnlojet.hepforge.org} as a tarball, which unpacks into a directory \texttt{nnlojet-X.Y.Z}.
+The following commands are then used to build NNLOJET:
+\begin{lstlisting}[language=commands]
+$ cd nnlojet-X.Y.Z
+$ mkdir build
+$ cd build
+$ cmake .. [options]
+$ make [-jN]
+$ make install
+\end{lstlisting}
+The compilation can be run on \command{N} cores in parallel with the \command{-jN} optional argument.
+%
+The installation can be customised, by passing additional \command{[options]} to the \command{cmake} command. The syntax is \command{-D <var>=<value>}. The most relevant options are:
+\begin{itemize}
+  \item \command{CMAKE_INSTALL_PREFIX=/path/to/nnlojet}: target directory where to install NNLOJET (default: \command{/usr/local});
+  \item \command{CMAKE_BUILD_TYPE=Debug|Release|RelWithDebInfo|MinSizeRel}: build option for NNLOJET (default: \command{Release});
+  \item \command{LHAPDF_ROOT_DIR=/path/to/LHAPDF}: CMake will attempt to find the library automatically but the path can be supplied manually;
+  \item \command{Python3_ROOT_DIR=/path/to/python}: CMake will attempt to find a python installation automatically but the path can be supplied manually;
+  \item \command{DOKAN=ON|OFF}: optionally skip the installation of the \command{nnlojet-run} script (default: \command{ON});
+  \item \command{OPENMP=ON|OFF}: enable OpenMP support (default: \command{OFF}).
+  % \item \command{PINEAPPL=[ON|OFF]}: enable interpolation grid support using the PineAPPL library~\cite{Carrazza:2020gss,Schwan:2021txc} (default: \command{OFF});
+  % \textbf{TG: should be commented out}
+  % \item \command{APPLFAST=[ON|OFF]}: enable interpolation grid support using the APPLfast bridge code~\cite{Britzger:2017maj} to interface with APPLgrid~\cite{Carli:2005ji,Carli:2010rw} and/or fastNLO~\cite{Kluge:2006xs,Britzger:2012bs} (default: \command{OFF});
+\end{itemize}
+After successful completion of the build and installation, the NNLOJET executable will be located at \command{/path/to/nnlojet/bin/NNLOJET}.
+It is recommended to add the location of the NNLOJET \command{bin} directory to the system \command{\$PATH} variable.
+
+For system-dependent settings (e.g.\ compiler preferences and options) the user should consult the \command{cmake} documentation.
+
+\subsection{Usage of NNLOJET}
+\label{sec:framework:usage}
+
+The recommended running mode of NNLOJET is through the Python workflow described in Section~\ref{sec:user},
+which will launch the \command{NNLOJET} executable. The process selection, parameter input and output control of NNLOJET are steered through a plain-ASCII runcard file.
+%
+With this file, NNLOJET can also be launched manually from the command line:
+\begin{lstlisting}[language=commands]
+$ NNLOJET --run <runcard>
+\end{lstlisting}
+The NNLOJET executable further offers the optional command-line flags:
+\begin{lstlisting}
+--help               -  display command line options
+--iseed              -  override the seed number of the runcard
+--imember            -  override the PDF member of the runcard
+--listprocs          -  query all available processes
+--listobs <process>  -  display list of valid observables
+\end{lstlisting}
+NNLOJET uses dynamical libraries to load individual processes
+and initializes many parts of the computational setup at runtime.
+As a result, the process to be considered, observable selectors and histograms can be specified directly in the runcard in a flexible way without requiring the re-compilation of the code. Any dimensionful parameter is given in units of $[\GeV]$. Cross sections outputs are in $[\fb]$.
+
+Complete examples for runcards are provided together with reference output on the NNLOJET webpage \myurl{https://nnlojet.hepforge.org/examples.html}.
+
+
+%--------------------
+\section{Processes in NNLOJET}
+\label{sec:procs}
+%--------------------
+
+The NNLOJET distribution under \myurl{https://nnlojet.hepforge.org} will be updated on a regular basis, especially by
+adding new processes. The list of available processes in the current version can be obtained
+by
+\begin{lstlisting}[language=commands]
+$ NNLOJET --listprocs
+\end{lstlisting}
+For version \texttt{v1.0.0} this yields:
+\begin{lstlisting}[language=commands,basicstyle=\tiny\ttfamily]
+ $ NNLOJET --listprocs
+ Available processes up to NNLO accuracy for hadron-hadron colliders:
+ *    Z      : production of a Z-boson;
+ *    ZJ     : production of a Z-boson plus a jet;
+ *    WP     : production of a positively charged W-boson;
+ *    WPJ    : production of a positively charged W-boson plus a jet;
+ *    WM     : production of a negatively charged W-boson;
+ *    WMJ    : production of a negatively charged W-boson plus a jet;
+ *    H      : production of a H-boson;
+ *    HJ     : production of a H-boson plus a jet;
+ *    H2     : production of a H-boson with decay to two colour singlets, in particular:
+ *      - HTO2P     : decay to two photons;
+ *    H2J    : production of a H-boson plus a jet with decay to two colour singlets, in particular:
+ *      - HTO2PJ    : decay to two photons;
+ *    H3     : production of a H-boson with decay to three colour singlets, in particular:
+ *      - HTO2L1P   : Dalitz decay to (l+l-) and photon;
+ *    H3J    : production of a H-boson plus a jet with decay to three colour singlets, in particular:
+ *      - HTO2L1PJ  : Dalitz decay to (l+l-) and photon;
+ *    H4     : production of a H-boson with decay to four colour singlets, in particular:
+ *      - HTO4E     : decay to (l+l-) (l+l-);
+ *      - HTO2E2MU  : decay to (l1+l1) (l2+l2-);
+ *      - HTO2L2N   : decay to (l1-nu1b) (l2+nu2);
+ *    H4J     : production of a H-boson plus a jet with decay to four colour singlets, in particular:
+ *      - HTO4EJ    : decay to (l+l-) (l+l-);
+ *      - HTO2E2MUJ : decay to (l1+l1) (l2+l2-);
+ *      - HTO2L2NJ  : decay to (l1-nu1b) (l2+nu2);
+ *    GJ     : production of a photon plus a jet;
+ *    GG     : production of two photons;
+ *    JJ     : production of two jets;
+ Available processes up to NNLO accuracy for electron-positron colliders:
+ *    eeJJ   : production of two jets;
+ *    eeJJJ  : production of three jets;
+ Available processes up to NNLO accuracy for lepton-hadron colliders:
+ *    epLJ   : production of a jet through neutral-current exchange;
+ *    epLJJ  : production of two jets through neutral-current exchange;
+ Available processes up to NNLO accuracy for electron-hadron colliders:
+ *    epNJ   : production of a jet through charged-current exchange;
+ *    epNJJ  : production of two jets through charged-current exchange;
+ Available processes up to NNLO accuracy for positron-hadron colliders:
+ *    epNbJ  : production of a jet through charged-current exchange;
+ *    epNbJJ : production of two jets through charged-current exchange;
+\end{lstlisting}
+For each process
+type available at NNLO QCD, it is implicitly understood that NNLOJET also provides the NLO correction to the process with one additional jet and the LO of the process with two additional jets. For example, since $Z+1j$ is available at NNLO, $Z+2j$ can be computed at NLO and $Z+3j$ at LO. To perform NLO and LO calculations of processes with additional jets in the final state, one can simply require a higher number of resolved jets in the runcard file. For example, the NLO correction to $Z+2j$ can be computed via an NNLO calculation for the \runcard{ZJ} process requiring at least two jets.
+
+The processes included in the current release are described in the following. Details on their
+NNLOJET implementation and on
+validation tests are described in detail in the respective publications. In general, the
+following checks have been applied on all process: (1)~point-tests~\cite{NigelGlover:2010kwr,Chen:2022ktf}
+and (2)~technical-cut checks for RR and RV contributions; (3)~finiteness of the
+RV and VV contributions.
+
+In the point tests, multiple phase space points are generated near each potentially singular
+infrared limit, with the proximity to the limit being controlled by a one-dimensional parameter. It is
+then validated that the ratio of the matrix element
+and subtraction term approaches unity in each limit and that the distribution of the ratios is progressively
+concentrated in a tighter interval around unity
+as the control parameter decreases.
+
+The phase space generation in all processes imposes a lower technical
+cut on all Mandelstam invariants, which is chosen considerably smaller than the smallest scale that is
+resolved by the final-state definition. For a properly functioning subtraction at RR and RV level, the deep-infrared
+region in the vicinity of the technical cut gives a negligible contribution to the cross section, which is checked
+by its independence on the technical cut.
+
+The pole tests are performed numerically for a large number of
+bulk phase space points
+ on the RV process, where $\epsilon$-poles
+of matrix elements, mass-factorization terms and subtraction terms are implemented explicitly.
+In the VV process, all integrated subtraction terms are combined with the mass-factorization terms and the pole terms
+extracted~\cite{Catani:1998bh} from the double-virtual matrix element to obtain analytical pole cancellation and
+to define the finite remainder that is implemented numerically.
+
+
+%----------
+\subsection{Jet production in electron--positron collisions}
+%----------
+Jet final states in $\Pep\Pem$ annihilation and related event shapes played a key role in establishing QCD as theory of the strong interaction and their
+theoretical study has been a major driver of developments in precision calculations in QCD. The $\Pep\Pem\to 3j$ cross section and related event shapes were the first jet
+observables to be computed to NNLO in QCD~\cite{Gehrmann-DeRidder:2007vsv}, originally
+implemented in the code EERAD3~\cite{Gehrmann-DeRidder:2014hxk} which is also based on antenna subtraction.
+The implementation of $\Pep\Pem\to 2j$ and $\Pep\Pem\to 3j$  in NNLOJET is described in~\cite{Gehrmann:2017xfb}. It uses the matrix elements
+for vector-boson decay into partons~\cite{Hagiwara:1988pp,Berends:1988yn,Bern:1997sc,Garland:2001tf,Garland:2002ak,Gehrmann:2002zr,Gehrmann:2011ab}, which account for the incoming lepton kinematics. The commonly used LEP-era event-shape variables and jet algorithms~\cite{Biebel:2001dm} are part
+of the generic NNLOJET infrastructure.
+
+%----------
+\subsection{Jet production in electron--proton collisions}
+%----------
+Jet production in deeply inelastic electron--proton scattering (DIS) allows to probe aspects of the proton structure that are difficult to assess in inclusive DIS
+and provides important precision tests of QCD. The implementation of
+$\Pe\Pp\to \mathrm{lepton}+2j$ up to NNLO QCD is described in~\cite{Currie:2017tpe,Niehues:2018was}, including both neutral-current and charged-current DIS.
+It is based on crossings~\cite{Gehrmann:2002zr}  of the $\Pep\Pem\to\,\jets$ matrix
+elements to DIS kinematics.
+Jets can be defined in the Breit frame or in the electron--proton collider frame and DIS event shapes~\cite{Gehrmann:2019hwf}
+are part of the NNLOJET infrastructure.
+%Using a projection-to-Born technique~\cite{Cacciari:2015jma},  $\Pe\Pp\to 1j$ in the collider frame can be computed up to N3LO, as described in~\cite{Currie:2018fgr,Gehrmann:2018odt}.\GS{Are we including DIS at N3LO in this first release? If no, that mentioning these references here is confusing.}
+
+%----------
+\subsection{Jet production in hadronic collisions}
+%----------
+Jet production is the most ubiqutous QCD process at hadron colliders, probing the basic
+ $2\to 2$ parton scattering reactions. A number of kinematic distributions can be derived from single-inclusive jet production
+$\Pp\Pp \to j+X$ and from dijet production
+$\Pp\Pp\to 2j$. Their NNLOJET implementation is described
+in detail in~\cite{NigelGlover:2010kwr,Gehrmann-DeRidder:2011jwo,Gehrmann-DeRidder:2012dog,Currie:2016bfm,Currie:2017eqf,Gehrmann-DeRidder:2019ibf,Chen:2022tpk,Chen:2022clm}. It is based on the relevant subprocess matrix elements up to NNLO~\cite{Berends:1987me,Mangano:1990by,Kuijf:thesis,Bern:1993mq,Bern:1994fz,Kunszt:1994nq,Signer:thesis,Anastasiou:2001sv,Glover:2001af,Glover:2001rd,Anastasiou:2000kg,Anastasiou:2000ue,Anastasiou:2000mv}.
+The generic NNLOJET
+infrastructure allows selecting various different jet algorithms, performing scans over jet-resolution parameters and the setting of renormalization and factorization scales~\cite{Currie:2018xkj}
+either in a jet-based or event-based manner.
+
+%----------
+\subsection{Vector-boson-plus-jet production}
+%----------
+Precision studies of the electroweak interaction are commonly performed through massive vector-boson production, identified through their leptonic decay mode. Further
+kinematic information can be obtained by considering vector-boson-plus-jet final states. Observables derived from vector-boson and vector-boson-plus-jet
+production are widely used in precision measurements of electroweak parameters and of the proton structure. The NNLOJET implementation for
+$\Pp\Pp \to (\Pgg^*,\PZ)+0j$, $\Pp\Pp\to (\Pgg^*,\PZ)+1j$ is described in~\cite{Gehrmann-DeRidder:2015wbt,Gehrmann-DeRidder:2016cdi,Gehrmann-DeRidder:2016jns,Gauld:2017tww,Gehrmann-DeRidder:2019avi,Gauld:2021pkr,Gehrmann-DeRidder:2023urf} and for $\Pp\Pp\to \PW+0j$, $\Pp\Pp\to \PW+1j$ in~\cite{Gehrmann-DeRidder:2017mvr,Gehrmann-DeRidder:2019avi}. The implementations are based on parton-level matrix elements up to NNLO, obtained as kinematic
+crossings~\cite{Gehrmann:2011ab} of the $\Pep\Pem\to\,\jets$ matrix elements.
+Decays into lepton pairs and the off-shell vector-boson propagator are included. It is also possible to
+obtain simplified predictions for on-shell vector-boson production in the narrow-width prescription.
+
+%----------
+\subsection{Photon-plus-jet and di-photon production}
+%----------
+The production of isolated photons is a classical collider observable.
+Its theoretical description must account for the experimental prescription that is used to isolate
+the photons from hadronic activity in the event. This prescription is typically formulated in terms of an isolation cone around the photon direction, which admits only a
+limited amount of hadronic energy. All relevant experimental measurements use a fixed-size cone, while theory calculations also consider dynamical
+isolation cones~\cite{Frixione:1998jh}, which gradually reduce the allowed hadronic energy to zero towards the photon direction in the cone centre.
+Only fixed-size cones admit some amount of collinear photon radiation off QCD partons, thus inducing a dependence on photon
+fragmentation processes~\cite{Koller:1978kq}.
+The NNLOJET implementation of
+$\Pp\Pp \to \Pgg+X$ and $\Pp\Pp \to \Pgg+1j$ to NNLO QCD with a dynamical isolation cone is described in~\cite{Chen:2019zmr}. Its extension to
+fixed-cone isolation is documented in~\cite{Chen:2022gpk}, employing an empirical
+parametrization of the photon fragmentation functions~\cite{Bourhis:1997yu}. Di-photon production  $\Pp\Pp \to \Pgg\Pgg$ is currently implemented to NNLO QCD only
+for dynamical cone isolation~\cite{Gehrmann:2020oec}. The matrix elements up to NNLO QCD for both processes are taken
+from~\cite{DelDuca:1999pa,Signer:1995np,Anastasiou:2002zn,Campbell:2014yka}.
+
+%----------
+\subsection{Higgs-boson-plus-jet production}
+%----------
+The dominant Higgs-boson-production process at the LHC is gluon fusion, which is mediated through a virtual top-quark loop. The NNLOJET implementation of
+$\Pp\Pp \to \PH+0j$ and $\Pp\Pp \to \PH+1j$ to NNLO QCD is described in~\cite{Chen:2014gva}. It is based on an effective field theory (EFT) which couples the Higgs-boson
+to the gluon field strength, resulting from integrating out the top-quark loop in the infinite-mass limit~\cite{Shifman:1978zn,Wilczek:1977zn}. The relevant
+ matrix elements up to NNLO are based on~\cite{DelDuca:2004wt,Dixon:2009uk,Badger:2009hw,Badger:2009vh,Gehrmann:2011aa}.
+The Higgs boson is
+considered to be on-shell and a narrow-width approximation is used. Besides the on-shell Higgs production,
+the Higgs decay modes to $2\Pgg$~\cite{Chen:2016zka}, $4\Pl$ and
+$2\Pl 2\Pgn$~\cite{Chen:2019wxf} as well as to $2\Pl+\Pgg$~\cite{Chen:2021ibm} are implemented, allowing arbitrary fiducial cuts on the Higgs decay products.
+Heavy-quark mass corrections are implemented at LO QCD for $\Pp\Pp \to \PH+0j$ and $\Pp\Pp \to \PH+1j$, allowing for a multiplicative reweighting of the infinite-mass EFT
+predictions.
+
+
+% \subsection{Electroweak Higgs boson production}
+% The electroweak production of a Higgs boson is subdominant to gluon fusion, but results in distinctive final-state signatures. In vector boson fusion (VBF),
+% the Higgs boson is accompanied by two jets in the forward and backward rapidity direction, and in associated production (VH), it is accompanied by
+% an electroweak gauge boson. The VH process is identified through the leptonic decay signature of the gauge boson and is
+% particularly interesting for the study of the dominant Higgs boson decay mode to
+%  bottom quarks, which is inaccessible in all other production mechanisms.
+% The NNLOJET implementation of
+% $\Pp\Pp \to H+2j$ (VBF) is described in~\cite{Cruz-Martinez:2018rod} and accounts for on-shell Higgs production as well as for the decay modes to di-photons or $4l$. The implementation of  the VH processes $\Pp\Pp \to W^\pm H$ and
+% $\Pp\Pp \to Z^0H$ is documented in~\cite{Gauld:2019yng}. It includes the leptonic decay of the gauge boson and the Higgs boson decay to bottom quark pairs,
+% including corrections up to NNLO QCD in both production and decay. The NNLO matrix elements for the VBF and VH processes re-use the corresponding
+% matrix elements for DIS jet production or vector-boson production.
+
+
+
+%--------------------
+\section{Runcard syntax}
+\label{sec:runcard}
+%--------------------
+
+%----------
+\subsection{General syntax}
+\label{sec:runcard:general}
+%----------
+The general syntax of a runcard file follows these rules:
+\begin{itemize}
+  \item Each statement should be written on a \emph{separate} line.
+  Wrapping across multiple lines requires the line continuation symbol \runcard{&} at the end of the line and at the beginning of the following line.
+  \item Comments start with an exclamation mark \runcard{!}, all characters that follow \runcard{!} will be ignored by the parser.
+  \item The parser does not distinguish between upper- and lower-case letters, with the exception of observable names (see below) which are case sensitive but typically defined in lower case.
+  \item Assignments follow the syntax \runcard{<var> = <val>[...]} with any white space allowed in between and possibly extra options provided inside square brackets \runcard{[...]}.
+  \item Lists are specified as \runcard{[<val1>,<val2>,...,<valN>]} and white space will be ignored.
+  \item The types of literals follow Fortran syntax:
+  \begin{itemize}
+    \item \runcard{BOOL}: boolean variables, \runcard{.true.} or \runcard{.false.};
+    \item \runcard{INT}: integers;
+    \item \runcard{DBLE}: double precision variables, e.g.\ \runcard{(lit)13.6d3(/lit)} and \runcard{(lit)1d-8(/lit)};
+    \item \runcard{STR}: string expression made up with any ASCII characters (without any quotes).
+  \end{itemize}
+\end{itemize}
+The runcard is composed of the following separate blocks:
+\begin{itemize}
+  \item \runcard{PROCESS} \textbf{[required]}: defines and specifies the process;
+  \item \runcard{RUN} \textbf{[required]}: defines the  technical parameters and settings;
+  \item \runcard{PARAMETERS}: defines the input settings and parameter values;
+  \item \runcard{SELECTORS} \textbf{[required]}: defines the event and object selectors for the fiducial cross section;
+  \item \runcard{HISTOGRAMS}: defines output histograms (observable, binning, extra options);
+  \item \runcard{SCALES} \textbf{[required]}: specifies the set of renormalization and factorization scales for simultaneous evaluation;
+  \item \runcard{CHANNELS} \textbf{[required]}: selects the subprocesses to be activated;
+  % \item \runcard{MULTI_RUN} (optional): enables simultaneous runs with multiple selectors;
+\end{itemize}
+as well as optional single-line settings:
+\begin{itemize}
+  \item \runcard{REWEIGHT}: weight to bias the sampling of the integrator;
+  \item \runcard{PDF_INTERPOLATION}: switch on dynamical interpolation for PDFs.
+  % \item \runcard{UNIT_PHASE}: compute phase-space volumes.
+\end{itemize}
+They are described in detail in Sect.~\ref{sec:runcard:sections}.
+
+%----------
+\subsection{Observables}
+\label{sec:runcard:obs}
+%----------
+The event selectors for the fiducial cross section, settings for the histograms and values for the scales
+are specified in terms
+of observables. The list of available observables depends on the selected process.
+
+Each observable is implemented in a generic way and is internally assigned a unique identifier.
+Dimensionful observables are defined in $[\GeV]$ units.
+In order to obtain a list of all available observables for a given process with a short description one simply needs to run \command{NNLOJET --listobs <process_name>} in the terminal.
+For example, for $\PZ$-plus-jet production, it returns:
+\begin{lstlisting}[language=commands]
+$ NNLOJET --listobs ZJ
+*
+*   > jet acceptance cuts <
+*
+*   jets_pt
+*   jets_y
+*   jets_abs_y
+*   jets_eta
+*   jets_abs_eta
+*   jets_et
+*   jets_min_dr_lj
+*
+*    > process-specific observables <
+*
+*   ptlm       --- transverse momentum of l-
+*   Elm        --- energy of l-
+*   ylm        --- (pseudo-)rapidity of l-
+*   abs_ylm    --- |ylm|
+*   ptlp       --- transverse momentum of l+
+*   Elp        --- energy of l+
+*   ylp        --- (pseudo-)rapidity of l+
+*   abs_ylp    --- |ylp|
+*   ptl1       --- transverse momentum of leading lepton
+*   yl1        --- (pseudo-)rapidity of leading lepton
+*   abs_yl1    --- |yl1|
+...
+\end{lstlisting}
+
+Internally, each observable has an attribute to query its validity for an event it was evaluated for.
+The validity state is typically concerned with observables that are defined based on objects that can vary in multiplicity, such as jets.
+For example, the transverse momentum of the sub-leading jet in the event \runcard{ptj2} is only valid if the event contains at least two jets after applying all event and jet selection cuts.
+For a process that only requires one jet to be resolved, e.g.\ $\PZ+\,\jet$, this observable can thus become invalid.
+While the observable in this case is technically of one order lower in the perturbative accuracy, it is still possible to evaluate it.
+It is important to keep in mind the validity state of an observable when defining selectors and histograms, as will be discussed below.
+
+%----------
+\subsubsection{Reweighting functions}
+\label{sec:runcard:rewgt}
+%----------
+Reweighting functions define multiplicative factors that are applied to the event weight within a limited context.
+They can be used in different parts of the runcard to influence various behaviours of the run or the output, as described in Sects.~\ref{sec:runcard:histograms} and~\ref{sec:runcard:singleline}.
+%The typical use is modifying the weights that are returned to the adaptive \textsc{Vegas} integrator, thereby biasing the importance sampling towards regions where the reweighting functions become larger, see Sect.~\ref{sec:runcard:singleline}. Reweighting functions can also be used to modify the weight that is filled to histogram.
+The syntax for reweighting functions is:
+%Reweighting functions are applied to the event weights when they are returned to the adaptive \textsc{Vegas}
+%integrator. They modify the sampling of the integrator, shifting  events to regions where the reweighting functions become
+%larger. Reweighting functions can be used in different parts of the runcard with the following syntax:
+\begin{lstlisting}[language=nnlojet]
+<observable> ** <power> * <factor> + <offset>
+\end{lstlisting}
+\begin{itemize}
+  \item The \runcard{<observable>} is specified using the unique string identifier;
+  \item The \runcard{<power>}, \runcard{<factor>} and \runcard{<offset>} are \runcard{DBLE};
+  \item The symbols \runcard{**}, \runcard{*} and \runcard{+} can only appear \emph{once} with any white space ignored;
+  \item The ordering of variables and observables does not matter.
+\end{itemize}
+For example, all the following lines constitute valid reweighting functions:
+\begin{lstlisting}[language=nnlojet]
+2             ! a constant factor
+ptz           ! an observable
+ptz**2        ! an observable raised to a power
+3*ptz         ! a rescaled observable
+ptz+1         ! an observable with an offset
+3*ptz**2+1    ! any combination of the above
+\end{lstlisting}
+
+%----------
+\subsection{Runcard sections}
+\label{sec:runcard:sections}
+%----------
+In the following, the runcard input is illustrated in detail. Mandatory settings are highlighted as ``\textbf{[required]}''.
+
+%----------
+\subsubsection{Process block}
+\label{sec:runcard:proc}
+%----------
+The \runcard{PROCESS} block defines the process to be calculated and is specified following the general syntax:
+\begin{lstlisting}[language=nnlojet]
+PROCESS <process_name>
+  <option1> = <value1>[<parameters1>]
+  <option2> = <value2>[<parameters2>]
+  ...
+END_PROCESS
+\end{lstlisting}
+
+The currently supported process names (\runcard{<process_name>}) at NNLO can be obtained with the
+\command{NNLOJET --listprocs} command. As described in Sect.~\ref{sec:procs}, they are:
+\begin{itemize}
+  \item \runcard{Z}, \runcard{ZJ}: production of $\PZ$-boson (plus up to one jet), including $\PZ$-boson decay to two charged leptons;
+  \item \runcard{Wp}, \runcard{Wm}, \runcard{WpJ}, \runcard{WmJ}: production of $\PWp$/$\PWm$-boson (plus up to one jet), including $\PW$-boson decay to a charged lepton and a neutrino;
+  \item \runcard{H}, \runcard{HJ}: production of $\PH$-boson (plus up to one jet), excluding $\PH$-boson decay;
+  \item \runcard{H2}, \runcard{H2J}: production of $\PH$-boson (plus up to one jet) with decay mode to two colour singlets. Specifically:
+  \begin{itemize}
+    \item \runcard{HTO2P}, \runcard{HTO2PJ} with decay mode to a $\Pgg$ pair;
+    %\item \runcard{HTO2TAU}, \runcard{HTO2TAUJ}, \runcard{HTO2TAUJJ}, \runcard{HTO2TAUJJJ}  with decay mode to massive $\Pgtp\Pgtm$ pair;
+  \end{itemize}
+  \item \runcard{H3}, \runcard{H3J}: production of $\PH$-boson (plus up to one jet) with decay mode to three colour singlets. Specifically:
+  \begin{itemize}
+    \item \runcard{HTO2L1P}, \runcard{HTO2L1PJ} with Dalitz decay mode to $\Plp\Plm+\Pgg$;
+  \end{itemize}
+  \item \runcard{H4}, \runcard{H4J}: production of $\PH$-boson (plus up to one jet) with decay mode to four colour singlets. Specifically:
+  \begin{itemize}
+    \item \runcard{HTO4E}, \runcard{HTO4EJ} with decay mode to two light lepton pairs with the same flavour;
+    \item \runcard{HTO2E2MU}, \runcard{HTO2E2MUJ}  with decay mode to two light lepton pairs with different flavour;
+    \item \runcard{HTO2L2N}, \runcard{HTO2L2NJ}  with decay mode to a lepton plus a neutrino pair mediated
+    by $W$-bosons;
+  \end{itemize}
+  \item \runcard{GJ}: production of photon plus one jet;
+  \item \runcard{GG}: production of  photon pair;
+  \item \runcard{JJ}: production of two jets;
+  % \item \runcard{VFH}, \runcard{VFHJ}: production of \PH-boson in vector-boson-fusion channel;
+  % \item \runcard{VFH2}, \runcard{VFH2J}: production of \PH-boson in vector-boson-fusion channel, with decay mode to $\Pgg$;
+  % \item \runcard{VFH3}, \runcard{VFH3J}: production of \PH-boson in vector-boson-fusion channel, with decay mode to $2l+\Pgg$;
+  % \item \runcard{VFH4}, \runcard{VFH4J}: production of \PH-boson in vector-boson-fusion channel, with decay mode to $4l$ and $2l2\nu$;
+  \item  \runcard{eeJJ}, \runcard{eeJJJ}: production of up to three jets in electron--position colliders;
+  \item \runcard{epLJ}, \runcard{epLJJ}: production of up to two jets in neutral-current lepton-proton collisions, resulting in lepton-plus-jets final states (no distinction is made between leptons and antileptons);
+  \item \runcard{epNJ}, \runcard{epNJJ}:  production of up to two jets in charged-current lepton-proton collisions, resulting in neutrino-plus-jets final states;
+    \item \runcard{epNbJ}, \runcard{epNbJJ}:  production of up to two jets in charged-current antilepton-proton collisions, resulting in antineutrino-plus-jets final states.
+    \end{itemize}
+The process names refer to the underlying Born-level process, which can then be used to compute derived quantities
+with the same final-state kinematics but without identified jets. For example, \runcard{ZJ} also allows the computation of the transverse
+momentum distribution of the $\PZ$-boson, with the jet requirement being replaced by a non-zero transverse momentum of
+the $\PZ$-boson due to partonic recoil. Likewise, \runcard{GJ} contains inclusive photon production, \runcard{JJ}
+single-inclusive-jet production, and \runcard{eeJJJ} the three-jet-like event shapes.
+
+
+The currently supported options and values for the \runcard{PROCESS} block are listed in the following.
+
+A collider choice is specified with:
+\begin{itemize}
+  \item \runcard{collider = STR} \textbf{[required]}: using pre-defined collider setups:
+  \begin{itemize}
+    \item proton--proton collider: \runcard{PP};
+    \item proton--antiproton collider: \runcard{PAP};
+    \item proton--electron collider  (deep-inelastic scattering): \runcard{PE};
+    \item electron--positron collider: \runcard{EPEM};
+  \end{itemize}
+  \item \runcard{beam1 = STR}, \runcard{beam2 = STR}:
+  More flexibility is provided by setting the beams individually with the following allowed values:
+  \runcard{(blk)P(/blk)}  ($\Pp$),
+  \runcard{(blk)AP(/blk)} ($\Pap$),
+  \runcard{(blk)EM(/blk)} ($\Pem$),
+  \runcard{(blk)EP(/blk)} ($\Pep$),
+  \runcard{(blk)HE(/blk)} ($\mathrm{{}^{\scriptscriptstyle4}_{\scriptscriptstyle2}He}$),
+  \runcard{(blk)LI(/blk)} ($\mathrm{{}^{\scriptscriptstyle7}_{\scriptscriptstyle3}Li}$),
+  \runcard{(blk)C(/blk)}  ($\mathrm{{}^{\scriptscriptstyle12}_{\scriptscriptstyle6}C}$),
+  \runcard{(blk)O(/blk)}  ($\mathrm{{}^{\scriptscriptstyle16}_{\scriptscriptstyle8}O}$),
+  \runcard{(blk)CU(/blk)} ($\mathrm{{}^{\scriptscriptstyle64}_{\scriptscriptstyle29}Cu}$),
+  \runcard{(blk)AU(/blk)} ($\mathrm{{}^{\scriptscriptstyle197}_{\scriptscriptstyle79}Au}$),
+  \runcard{(blk)PB(/blk)} ($\mathrm{{}^{\scriptscriptstyle208}_{\scriptscriptstyle82}Pb}$).
+Setting \runcard{beam1} and \runcard{beam2} will override the \runcard{collider} choice.
+It is the responsibility of the user to choose a compatible (nuclear) PDF set for each beam in the \runcard{RUN} block described below.
+The centre-of-mass energy is specified for the nucleon--nucleon system.
+In case of an asymmetric beams setup (\runcard{beam1} $\ne$ \runcard{beam2}), NNLOJET will further perform the appropriate longitudinal boost of the hadronic centre-of-mass system.
+The collider coordinate system is then chosen such that  \runcard{beam1} is in the positive $z$ direction.
+\end{itemize}
+
+
+The collider energy is provided by setting either one of the following options:
+\begin{itemize}
+  \item \runcard{sqrts = DBLE} \textbf{[required]}: definition of centre-of-mass energy;
+  \item \runcard{Ebeam1 = DBLE}, \runcard{Ebeam2 = DBLE}: definition of energy of individual beams instead of specifying \runcard{sqrts}, allows for asymmetric collisions.
+Setting  \runcard{Ebeam1} and \runcard{Ebeam2} will override the \runcard{sqrts} value.
+\end{itemize}
+
+The standard jet reconstruction algorithms are implemented directly in NNLOJET and can be specified with the following options:
+\begin{itemize}
+  \item \runcard{jet = <algo>[<options>]}: specification of jet algorithm; the option in \runcard{DBLE} specifies the jet-resolution parameter.
+  The algorithm can be chosen with the following syntax:
+  \begin{itemize}
+    \item anti-$k_T$ algorithm~\cite{Cacciari:2008gp}: \runcard{antikt[DBLE]};
+    \item Cambridge--Aachen algorithm~\cite{Wobisch:1998wt} (longitudinally invariant): \runcard{ca[DBLE]};
+    \item $k_T$ algorithm~\cite{Ellis:1993tq,Catani:1993hr} (longitudinally invariant): \runcard{kt[DBLE]};
+    \item Durham algorithm~\cite{Catani:1991hj} (for $\Pep\Pem$ collisions):  \runcard{durham[DBLE]};
+    \item Jade algorithm~\cite{JADE:1986kta} (for $\Pep\Pem$ collisions):  \runcard{jade[DBLE]};
+    \item No algorithm required: \runcard{none};
+  \end{itemize}
+  \item \runcard{jet_exclusive = BOOL}: jet exclusive flag, specifying whether events with more jets than required should be rejected (default: \runcard{.false.});
+  \item \runcard{jet_recomb = STR}: jet-recombination scheme: \runcard{V4}, to combine jets by adding the 4-vector of the momenta, and \runcard{ET}, to combine jets with $E_T$ as the weights (default: \runcard{V4}).
+\end{itemize}
+
+Several optional settings in the \runcard{PROCESS} block are only relevant for specific classes of processes:
+\begin{itemize}
+  \item \runcard{V_NC = STR}: restriction on virtual neutral-current gauge-bosons.
+  Options for \runcard{STR}:
+  \begin{itemize}
+    \item \runcard{ZGAMMA} (default): both $\PZ$ bosons and photons are allowed in the amplitudes;
+    \item \runcard{GAMMA}: only photons, useful for example in DIS processes;
+    \item \makebox{\lstinline|Z|}: only $\PZ$ bosons are allowed;
+  \end{itemize}
+  \item \runcard{L_NC = STR}: decay mode of $\PZ$ bosons decay to leptons. Values:
+  \begin{itemize}
+    \item \runcard{NU}: decay to neutrinos (single family)  $\PZ\to \Pgn\Pagn$;
+    \item \runcard{L} (default): decay to charged leptons (single family) $\PZ\to\Plp\Plm$.
+  \end{itemize}
+   \item \runcard{decay_type = INT}: definition of heavy-particle decay types used in the phase-space generator.
+  It is set automatically for each process and unstable particle, but can be overridden using the following \runcard{INT} values:
+  \begin{itemize}
+    \item 0: use ${\rm d}M^2/M^2$;
+    \item 1: use resonance parametrization;
+    \item 2: narrow width inserted, delta function;
+    \item 3: on-shell heavy particle, no decay.
+  \end{itemize}
+\end{itemize}
+
+
+The isolation of photons and leptons is defined using the following options:
+\begin{itemize}
+  \item \runcard{photon_isolation}/\runcard{lepton_isolation}: define the isolation of non-QCD particles, as documented in detail in~\cite{Chen:2022gpk}.
+  It allows the combination of several isolation prescriptions that must be simultaneously fulfilled, using the syntax
+  \newline
+  \runcard{<isolation> = <algo1>[<params1>] + <algo2>[<params2>] + ...}\;.
+  \newline
+  For lepton isolation, only fixed-cone isolation is supported. For photon isolation, the following isolation prescriptions are
+  available:
+  \begin{itemize}
+    \item \runcard{none}: no isolation required;
+    \item \runcard{fixed}: fixed-cone isolation. The non-QCD particle with transverse momentum $p_T$ is isolated if the hadronic transverse energy in a cone of size $R_{\rm cone}$ does not exceed
+    \begin{equation}
+      E_T^\mathrm{max} = E_T^{\mathrm{const}} + \epsilon p_T\;. \label{eq:etiso}
+    \end{equation}
+    Parameters:
+    \begin{itemize}
+      \item \runcard{R_cone}: isolation-cone size $R_{\rm cone}$;
+      \item \runcard{ETmax_const}: $E_T^{\mathrm{const}}$;
+      \item \runcard{ETmax_epsilon}: $\epsilon$;
+      % \item \runcard{ET_threshold}: if this parameter is set, the criterion will only consider the partons inside the cone with transverse energy $E_T$ larger than \runcard{ET_threshold}; \textbf{TG: not clear what this is, please check} \wf{Clarified}
+      % \textbf{TG: this is not infrared-safe and should be removed.}
+      % \item \runcard{R_min} (optional): if this parameter is set, the criterion will only apply to partons with distance larger than \runcard{R_min};
+        % \wf{\runcard{R_min} is removed.}
+    \end{itemize}
+    \item \runcard{smooth}: smooth-cone isolation~\cite{Frixione:1998jh}. The non-QCD particle with transverse momentum $p_T$ is isolated according to a profile function $\mathcal{X}(R, n)$  that permits a decreasing amount of hadronic energy
+    $E_T^\mathrm{smooth} = \mathcal{X}(R, n) \, E_T^\mathrm{max}$ within
+    sub-cones of radius $R<R_\mathrm{cone}$ and $E_T^\mathrm{max}$ as defined in (\ref{eq:etiso}):
+    \begin{equation*}
+      \label{eq:FrixProfile}
+      \mathcal{X}(R, n) = \left[\frac{1-\cos(R)}{1-\cos(R_\mathrm{cone})}\right]^n.
+    \end{equation*}
+    \item \runcard{hybrid_smooth}: hybrid isolation. A variant of the smooth-cone isolation defined in~\cite{Siegert:2016bre}. The
+    following parameters can be specified:
+    \begin{itemize}
+      \item \runcard{ETmax_const}:  $E_T^{\mathrm{const}}$;
+      \item \runcard{ETmax_epsilon}:  $\epsilon$;
+      \item \runcard{R_cone}: the smooth-cone size or the outer fixed-cone size in hybrid isolation;
+      \item \runcard{n}: parameter $n$ in profile function;
+      \item \runcard{R_inner}: inner smooth-cone size in case hybrid isolation is used,
+      where  \runcard{R_inner}<\runcard{R_cone} must be satisfied;
+    \end{itemize}
+    % \item Smoother cone isolation: \runcard{smoother}. Using the same parameters as smooth cone isolation, but offering alternative profile functions with $x=R/R_\mathrm{cone}$:
+    % \begin{equation*}
+    %   \label{eq:SmootherProfile}
+    %   \mathcal X (x, n) =
+    %   \begin{cases}
+    %     x^2(3-2x) & n=1;\\
+    %     x^3[x\times(6x-15)+10] & n=2;
+    %   \end{cases}
+    % \end{equation*}
+    % \item Softdrop algorithm: \runcard{softdrop}, \runcard{soft_drop}, \runcard{soft-drop}, under construction;
+    \item \runcard{democratic}: democratic isolation. The jet clustering procedure includes the non-QCD object, which is then
+    called isolated if it carries more than a fraction  $z_\mathrm{cut}$ of the transverse energy of the jet it is assigned to. Parameters:
+    \begin{itemize}
+      \item \runcard{zcut}: threshold of transverse-energy fraction between the photon and the jet. If the transverse energy fraction is larger than \runcard{zcut}, the clustered particles are considered as one photon; if the fraction is smaller than \runcard{zcut}, the clustered particles are considered as one jet.
+    \end{itemize}
+  \end{itemize}
+  \item \runcard{photon_recomb = DBLE}: angular distance $R$ below which two photons are recombined;
+  \item \runcard{photon_fragmentation = STR}:
+  definition of photon fragmentation setup. The parameteter specifies the parametrization of the photon fragmentation functions:
+  \begin{itemize}
+    \item \runcard{ALEPH}: a simple parametrization obtained from a one-parameter fit by ALEPH~\cite{ALEPH:1995zdi};
+    \item \runcard{BFG0}, \runcard{BFGPERT}: BFG0~\cite{Bourhis:1997yu};
+    \item \runcard{BFG1}, \runcard{BFGI}: BFGI~\cite{Bourhis:1997yu};
+    \item \runcard{BFG2}, \runcard{BFGII}: BFGII~\cite{Bourhis:1997yu}.
+  \end{itemize}
+\end{itemize}
+
+Finally, several \runcard{PROCESS} settings are relevant only for DIS:
+\begin{itemize}
+  \item \runcard{pol = DBLE}: polarization fraction of incoming lepton beam (default: 0.0);
+  \item \runcard{lab_ordereta = BOOL}: a flag to order jets in the laboratory frame in $\eta$ (default: \runcard{.false.});
+  \item \runcard{dis_eventshapes = DBLE}: minimum value of hadronic energy in an event for DIS event shapes (default: 0.0);
+  \item \runcard{eprc = BOOL}: switch to use a running electromagnetic coupling evaluated at the scale $Q^2$ (default: \runcard{.false.});
+  \item \runcard{dis_frame = STR}: definition of the DIS frame, with the following options:
+  \begin{itemize}
+    \item \runcard{FIXT}: fixed target system;
+    \item \runcard{BREIT}: Breit frame;
+    \item \runcard{LAB}: the laboratory frame.
+  \end{itemize}
+  The default is \runcard{BREIT} for \runcard{epLJJ}, \runcard{epNJJ}, \runcard{epNbJJ}
+  and \runcard{LAB} for \runcard{epLJ}, \runcard{epNJ}, \runcard{epNbJ}.
+\end{itemize}
+
+
+%----------
+\subsubsection{Run block}
+\label{sec:runcard:run}
+%----------
+This block defines technical settings for the NNLOJET execution.
+Runs in NNLOJET consist of two phases:
+\begin{itemize}
+  \item The \runcard{warmup} phase aims to construct \textsc{Vegas} grids that are adapted to the integrand at hand (event-selection cuts, regions of larger weights etc.).
+  The \textsc{Vegas} grids are initialized as uniform distributions in the raw random variables, and the calculation proceeds in multiple iterations. After each iteration, the grids are adapted according to the accumulated cross section for importance sampling.
+  The events sampled during the warmup phase \emph{do not} enter the final result. For performance reasons, histogram filling and scales beyond the central scales are deactivated.
+  \item The \runcard{production} phase performs the Monte Carlo integration for the total and differential cross sections according to the \textsc{Vegas} grid that was adapted during the warmup.
+  The \textsc{Vegas} grids are frozen at this stage and will no longer be updated.
+\end{itemize}
+To run NNLOJET, at least one of the two phases needs to be activated. The \runcard{production} phase can only be performed if a dedicated \textsc{Vegas} grid was produced by a \runcard{warmup} phase beforehand. When the
+\command{nnlojet-run} workflow is used to run NNLOJET, the \runcard{warmup} and \runcard{production} phases are automatically handled and can be omitted from the runcard.
+
+The general syntax for the \runcard{RUN} block is:
+\begin{lstlisting}[language=nnlojet]
+RUN <run_name>
+  <option1> = <value1>[<parameters1>]
+  <option2> = <value2>[<parameters2>]
+  ...
+END_RUN
+\end{lstlisting}
+The field \runcard{<run_name>} specifies the user-defined name for the run and it is used to name the output files.
+The \runcard{<run_name>} for a \runcard{production} phase must be the same as the respective \runcard{warmup} phase for the \textsc{Vegas} grids to be properly loaded.
+The options are:
+\begin{itemize}
+  \item \runcard{PDF = <PDF_set>[<member>]} \textbf{[required]}: specification of a PDF set according to the naming convention of \textsc{LHAPDF}~\cite{Buckley:2014ana}.
+  For asymmetric colliders, separate PDFs can be specified for each beam by instead providing
+  \runcard{PDF1} and \runcard{PDF2} individually.
+  The optional \runcard{<member> = INT} parameter specifies the PDF member. It defaults to \runcard{(lit)0(/lit)}, i.e.\ the central member of the PDF set. Note that the PDF is required also for electron-positron collisions, for the running of $\alphas$;
+  \item \runcard{iseed = INT}: specification of the seed for the random number generator (default: $1$).;
+  \item \runcard{warmup = <ncall>[<niter>]}: specification of warmup run settings. \runcard{<ncall> = INT} indicates the number of integrand evaluations per iteration and \runcard{<niter> = INT} the number of iterations.
+    Instead of \runcard{<niter>}, it is also possible to specify \runcard{auto}, which will automatically distribute the total number of \runcard{<ncall>} evaluations of the integrand into a staggered batch of iterations
+    (at least one of \runcard{warmup} or \runcard{production} needs to be specified);
+      \item \runcard{production = <ncall>[<niter>]}: specification of production run settings; in particular, \runcard{<ncall> = INT} indicates the number of integrand evaluations per iteration and \mbox{\runcard{<niter> = INT}} the number of iterations (at least one of \runcard{warmup} or \runcard{production} needs to be specified);
+        \item \runcard{tcut = DBLE}: technical cutoff defined relative to the squared partonic centre-of-mass energy $\hat{s}$.
+  Events with any invariant smaller than \runcard{tcut}$\cdot \hat{s}$ are rejected in the phase-space integration.
+  The technical cut must be chosen considerably smaller than the smallest scale that is resolved
+  by the final-state definition (default: \runcard{(lit)1d-8(/lit)});
+  \item \runcard{reset_vegas_grid = BOOL}: switch for overwriting the local \textsc{Vegas} grid; when set to \runcard{.true.}, the warmup run will be started with a new uniform \textsc{Vegas} grid; when set to \runcard{.false.}, the warmup run will continue starting from the previous \textsc{Vegas} grid if one exists (default: \runcard{.false.}).
+\end{itemize}
+NNLOJET also provides some optional optimization settings which can speed up the calculation when used properly.
+They are in general only intended for expert users. The following  optimization settings are available:
+\begin{itemize}
+  % \item \runcard{phase_space = STR[DBLE]}: switch for a optimised phase-space parametrisation for specific processes, with
+  % \runcard{STR}:
+  % \begin{itemize}
+  %   \item \runcard{QT} for processes \runcard{HJ}, \runcard{ZJ}, \runcard{WJ} optimised phase-space parametrisation for $q_T$ slicing processes. In this case, \runcard{DBLE} is \textit{required} as the minimal $q_T$ cut-off in the sampling.
+  %   % \item \runcard{THRUST} for processes \runcard{eeJJJ}, \runcard{eeJJ}: $(1-T)$-optimised phase-space parametrisation. \runcard{DBLE} is \textit{not} required.
+  % \end{itemize}
+  \item \runcard{angular_average = BOOL}: switch to average over azimuthal angle rotations in unresolved regions, required to make antenna subtraction terms strictly local (default: \runcard{.true.});
+  \item \runcard{cache_kinematics = BOOL}: switch to cache all kinematics of mapped momentum sets (default: \runcard{.false.});
+  \item \runcard{scale_coefficients = BOOL}: switch to internally use a decomposition of weights into scale coefficients of scale logarithms. Necessary for scale overrides (default: \runcard{.false.});
+  \item \runcard{multi_channel = <N>}: option for multi-channel adaption over individual channels. For the definition of channels, see~\ref{sec:runcard:channels}. The parameter \runcard{<N>} is of type \runcard{INT}. If \runcard{<N>} is $0$, every existing channel is evaluated in each sampled phase-space point. Multi-channeling is activated by selecting a non-zero \runcard{<N>}, leading to a selective evaluation of different channels by distributing events among them. An importance sampling is applied by evaluating those channels more often which have a larger contribution to the cross section. The strategy for dividing the channels into groups is determined by the value of \runcard{<N>}. If \runcard{<N>} is positive, channels will be grouped such that every phase-space point will evaluate a subset of \runcard{<N>} channels. If \runcard{<N>} is negative, the total number of groups is specified, i.e.\ the integrator will attempt to divide active channels into $|$\runcard{<N>}$|$ equal-sized groups (default $0$);
+   % \item \runcard{match_obs = BOOL/DBLE}: switch for observable matching feature. In case value is \runcard{BOOL}, it switches on or off using the default threshold; in case value is \runcard{DBLE}, it switches on using the value as the threshold (default: \runcard{.false.});
+  \item \runcard{lips_reduce = BOOL}: switch for the reduced phase-space mode, a variant of the phase-space generator that exploits the permutation symmetries of a specific process (default: \runcard{.false.}).
+\end{itemize}
+%  The following settings are for debugging sessions and switched off by default:
+%  \begin{itemize}
+%   % \item \runcard{imethod = INT}: reference frame of phase space, 2: lab frame (default), 1: centre-of-mass frame; \textbf{TG: it is not clear what the difference is here, the DIS option BREIT and LAB may also be incorporated here} \wf{descriptions here are wrong}
+%   \item \runcard{iplot = INT}: switch for the debug mode, which enable the user to access and
+%   process various intermediate-level
+%   results in the numerical evaluation.
+%   This mode should be
+%   activated only when a single parton-level subchannel is activated by specifying its process-ID in
+%   the \runcard{CHANNELS} block.  In debug mode, all cuts in
+%   the \runcard{SELECTOR} and \runcard{PROCESS} block are ignored. Possible values
+%   for \runcard{iplot} are:
+%   \begin{itemize}
+%     \item 0 (default): Monte-Carlo integration (debug mode switched off);
+%     \item 2: point test mode, outputting numerical values for matrix elements and subtraction terms for each
+%     phase space point;
+%     \item 3: spike plot mode, producing ratio of matrix element and subtraction terms in each limit,
+%     described in detail in~\cite{Chen:2022ktf};
+%     \item 4: fully inclusive mode, Monte-Carlo integration without any cuts.
+%   \end{itemize}
+%   \item \runcard{print_max_weight = BOOL}: switch for printing the maximal/minimal weights for debugging purposes;
+%   \item \runcard{pole_check = BOOL}: activation of the \runcard{polecheck} routine that compares the poles in subtraction terms and in matrix elements numerically, in all $\epsilon$ orders; useful in V, RV and VV processes;
+%   \item \runcard{point_check = INT[<option> = BOOL, ...]}: switch for performing point checks (evaluate matrix element and
+%   subtraction term and their ratio) with number of points specified by \runcard{INT}. The available options are \runcard{print_invariants}, \runcard{print_momenta} and \runcard{print_obs}, to print Mandelstam invariants, momentum sets and observables.
+% \end{itemize}
+
+
+%----------
+\subsubsection{Parameters block}
+\label{sec:runcard:params}
+%----------
+The \runcard{PARAMETERS} block defines the Standard Model input parameters of the calculation.
+The general syntax follows the pattern:
+\begin{lstlisting}[language=nnlojet]
+PARAMETERS
+  <variable>[<spec>] = <value>
+  <option> = <value>
+  ...
+END_PARAMETERS
+\end{lstlisting}
+
+\begin{table}
+  \centering
+  \begin{tabular}{ l c c c }
+    \toprule
+    \multirow{2}*{Quarks (Up type)}
+    & Up & Charm & Top \\
+    & \makebox{\runcard{U}}
+    & \makebox{\runcard{C}}
+    & \makebox{\runcard{T}} \\
+    \midrule
+    \multirow{2}*{Quarks (Down type)}
+    & Down & Strange & Bottom \\
+    & \makebox{\runcard{D}}
+    & \makebox{\runcard{S}}
+    & \makebox{\runcard{B}} \\
+    \midrule
+    \multirow{2}*{Leptons}
+    & Electron & Muon & Tau \\
+    & \makebox{\runcard{EL}}
+    & \makebox{\runcard{MU}}
+    & \makebox{\runcard{TAU}} \\
+    \midrule
+    \multirow{2}*{Bosons}
+    & Higgs & $\PW$-boson & $\PZ$-boson \\
+    & \makebox{\runcard{H}}
+    & \makebox{\runcard{W}}
+    & \makebox{\runcard{Z}} \\
+    \midrule
+    \multirow{2}*{Others}
+    & Proton &  &  \\
+    & \makebox{\runcard{PROTON}} &  &  \\
+    \bottomrule
+  \end{tabular}
+  \caption{Acronyms for particles to be used as \runcard{<particle>} of attributes.}
+  \label{tab:ParticleAcronyms}
+\end{table}
+
+The attributes of particle \runcard{<particle>} are set with the syntax \runcard{<attribute>[<particle>]}.
+\runcard{<particle>} may assume any acronym from Table~\ref{tab:ParticleAcronyms} as its value. The possible attributes are listed in the following, with the default value taken from \cite{ParticleDataGroup:2018ovx}:
+\begin{itemize}
+  \item \runcard{mass[<particle>] = DBLE}: the mass of the particle, which can be set for
+  the massive particles in the Standard Model and the proton.
+  The mass values correspond to the mass scheme defined below;
+  \item \runcard{width[<particle>] = DBLE}: the decay width of the particle.
+  $\PZ$, $\PW$, $\PH$ and top quark are supported.
+  The widths correspond to the scheme defined below.
+\end{itemize}
+Further parameters and prescriptions can be set as follows:
+\begin{itemize}
+  \item \runcard{hard_photon_alpha0 = BOOL}: switch to use $\alpha_0$ as the electroweak coupling for resolved photons in photon-production processes (default: \runcard{.false.});
+  \item \runcard{scheme[<scheme>] = STR}: the specification of schemes in mass, width and electroweak coupling.
+  The options for \runcard{<scheme>} are:
+  \begin{itemize}
+    \item \runcard{MV}: define the mass scheme for electroweak gauge bosons.
+    Possible values are:
+    \begin{itemize}
+      \item \runcard{OS} (default): on-shell scheme;
+      \item \runcard{POLE}: pole scheme;
+      \item \runcard{MSBAR}: $\overline{\mathrm{MS}}$-scheme;
+    \end{itemize}
+    \item \runcard{GV}: define the width schemes for electroweak gauge bosons.
+    Possible values are:
+    \begin{itemize}
+      \item \runcard{NWA}: for the narrow-width approximation;
+      \item \runcard{CMS}: for complex-mass scheme;
+      \item \runcard{NAIVE} (default): for naive fixed-width scheme;
+      \item \makebox{\lstinline|RUN|}: for running on-shell scheme;
+      \item \runcard{POLE}: for pole scheme;
+    \end{itemize}
+    \item \runcard{ALPHA}: the electroweak coupling prescription.
+    Possible values are:
+    \begin{itemize}
+      \item \runcard{GMU} (default): $G_\mu$ scheme, derived from the Fermi constant
+      and the  $\PZ$ and $\PW$ masses (override default value with \runcard{GF = DBLE});
+      \item \runcard{FIX}: fixed scheme (override default value with \runcard{alpha = DBLE});
+      \item \makebox{\lstinline|ALPHA0|}: $\alpha_0$ scheme (override default value with \runcard{alpha0 = DBLE});
+      \item \makebox{\lstinline|ALPHAMZ|}: $\alpha(M_\PZ)$ scheme (override default value with \runcard{alphaMZ = DBLE});
+    \end{itemize}
+  \end{itemize}
+  \item \runcard{CKM = STR}: the specification of the CKM matrix. Users can change the entries by modifying \makebox{\lstinline|driver/core/CKM.f90|} if necessary. The available options are:
+    \begin{itemize}
+      \item \runcard{IDENTITY} (default): diagonal CKM matrix;
+      \item \runcard{FULL}: Wolfenstein parameters \cite{ParticleDataGroup:2020ssz};
+      \item \runcard{CABIBBO}: Cabibbo mixing angle only \cite{ParticleDataGroup:2020ssz};
+      \item \runcard{MCFM}: the default setup of \textsc{MCFM}.
+    \end{itemize}
+\end{itemize}
+
+
+%----------
+\subsubsection{Selectors block}
+\label{sec:runcard:selectors}
+%----------
+In NNLOJET, two types of selection criteria are distinguished: object-level and event-level criteria. Object-level criteria may be used to impose conditions on the reconstructed objects, i.e.\ jets and photons. For example, they allow to select jets with a minimum transverse momentum or within a specific rapidity range. Any object that does not fulfill these conditions is omitted from the event record.
+
+Event-level criteria define which event candidates should be used to calculate cross sections and fill histograms. If an event-level criterion is not fulfilled, the entire event candidate is discarded.
+Typical examples are a minimum number of jets per event, additional constraints on the leading jet, or constraints on leptons.
+
+The \runcard{SELECTORS} block specifies the object-level and event-level selection criteria. It is encapsulated by
+\begin{lstlisting}[language=nnlojet]
+SELECTORS
+  ! put selectors here
+END_SELECTORS
+\end{lstlisting}
+It can be left empty if the process is well-defined (corresponding to a fully-inclusive event selection) or filled with any number of selector statements of the form:
+\begin{lstlisting}[language=nnlojet]
+<type> <observable> min=<val_min> max=<val_max>
+\end{lstlisting}
+\begin{itemize}
+  \item The \runcard{<type>} can be either \runcard{select} or \runcard{reject}. In case partially valid observables are expected, one can use \runcard{select_if_valid}  or \runcard{reject_if_valid}. An event is selected only if it passes all \runcard{select} statements and is rejected by none of the \runcard{reject} statements.
+  \item The \runcard{<observable>} is specified using a pre-defined string identifier. Possible values for a given process can be checked using the \command{--listobs} query of the \command{NNLOJET} command. Object-level cuts are listed in the \texttt{photon cuts} and \texttt{jet acceptance cuts} sections, while event-level selectors are listed in the \texttt{process-specific observables} section.
+  \item It is only necessary to specify at least one of the two assignments for \runcard{min} and \runcard{max}. If unspecified, the other boundary defaults to $\pm\infty$. If both are specified, the order of the assignments is irrelevant.
+\end{itemize}
+
+Selector statements can be given in any order. Since each selector will internally generate a new object, it is better to have as few lines as possible.
+It is therefore preferable to write
+\begin{lstlisting}[language=nnlojet]
+select ylp min = -5 max = +5  ! --> accept [-5, +5]
+\end{lstlisting}
+or
+\begin{lstlisting}[language=nnlojet]
+select abs_ylp max = +5       ! --> accept |y| < 5 => [-5, +5]
+\end{lstlisting}
+instead of
+\begin{lstlisting}[language=nnlojet]
+select ylp min = -5           ! --> accept [-5, +infinity]
+select ylp max = +5           ! --> accept [-infinity, +5]
+\end{lstlisting}
+
+It is possible to define \runcard{OR} groups, where all the selector statements inside the group have `or' relations. The groups are encapsulated by
+\begin{lstlisting}[language=nnlojet]
+OR
+  ! put selectors here
+END_OR
+\end{lstlisting}
+It is not possible to use \runcard{OR} groups on object-level selectors.
+
+A common example use case of the \runcard{reject} type in the selectors is the exclusion of the barrel--endcap gap region that can be implemented as follows:
+\begin{lstlisting}[language=nnlojet]
+select abs_ylp max = +5                    ! global selector
+reject abs_ylp min = +1.4442 max = +1.560  ! barrel-endcap
+\end{lstlisting}
+which is more intuitive and cleaner than the alternative only using \runcard{select} and an \runcard{OR} group:
+\begin{lstlisting}[language=nnlojet]
+OR
+  select ylp min = -5      max = -1.560
+  select ylp min = -1.4442 max = +1.4442
+  select ylp min = +1.560  max = +5
+END_OR
+\end{lstlisting}
+
+
+%----------
+\subsubsection{Histograms block}
+\label{sec:runcard:histograms}
+%----------
+The \runcard{HISTOGRAMS} block specifies all the histograms to be filled during the run.
+It is encapsulated between the lines
+\begin{lstlisting}[language=nnlojet]
+HISTOGRAMS
+  ! put histograms here
+END_HISTOGRAMS
+\end{lstlisting}
+It can be populated with histogram statements of the following two types
+\begin{lstlisting}[language=nnlojet]
+<observable> nbins=<val_nbins> min=<val_min> max=<val_max>
+<observable> [edge0,edge1,edge2,...,edgeN]
+\end{lstlisting}
+\begin{itemize}
+  \item The first version corresponds to a histogram with uniformly-space (linear or logarithmic) bins, whereas the second version specifies the bin boundaries as a list and allows for flexible bin edges.
+  \item The \runcard{<observable>} is specified using the unique string identifier and events giving rise to an invalid attribute (see Sect.~\ref{sec:runcard:obs} for the definition) are skipped in the accumulation.
+  \item As a decorator to the \runcard{<observable>} specification, it is possible to specify a file-name override using the notation \runcard{<observable> > <dat_name>}.
+  If this specification is omitted, the file name will use the observable name by default.
+  This option is needed if there exist multiple histograms that bin the same observable (see example below) in order to avoid file-name clashes.
+  \item For cross sections, the special name \runcard{cross} can be used instead of the histogram statements above. NNLOJET will \emph{always} register such a histogram by default so that user-defined cross section statements must always be of the form \runcard{cross > <dat_name>} with a file-name override. %
+  It should be noted that histograms keep track of overflows such that the cross section can also be calculated from the histogram contents by summing the bins and the overflow.
+  It is therefore rarely necessary to define a cross section histogram explicitly.
+\end{itemize}
+Every histogram statement can further be supplemented by optional settings.
+The available options are:
+\begin{itemize}
+  \item \runcard{fac = <rwg_fct>}: multiply all weights passed to the histogram with a generic reweighting function following the syntax described in Sect.~\ref{sec:runcard:rewgt};
+  \item \runcard{mu0 = (DBLE * )<observable>}: override scale. This options sets the both factorization and renormalization scale to the specified value. Only available if \runcard{scale_coefficients = .true.} is set in the \runcard{RUN} block;
+  % \item \runcard{run_group = INT}: to specify the presence of the histogram in specific run group in a multi-run block, 0 as default.
+  \item \runcard{binning = STR}: switch between linear and logarithmic binning, in case equal-sized bins are used. Possible values are:
+    \begin{itemize}
+      \item \runcard{LIN} (default): linear binning;
+      \item \runcard{LOG}: logarithmic binning;
+    \end{itemize}
+  \item \runcard{output_type = INT}: specify the luminosity-breakdown type: a value of \runcard{(lit)0(/lit)} will only output the numbers for the total (default), while a value of \runcard{(lit)1(/lit)} will in addition provide numbers broken down into separate partonic luminosities: (\textit{e.g.} $\Paq\Paq$, $\Pg\Paq$, $\Pq\Paq$, $\Paq\Pg$, $\Pg\Pg$, $\Pq\Pg$, $\Paq\Pq$, $\Pg\Pq$, $\Pq\Pq$). See Sect.~\ref{sec:user:histo} for further description of the output data files;
+  \item \runcard{cumulant = INT}: option for cumulant distributions with possible values:
+  \begin{itemize}
+  \item \runcard{(lit)0(/lit)} (default): standard differential distribution $\rd\sigma / \rd \text{\runcard{<obs>}}$;
+  \item \runcard{(lit)-1(/lit)}: cumulant distribution $\int_{o_\mathrm{min}}^{o_i}\rd\sigma / \rd \text{\runcard{<obs>}}$;
+  \item \runcard{(lit)+1(/lit)}: cumulant distribution $\int^{o_\mathrm{max}}_{o_i}\rd\sigma / \rd \text{\runcard{<obs>}}$.
+  \end{itemize}
+  The values $o_\mathrm{min}$ and $o_\mathrm{max}$ respectively correspond to the lower and upper bounds of the histogram and the user must ensure that it covers the desired kinematic range.
+  Observable values outside of this range are ignored in the cumulant output and are instead collected in an overflow bin.
+\end{itemize}
+
+A further optional specification is given by histogram selectors which can be assigned right below a histogram definition as follows:
+\begin{lstlisting}[language=nnlojet]
+<observable> ...
+HISTOGRAM_SELECTORS
+  ! put selectors here
+END_HISTOGRAM_SELECTORS
+\end{lstlisting}
+with the selector syntax defined in Sect.~\ref{sec:runcard:selectors} but without the support of \runcard{OR} blocks.
+This allows to generate multi-differential distributions in a flexible way as follows:
+\begin{lstlisting}[language=nnlojet]
+ptz > ptz_bin1 nbins=75 min=0 max=150
+HISTOGRAM_SELECTORS
+  select abs_yz max=0.3
+END_HISTOGRAM_SELECTORS
+
+ptz > ptz_bin2 nbins=30 min=0 max=90
+HISTOGRAM_SELECTORS
+  select abs_yz min=0.3 max=1
+END_HISTOGRAM_SELECTORS
+
+ptz > ptz_bin3 [0,10,15,20,25,30,40,50,60,80,100]
+HISTOGRAM_SELECTORS
+  select abs_yz min=1 max=2
+END_HISTOGRAM_SELECTORS
+\end{lstlisting}
+Here, the modified file names (\runcard{> ptz_bin<i>}) are needed in order to avoid file name clashes.
+Furthermore, we can choose different \runcard{ptz}-binnings for each \runcard{yz} bin.
+The histogram file will correspond \emph{precisely} to what is specified in the runcard, for the example above this means
+\begin{align}
+  \text{\runcard{ptz_bin1}}: &&
+  \left. \frac{\rd\sigma}{\rd p_{\rT,\PZ}} \right\rvert_{\lvert y_{\PZ}\rvert<0.3}
+  &\ne
+  \frac{\rd^2 \sigma}{\rd p_{\rT,\PZ} \;\rd y_{\PZ} }
+  \quad\text{(in the first $y_{\PZ}$ bin)} .
+\end{align}
+In order to obtain the double-differential distribution on the right-hand-side of this expression
+one has to further divide the histogram contents by the bin-width for $y_{\PZ}\in[-0.3,0.3]$ which is $0.6$ in this case.
+
+The way invalid observables (see Sect.~\ref{sec:runcard:obs} for the definition) are treated within the histogram selectors deserves special care.
+Once an observable is used in a \runcard{select} or \runcard{reject} statement within the \runcard{HISTOGRAM_SELECTORS} block, it is \emph{implicitly assumed} that it must be valid for all events that are considered for the histogram filling.
+This means that if an invalid observable is encountered for such a specification, the weight associated with that event is discarded in the accumulation of the histogram.
+If this is not the desired behaviour, it is instead possible to use the \runcard{select_if_valid} or \runcard{reject_if_valid} specifications that allow to ignore the selector in case the observable is evaluated with an invalid attribute.
+
+% The way invalid observables (see Sect.~\ref{sec:runcard:obs} for the definition) are treated within the histogram selectors can be controlled with an optional setting
+% \begin{lstlisting}[language=nnlojet]
+% HISTOGRAM_SELECTORS  option = INT
+% \end{lstlisting}
+% with the following possible values:
+% \begin{itemize}
+%   \item \runcard{(lit)0(/lit)} (default): discard the weight when an invalid observable is encountered;
+%   \item \runcard{(lit)1(/lit)}: ignore the selector of the invalid observable.
+% \end{itemize}
+
+Some observables are defined in a composite manner, i.e.\ they can potentially induce \emph{multiple} bookings to the same histogram from different observables.
+For this purpose, NNLOJET defines the concept of a composite histogram that follows the following syntax:
+\begin{lstlisting}[language=nnlojet]
+COMPOSITE > <dat_name> ... <opt_comp>
+  <obs1>  <opt1>
+  <obs2>  <opt2>
+  ...
+END_COMPOSITE
+\end{lstlisting}
+where \runcard{...} at the top can be the fixed-bin or the variable-bin specification and \runcard{<opt_comp>} the optional specifications both described above.
+The composite histogram will be filled with the sum of all the sub-histograms defined inside the block, where each can specify individual options, i.e. \runcard{fac} and \runcard{mu0} as described above.
+Both the composite histogram as well as the sub-histograms can further be supplemented by histogram selectors.
+In case the observable of the sub-histogram is invalid, it will simply be skipped in the accumulation.
+
+A non-trivial example of this feature is the inclusive-jet distribution in a specific rapidity bin and a jet-based scale setting such as the jet-$p_T$.
+In this case, we must register as many sub-histograms as the maximum possible number of jets (invalid observables will be skipped), each dressed with a selector block and further ensure that for each sub-histogram, the weight is re-assembled for the value of the respective jet $p_T$ as the scale:
+\begin{lstlisting}[language=nnlojet]
+COMPOSITE > ptj0_ybin0 [0,10,20,50,100,200,300,500,700,1000]
+  ptj1  mu0=ptj1
+  HISTOGRAM_SELECTORS
+    select abs_yj1 min=0 max=.5
+  END_HISTOGRAM_SELECTORS
+  ptj2  mu0=ptj2
+  HISTOGRAM_SELECTORS
+    select abs_yj2 min=0 max=.5
+  END_HISTOGRAM_SELECTORS
+  ptj3  mu0=ptj3
+  HISTOGRAM_SELECTORS
+    select abs_yj3 min=0 max=.5
+  END_HISTOGRAM_SELECTORS
+  ptj4  mu0=ptj4
+  HISTOGRAM_SELECTORS
+    select abs_yj4 min=0 max=.5
+  END_HISTOGRAM_SELECTORS
+END_COMPOSITE
+\end{lstlisting}
+
+
+%----------
+\subsubsection{Scales block}
+\label{sec:runcard:scales}
+%----------
+The \runcard{SCALES} block specifies all scale combinations that should be evaluated \emph{simultaneously} during the run.
+It is encapsulated by the block:
+\begin{lstlisting}[language=nnlojet]
+SCALES
+  ! put scales here
+END_SCALES
+\end{lstlisting}
+and requires at least one scale specification to be present.
+The first entry will be considered the central scale that is also used for the \textsc{Vegas} grid adaption.
+Up to six additional scale specifications can be supplied.
+A scale specification constitutes a line in the block that specifies the factorization scale $\mu_F$ (\runcard{muF}) and the renormalization scale $\mu_R$ (\runcard{muR})
+\begin{lstlisting}[language=nnlojet]
+muF = <sclF>  muR = <sclR>
+\end{lstlisting}
+In case a process that contains a fragmentation function is run, the associated factorization scale ($\mu_A$) can be set separately using a pair \runcard{muF = [<sclF>,<sclA>]}, which otherwise will default to $\mu_A = \mu_F$ in case only a single scale is specified.
+The scale \runcard{<scl>} can be set in two ways:
+\begin{itemize}
+  \item fixed scale: \runcard{<scl> = DBLE} in units of $[\GeV]$;
+  \item dynamical scale: \runcard{<scl> = <obs>} or \runcard{DBLE*<obs>}, where \runcard{<obs>} is the unique \runcard{STR} identifier of an observable.
+\end{itemize}
+
+
+%----------
+\subsubsection{Channels block}
+\label{sec:runcard:channels}
+%----------
+In NNLOJET a \textit{channel} constitutes a specific scattering process, uniquely determined by the external states and the crossing, further decomposed into gauge-invariant colour factors. For example, the leading-colour $\mathcal{O}(N_c^2)$ contribution to the scattering sub-process $g g \to q \bar{q}$ constitutes one \textit{channel} of the LO dijet production process at hadron colliders.
+
+When the workflow described in Sect.~\ref{sec:user:workflow} is used to perform the calculation, the channel information will be automatically populated, such that the user does not need to specify them manually and instead can keep this block empty.
+Therefore, the information provided here is intended for expert users and/or to assist in debugging the workflow calculations.
+
+The \runcard{CHANNELS} block specifies all the channels to be computed during the run by giving a list of identifiers. The \textsc{Vegas} integrand is defined as the sum of the channels specified in this block (optionally grouped according to the value of the \runcard{multi_channel} flag, see Sect.~\ref{sec:runcard:run}).
+The process-id number associated with a given channel can be found in the respective \texttt{driver/process/XYZ/selectchannelXYZ.f} source file of the associated process \texttt{XYZ}.
+In addition, the following abbreviations are defined to simplify the specification:
+\begin{itemize}
+  \item \runcard{ALL};
+  \item \runcard{LO}, \runcard{NLO}, \runcard{NNLO};
+  \item \runcard{V}, \runcard{R};
+  \item \runcard{VV}, \runcard{RV}, \runcard{RR}, \runcard{RRa}, \runcard{RRb}.
+\end{itemize}
+The suffices \texttt{a} and \texttt{b} for the double-real (\runcard{RR}) contribution only exist for specific processes and correspond to a separation of the phase space into two disjoint parts with optimized sampling strategies.
+The general syntax for the channel block is as follows:
+\begin{lstlisting}[language=nnlojet]
+CHANNELS region = STR
+  ! put list of process id's / wildcards here
+END_CHANNELS
+\end{lstlisting}
+In addition to specifying the sub-process on individual lines, any number of (white-space separated) process id's
+can be given in a single line as well.
+The \runcard{region} option only matters for the double-real contribution and processes where a phase-space separation was introduced; allowed values in this case are:
+\texttt{a} for the \runcard{RRa} piece, \texttt{b} for the \runcard{RRb} piece, and \texttt{all} (default) to include both.
+
+
+%----------
+\subsubsection{Single-line Optional Settings}
+\label{sec:runcard:singleline}
+%----------
+In a runcard, the user is further able to specify single-line options independent of any blocks mentioned above. All single-line settings are optional.
+
+\subsubsection*{Reweight}
+The re-weighting feature has a one-line syntax
+\begin{lstlisting}[language=nnlojet]
+REWEIGHT <rwg_fct>
+\end{lstlisting}
+where the specification of the reweighting function \runcard{<rwg_fct>} follows the syntax described in Sect.~\ref{sec:runcard:rewgt}.
+This function is evaluated for every event and used to re-scale the weights returned to the \textsc{Vegas} integrator.
+It can therefore be used to increase or decrease the relevance of
+certain kinematic regions in the \textsc{Vegas} grid adaptation, allowing for a more uniform phase-space coverage for
+distributions that span over several orders of magnitude.
+The re-weighting does not apply to the event booking into histograms.
+Similarly, once the \textsc{Vegas} grid is frozen, i.e.\ during the production stage of the calculation, this option has no impact on the produced output.
+
+\subsubsection*{PDF Interpolation}
+The PDF interpolation option is a single-line setting to switch on a one-dimensional cubic spline interpolation (fixed $x$, interpolation in $\muF$), which aims to reduce the number of calls to \textsc{LHAPDF}.
+By default it is not activated but it can be switched on with the following syntax:
+\begin{lstlisting}[language=nnlojet]
+PDF_INTERPOLATION stepfac = DBLE
+\end{lstlisting}
+where the optional argument \runcard{stepfac} specifies the uniform spacing of the interpolation grid in the $\log(\muF)$ space as a multiplicative factor.
+The default value is \runcard{(lit)2(/lit)}.
+
+
+
+%--------------------
+\section{Using NNLOJET}
+\label{sec:user}
+%--------------------
+
+Following the installation steps outlined in Sect.~\ref{sec:framework:inst}, both the core executable (\command{NNLOJET}) as well as the Python workflow (\command{nnlojet-run}) are installed in the \command{bin} directory of the installation path.
+The main user-facing interface to NNLOJET is the workflow script \command{nnlojet-run}, which provides an automated way to set up and run calculations and is described in Sect.~\ref{sec:user:workflow}.
+The direct execution of the core executable is possible but requires a more in-depth knowledge of the inner workings of the program, and is therefore only recommended for expert users.
+Section~\ref{sec:user:nnlojet-exe} is therefore limited to a description of the output files that is produced by the core \command{NNLOJET} executable but will refrain from a detailed guide of a workflow based on it.
+The understanding of the output files is important in order to inspect individual runs submitted by the Python workflow in case issues are encountered.
+The main results are provided in the form of histogram files that are described in Sect.~\ref{sec:user:histo}.
+
+
+\subsection{Job submission workflow}
+\label{sec:user:workflow}
+
+Every NNLOJET calculation (or \textit{run}) is associated with a directory that contains all the necessary input and configuration files as well as the intermediate output and the final result.
+The \command{nnlojet-run} workflow is designed to manage the creation of the run directory, the execution of the NNLOJET core executable, and the retrieval of the final results in a user-friendly way.
+To this end, the workflow provides four separate sub-commands: \command{init}, \command{config}, \command{submit}, and \command{finalize}, which are described in the following.
+A short description of the commands and available options can be displayed by adding the \command{--help} command line argument:
+\begin{lstlisting}[language=commands]
+$ nnlojet-run --help
+$ nnlojet-run <sub-command> --help
+\end{lstlisting}
+
+
+\subsubsection{\texorpdfstring{\command{init}}{init}}
+%
+The \command{init} sub-command initializes a new run directory with the necessary input and configuration files. It takes an NNLOJET runcard as input:
+\begin{lstlisting}[language=commands]
+$ nnlojet-run [--exe <exe-path>] init [-o <run-path>] path/to/runcard
+\end{lstlisting}
+The command will create a new run directory at the current path named after the \runcard{<run-name>} specified in the input runcard.
+Optionally, the option \command{-o <run-path>} can be used to specify a location where the run directory should be initialized.
+The input runcard will be used to generate a template runcard for the calculation, which is saved as the file \command{template.run} in the run directory.
+The \command{NNLOJET} executable is automatically searched for in the system path but can also be set manually with the optional \command{--exe <exe-path>} argument.
+
+The \command{init} command will first display the relevant references for the selected process that should be cited in a scientific publication using results obtained from the NNLOJET calculation; these references will also be saved as \command{.tex} and \command{.bib} files in the run directory.
+Subsequently, the user will be prompted to set several configuration options that are necessary for the execution:
+\begin{itemize}
+  \item \command{(key)policy(/key) = (key)local(/key)|(key)htcondor(/key)|(key)slurm(/key)}:
+  specifies the execution policy for how the NNLOJET calculations should be submitted.
+  Currently supported targets are local execution on the current machine (\command{(key)local(/key)}) or submission on a cluster using the job scheduling systems \command{(key)slurm(/key)} or \command{(key)htcondor(/key)}.
+  The cluster submission requires additional settings that are documented below.
+  (default: \command{(key)local(/key)})
+  \item \command{(key)order(/key) = (key)lo(/key)|(key)nlo(/key)|(key)nlo_only(/key)|(key)nnlo(/key)|(key)nnlo_only(/key)}:
+  specifies the perturbative order of the calculation to be performed.
+  It is also possible to restrict the calculation to only a specific coefficient, \command{(key)nnlo(/key)=(key)lo(/key)+(key)nlo_only(/key)+(key)nnlo_only(/key)}.
+  (default: \command{(key)nnlo(/key)})
+  \item \command{(key)target-rel-acc(/key) = (lit)DBLE(/lit)}:
+  specifies the desired relative accuracy on the total cross section
+  evaluated with the chosen fiducial cuts and for the specified \command{(key)order(/key)}.
+  While the specification of a \runcard{REWEIGHT} function can be introduced to bias the phase-space sampling, the target accuracy is always defined with respect to the unweighted cross section.
+  (default: \command{(lit)0.01(/lit)})
+  \item \command{(key)job-max-runtime(/key) = (lit)STR(/lit)|(lit)DBLE(/lit)}:
+  specifies the maximum runtime for a single NNLOJET execution or a job on the cluster.
+  The format is either a time interval specified with units (s, m, h, d, w), e.g.\ \command{(lit)1h 30m(/lit)}, or a floating point number in seconds.
+  (default: \command{(lit)1h(/lit)})
+  \item \command{(key)job-fill-max-runtime(/key) = (lit)yes(/lit)|(lit)no(/lit)}:
+  specifies if the workflow should attempt to exhaust the maximum runtime that was set for each NNLOJET execution.
+  This option is intended to fully utilize the wallclock time limit of cluster queues.
+  (default: \command{(lit)no(/lit)})
+  \item \command{(key)jobs-max-total(/key) = (lit)INT(/lit)}:
+  specify the maximum number of NNLOJET executions that can be run in total.
+  The workflow will terminate either once the target accuracy is reached or this limit on the total number of jobs is exhausted.
+  (default: \command{(lit)100(/lit)})
+  \item \command{(key)jobs-max-concurrent(/key) = (lit)INT(/lit)}:
+  specifies the maximum number of NNLOJET executions that can be run simultaneously. If cluster submission is selected, this option specifies the maximum number of jobs that are simultaneously submitted to the cluster.
+  (default: \command{(lit)10(/lit)})
+\end{itemize}
+If a cluster submission is selected, the user will be prompted to provide additional settings required for an execution on the respective cluster type:
+\begin{itemize}
+  \item \command{(key)poll-time(/key) = (lit)STR(/lit)|(lit)DBLE(/lit)}:
+  specifies the interval in which the scheduler is queried for an update on the status of the submitted jobs.
+  The format is either a time interval specified with units (s, m, h, d, w), e.g.\ \command{(lit)1h 30m(/lit)}, or a floating point number in seconds.
+  (default: 10\% of the \command{(key)job-max-runtime(/key)})
+  \item \command{(key)submission-template(/key) = (lit)INT(/lit)} (index from a list displayed to the user):
+  the job submission on a cluster relies on a submission script for the job scheduler.
+  The workflow provides a set of built-in submission templates that can be selected by the user.
+  The chosen template will be copied as a file \command{<cluster>.template} to the run directory and can be modified to any specific needs.
+  Note that it is up to the user to ensure that the time limits set by the submission script, e.g.\ as imposed by a wallclock time limit of special queues of the cluster, are consistent with the \command{(key)job-max-runtime(/key)} setting.
+\end{itemize}
+All configurations are stored in the \command{config.json} file inside the run directory, however, it is strongly advised against modifying this file manually.
+Instead, all interactions with the run directory should proceed through the \command{nnlojet-run} interface. The configuration of the run can be changed at any time using the \command{config} sub-command described below.
+
+
+\subsubsection{\texorpdfstring{\command{submit}}{submit}}
+%
+With a properly initialized run directory at \command{<run-path>}, the main calculation can be triggered using the \command{submit} sub-command:
+\begin{lstlisting}[language=commands]
+$ nnlojet-run submit <run-path>
+\end{lstlisting}
+This calculation will employ the options that were set during the \command{init} step (or alternatively overwritten using the \command{config} sub-command).
+Some of the options can also be overridden temporarily for a single submission by passing the desired settings as parameters, e.g.
+\begin{lstlisting}[language=commands]
+$ nnlojet-run submit <run-path> --job-max-runtime 1h30m \
+  --jobs-max-total 10 --target-rel-acc 1e-3
+\end{lstlisting}
+A complete list of option overrides with a short description is provided via
+\begin{lstlisting}[language=commands]
+$ nnlojet-run submit --help
+\end{lstlisting}
+
+Once the \command{submit} sub-command is executed, the workflow is started and the process remains active for the entirety of the calculation, spawning sub-processes to execute the core \command{NNLOJET} program.
+The full calculation is divided into separate components represented by the individual lines of Eqs.~\eqref{eq:NLOsub} and \eqref{eq:NNLOsub} and further decomposed into independent partonic luminosities.
+The workflow proceeds by first adapting the phase-space grids in a warmup phase, followed by the actual production phase as described in Sect.~\ref{sec:runcard:run}.
+The warmup phase proceeds in steps, iteratively increasing the invested statistics to gradually refine the adaption until either a satisfactory grid is obtained or the specified maximum runtime is reached.
+The production phase optimizes the allocation of computing resources into the different parts of the calculation to minimize the final uncertainty.
+To this end, it is necessary to obtain an estimate on the error and the runtime per event for each piece, which is initially determined from a single low-statistics \textit{pre-production} run.
+As both the warmup and the pre-production stages are necessary to proceed to the main calculation, the associated jobs do not count towards the maximum number of jobs that was set for the submission and this part of the computation will not attempt to exhaust the available resources.
+During the main production stage, on the other hand, the workflow will continuously dispatch new jobs in an attempt to exhaust the specified concurrent resource limits and accumulate results until either the target accuracy is reached or the maximum number of jobs is exhausted.
+Upon termination of all jobs, a summary of the calculation is given by printing the final cross section number with its associated uncertainty.
+In case the target accuracy was not reached with the allocated resources, an estimate of the number of additional jobs required to reach the requested accuracy is provided.
+The final results of the calculation are saved to \command{<run-path>/results/final}.
+%
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=\textwidth]{dokan_monitor.png}
+  \caption{
+    Example of the graphical interface to monitor the status of the calculation.
+    Each column (LO, R, V, RR, RV, VV) represents an active component of the calculation.
+    The indexed rows represent independent luminosity channels.
+    In each cell of the table, the phase of calculation is indicated: warmup ("WRM") or production ("PRD").
+    The number $n_A$ of active jobs is indicated as \lstinline[mathescape]!A[$n_A$]!, which includes both pending and actively running jobs, while the number $n_D$ of completed jobs is indicated as \lstinline[mathescape]!D[$n_D$]!.
+    In case of unsuccessful NNLOJET executions, the cell will additionally include an entry \lstinline[mathescape]!F[$n_F$]!, indicating the number of failed jobs $n_F$.
+  }
+  \label{fig:workflow_table}
+\end{figure}
+%
+During the workflow execution, a summary table together with logging information will be displayed to the user, see Fig.~\ref{fig:workflow_table}, which is updated in real-time as the jobs are submitted and completed.
+
+As the \command{submit} command continuously monitors running jobs and dispatches new ones, it is preferrable to keep it running for the entire duration of the calculation. If necessary, it can be stopped by pressing \texttt{Ctrl+C} and re-launched at a later time. In this case, the calculation will resume from the last saved state. Jobs that are already submitted to the cluster will continue to run.
+If the previous execution terminated exceptionally, e.g.\ due to a lost \command{ssh} connection, the workflow will automatically attempt to recover the state and prompt the user how to proceed with the resurrection of previously active jobs.
+%Multiple instances of \command{nnlojet-run} with the same \command{<run-path>} should not be run in parallel.
+
+Inbetween executions of \command{submit}, the settings of a run can be modified, see the \command{config} sub-command below. This is especially useful to increase the target accuracy, or to increase the maximal number of jobs, in case too few where initially specified. It is also possible to change the perturbative order in this way, e.g.\ to compute the NNLO corrections to a run that was previously calculated to NLO.
+
+
+\subsubsection{\texorpdfstring{\command{finalize}}{finalize}}
+%
+All completed jobs inside a run directory \command{<run-path>} can be collected and merged into a final result using the \command{finalize} sub-command:
+\begin{lstlisting}[language=commands]
+$ nnlojet-run finalize <run-path>
+\end{lstlisting}
+It should be noted that the same combination procedure is also triggered at the end of the \command{submit} sub-command and it is therefore not necessary to explicitly execute a \command{finalize} after a \command{submit}.
+
+The \command{finalize} sub-command facilitates a manual trigger to perform a re-combination of results with changed internal parameters of the merging algorithm.
+The main purpose of the merging algorithm is to combine the partial results of different parts of the calculation into a final prediction and to mitigate the impact from outliers.
+Potential issues pertaining to the treatment of outliers, as well as the approach employed in our implementation are presented in Ref.~\cite{Gehrmann-DeRidder:2016ycd}.
+The underlying algorithm is controlled by a set of parameters that have sensible defaults but can also be overridden by the user.
+This is useful to check if the combine step is potentially introducing a systematic bias as well as to optimize the combination to obtain the best possible result from the raw data.
+The merging proceeds in steps with a dynamical termination condition, which are applied for each histogram separately on a \emph{bin-by-bin} basis:
+\begin{enumerate}
+  \item trim: apply an outlier-rejection procedure based on the inter-quartile-range to discard data points which are identified as severe outliers;
+  \item $k$-scan: on the trimmed dataset, merge pairs of (pseudo-)jobs in an unweighted manner into a new pseudo-job, which is statistically equivalent to running a single job with the combined statistics;
+  \item weighted combination: all pseudo-jobs are merged using a weighted average to further suppress outliers and the result is stored;
+  \item repeat steps 2 \& 3 until \makebox{\lstinline!nsteps!} results from weighted combinations are accumulated;
+  \item termination: check for a plateau in the last \makebox{\lstinline!nsteps!} results; if no plateau is found, go back to step 2.
+\end{enumerate}
+The core strategy is to combine as many individual jobs into pseudo-jobs as necessary to ensure that the resulting statistical uncertainty for the pseudo-job is reliable and therefore the weighted average can be safely taken in the next step to further suppress the impact of outliers.
+
+The parameters controlling the trimming step are:
+\begin{itemize}
+  \item \command{(key)trim-threshold(/key) = (lit)DBLE(/lit)}:
+  a threshold value for the distance from the median in units of the inter-quartile-distance beyond which a data point will be considered an outlier and is discarded.
+  Larger values for this parameter reduce the number of data points that are discarded.
+  (default = \command{(lit)3.5(/lit)})
+  \item \command{(key)trim-max-fraction(/key) = (lit)DBLE(/lit)}:
+  a safeguard on the maximal fraction of data points that are allowed to be trimmed away.
+  For each bin in violation of this condition, its threshold value is dynamically increased until the ratio of trimmed data in that bin falls below this value.
+  (default = \command{(lit)0.01(/lit)})
+\end{itemize}
+The termination condition of identifying a plateau (the $k$-scan) is controlled by the following parameters:
+\begin{itemize}
+  \item \command{(key)k-scan-nsteps(/key) = (lit)INT(/lit)}:
+  the number of pair-combination steps across which the pleateau is checked.
+  (default: \command{(lit)2(/lit)})
+  \item \command{(key)k-scan-maxdev-steps(/key) = (lit)DBLE(/lit)}:
+  the tolerance for the plateau condition in units of the standard deviation.
+  Across the last \command{(key)k-scan-nsteps(/key)} steps of the $k$-scan, require that all points are mutually compatible within this tolerance.
+  Note that the default value is smaller than 1 as the individual points from the $k$-scan are determined from the \emph{same} dataset and thus are strongly correlated.
+  (default = \command{(lit)0.5(/lit)})
+\end{itemize}
+The default values for this parameter can be set using the \command{config} sub-command described below.
+Alternatively, these options can also be overridden temporarily for a single \command{finalize} step by passing the desired settings as options, e.g.
+\begin{lstlisting}[language=commands]
+$ nnlojet-run finalize <run-path> --trim-threshold 5 \
+  --k-scan-nsteps 3 --k-scan-maxdev-steps 0.1
+\end{lstlisting}
+which is documented in the corresponding help output: \command{nnlojet-run finalize --help}.
+
+
+\subsubsection{\texorpdfstring{\command{config}}{config}}
+%
+All default configuration settings can be changed at a later time using the \command{config} sub-command:
+\begin{lstlisting}[language=commands]
+$ nnlojet-run config <run-path>
+\end{lstlisting}
+This will open an interactive prompt that allows the user to change the configuration settings that were set during the \command{init} step.
+The merge settings used for the \command{finalize} sub-command can instead be overwritten using:
+\begin{lstlisting}[language=commands]
+$ nnlojet-run config <run-path> --merge
+\end{lstlisting}
+In addition, advanced settings of the workflow can be viewed and set with
+\begin{lstlisting}[language=commands]
+$ nnlojet-run config <run-path> --advanced
+\end{lstlisting}
+which provides, e.g.\ the possibility to change the seed offset of the workflow.
+
+
+\subsubsection{Run directory}
+%
+The run directory is structured as follows:
+\begin{itemize}
+  \item \command{NNLOJET_references_<PROC>.}\lstinline![bib|tex]! for the references to be cited in publications;
+  \item \command{config.json}: contains all the configuration settings for the run;
+  \item \command{db.sqlite}: a database file that contains the status of the run (process and job information);
+  \item \command{log.sqlite}: a database file that contains the logging information of the submission;
+  \item \command{template.run}: the template runcard for the calculation;
+  \item \command{raw} directory: contains the raw output of the NNLOJET runs saved in two subdirectories (\command{warmup}, \command{production}) with the individual job results;
+  \item \command{results} directory: contains the final results of the calculation;
+  \begin{itemize}
+    \item \command{final} directory: contains the final results in the form of data files \command{<order>.<obs>.dat} for all complete orders;
+    \item \command{merge} directory: contains the result of the currently active order;
+    \item \command{parts} directory: all intermediate combined results separately for each part of the calculation;
+  \end{itemize}
+\end{itemize}
+The file format of the histogram data files is described below in Sect.~\ref{sec:user:histo}.
+
+
+\subsection{Direct execution}
+\label{sec:user:nnlojet-exe}
+
+The direct execution of the core \command{NNLOJET} executable produces output files with the following naming conventions:
+\begin{itemize}
+  \item Log files: \command{<proc>.<run>.s<seed>.log};
+  \item Grid files (machine readable): \\ \command{<proc>.<run>.y<t-cut>.<cont>};
+  \item Grid files (human readable): \\ \command{<proc>.<run>.y<t-cut>.<cont>_iterations.txt};
+  \item Histogram files: \\ \command{<proc>.<run>.<cont>.<obs>.s<seed>.dat};
+\end{itemize}
+where \command{<proc>} denotes the process name, \command{<run>} the run name, \command{<seed>} the seed number, \command{<cont>} the contribution (LO, R, V, \ldots), and \command{<obs>} the observable name.
+
+
+\subsection{Histogram data files}
+\label{sec:user:histo}
+
+The data files produced by NNLOJET are in a simple text-based format with units of $[\fb]$ for cross sections and $[\GeV]$ for dimensionful quantities.
+The first $n_x$ columns of the files are reserved for the binning information, if necessary:
+\begin{itemize}
+  \item cross section data files have no bins and thus $n_x = 0$;
+  \item differential distributions have $n_x = 3$ for the lower edge, centre, and upper edge of each bin;
+  \item cumulant distributions have $n_x=1$ for the integration limit for the cumulant.
+\end{itemize}
+The remaining columns are composed of a series of pairs of numbers that represent the value and the associated Monte Carlo integration uncertainty.
+First, these pairs are written out for all the active scales, as specified in the \runcard{SCALES} block and its order.
+Depending on the \runcard{output_type} specified for the histograms, this is optionally repeated with the same pattern for the separate partonic luminosities.
+
+A description of the individual columns is also provided as a comment line starting with \command{#labels}.
+In addition, the cross section contribution from events that fall outside of chosen histogram range are collected and written out in the \command{#overflow} line following the same column structure.
+
+
+%--------------------
+\section{Conclusion}
+\label{sec:concl}
+%--------------------
+
+This paper accompanies the open-source release of the parton-level event generator NNLOJET.
+The NNLOJET code is distributed under the GPLv3.0 license and can be downloaded from HEPForge:
+\myurl{http://nnlojet.hepforge.org}.
+
+NNLOJET is steered through a runcard whose syntax is documented in this paper. Some example runcards are
+distributed with the release and more examples with sample output data are provided via
+\myurl{http://nnlojet.hepforge.org/examples.html}.
+The NNLOJET program can either be executed directly or through a workflow script that is part of the distribution and which dynamically adapts the usage of computing resources towards a pre-specified target accuracy.
+We described the usage of the \command{NNLOJET} executable and the \command{nnlojet-run} workflow script in detail.
+
+In its current release (v1.0.0), NNLOJET contains a range of lepton- and hadron-collider
+jet production processes of $2\to 2$ and $1\to 3$ kinematics.
+More processes and features will be added in future releases and the code documentation on \myurl{http://nnlojet.hepforge.org} will be kept up to date to reflect those changes.
+User feedback and bug reports should be addressed to:
+\href{mailto:nnlojet-support@cern.ch}{nnlojet-support@cern.ch}.
+
+
+%--------------------
+\section*{Acknowledgements}
+%--------------------
+
+The NNLOJET project has been enabled by substantial support throughout the past decade
+from the European Research Council (ERC) through grant agreements
+340983 (ERC Advanced Grant MC@NNLO)
+and
+101019620 (ERC Advanced Grant TOPUP), from the Swiss National Science Foundation (SNF)
+under contracts  200020-162487, 200021-172478,  200020-175595, 200021-197130, 200020-204200 and
+200021-231259, from the Swiss National Supercomputing Centre (CSCS) under project IDs ETH5f and UZH10,
+from the Royal Society, from the UK Science and Technology Facilities Council (STFC) under contracts ST/G000905/1,  ST/P001246/1,  ST/T001011/1  and ST/X000745/1, and from the National Science Foundation of China (NSFC) under contract No.12475085, No.12321005 and No.1223500.
+MM is supported by a Royal Society Newton International Fellowship (NIF/R1/232539).
+JP acknowledges Fundação para a Ciência e a Tecnologia (FCT) for its financial support through the programatic funding of R\&D units (contract UIDP/50007/2020)
+and under project CERN/FIS-PAR/0032/2021.
+The work of LB, XC, GF, MJ, and KS was supported by the UZH Forschungskredit Candoc and Postdoc schemes.
+
+% TODO: include funding information
+
+
+
+\begin{appendix}
+\numberwithin{equation}{section}
+
+
+%--------------------
+\section{Example: \texorpdfstring{$Z+1j$}{Z+1j} at NNLO}
+\label{app:exampleZJ}
+%--------------------
+
+In this Appendix, we highlight an example calculation for the $Z+1j$ process at NNLO.
+The full runcard is provided below, implementing the following items:
+\begin{itemize}
+\item In the \runcard{PROCESS} block, we specify the process ($\PZ$-boson plus one
+  jet) and the collider (proton--proton collider at $\sqrt{s} = 7\,\TeV$.  We
+  further specify the jet algorithm used to reconstruct jets (anti-$k_t$ with $R
+  = 0.4$).  See Sect.~\ref{sec:runcard:proc}.
+\item In the \runcard{RUN} block, we specify the PDF set, here NNPDF3.1.
+  Additionally, we indicate a value for the technical cutoff (equal to the
+  default $t_\mathrm{cut} = 10^{-8}$) and we turn on the multi-channel adapatation
+  over individual channels (in this case, channels will be grouped such that
+  every phase-space point will evaluate a subset of 5 channels).  See
+  Sect.~\ref{sec:runcard:run}.
+\item In the \runcard{PARAMETERS} block, we select the $G_\mu$ scheme and
+  set the values for the masses and widths of the $\PZ$ and $\PW$ bosons and
+  for the Fermi constant $G_F$. See Sect.~\ref{sec:runcard:params}.
+\item In the \runcard{SELECTORS} block, we define the fiducial phase space for
+  the selection of events. In particular, we require leptons to have $p_{\rT} >
+  20\,\GeV$ and $|y| < 2.5$. Moreover, their angular distance in the
+  rapidity--azimuth plane should be $\Delta R_{\Pl\Pl} > 0.2$ and they should feature
+  an invariant mass $m_{\Pl\Pl} \in [66,116]\,\GeV$. Jets are required to have
+  $p_{\rT} > 30\,\GeV$ and $|y| < 4.4$, with $\Delta R_{\Pl j} > 0.5$. See
+  Sect.~\ref{sec:runcard:selectors}.
+\item In the \runcard{HISTOGRAMS} block, we declare some histograms, such as
+  the transverse momentum or the absolute rapidity of the
+  leading-$p_{\rT}$ jet. Note in particular some features like: the possibility
+  of specifying uniformly-spaced bins or declaring them with a custom list; the
+  file-name override (\runcard{ptj1 > ptj1_exc}) to avoid name clashes when
+  saving histograms; the histogram selectors to generate multi-differential
+  distributions (e.g.\ we fill the \runcard{ptz_y1} histogram with the
+  transverse momentum of the $\PZ$-boson only when $0.5 < |y_{Z}| < 1.0$). See
+  Sect.~\ref{sec:runcard:histograms}.
+\item In the \runcard{SCALES} block, we specify the set of renormalization and
+  factorization scales to be registered for the calculation: we adopt $\mu_R =
+  \mu_F = \frac{1}{2} H_T$ (with $H_T$ the scalar-$p_{\rT}$ sum over leptons and
+  jets) as central scale and we further compute six additional combinations of
+  $\mu_R$ and $\mu_F$ according to the usual 7-point scale variation
+  prescription to estimate theory uncertanties. See
+  Sect.~\ref{sec:runcard:scales}.
+\item The \runcard{CHANNELS} block is left empty as it will be automatically
+  populated by the workflow described in
+  Sect.~\ref{sec:user:workflow}. See Sect.~\ref{sec:runcard:channels}.
+\end{itemize}
+
+\begin{lstlisting}[language=nnlojet]
+PROCESS ZJ
+  collider = pp
+  sqrts = 7000.0
+  jet = antikt[0.4]
+END_PROCESS
+
+RUN EXZJ
+  PDF = NNPDF31_nnlo_as_0118[0]
+  tcut = 1d-8
+  multi_channel = 5
+END_RUN
+
+PARAMETERS
+  MASS[Z] = 91.1876
+  WIDTH[Z] = 2.4952
+  MASS[W] = 80.385
+  WIDTH[W] = 2.085
+  SCHEME[alpha] = Gmu
+  GF = 1.1663787d-5
+END_PARAMETERS
+
+SELECTORS
+  select ptlm           min = 20
+  select ptlp           min = 20
+  select abs_ylm        max = 2.5
+  select abs_ylp        max = 2.5
+  select dr_l12         min = 0.2
+  select mll            min = 66   max = 116
+  select jets_pt        min = 30
+  select jets_abs_y     max = 4.4
+  select min_dr_lj      min = 0.5
+END_SELECTORS
+
+HISTOGRAMS
+  njets [-0.5,0.5,1.5,2.5,3.5]
+  ptj1 [30,40,60,80,120,160,200,250,310,370,450,550,700]
+  abs_yj1 [0,0.4,0.8,1.2,1.6,2.0,2.4,2.8,3.4,4.4]
+  ptj1 > ptj1_exc [30,40,60,80,120,160,200,250,310,370,450]
+  HISTOGRAM_SELECTORS
+    select njets min = 1 max = 1
+  END_HISTOGRAM_SELECTORS
+  ptz min = 30 max = 330 nbins = 10
+  ptz > ptz_y1 min = 30 max = 330 nbins = 10
+  HISTOGRAM_SELECTORS
+    select abs_yz min = 0.5  max = 1.0
+  END_HISTOGRAM_SELECTORS
+END_HISTOGRAMS
+
+SCALES
+  muf = 0.50 * ht_full    mur = 0.50 * ht_full
+  muf = 0.25 * ht_full    mur = 0.50 * ht_full
+  muf = 0.50 * ht_full    mur = 0.25 * ht_full
+  muf = 0.25 * ht_full    mur = 0.25 * ht_full
+  muf = 1.00 * ht_full    mur = 0.50 * ht_full
+  muf = 0.50 * ht_full    mur = 1.00 * ht_full
+  muf = 1.00 * ht_full    mur = 1.00 * ht_full
+END_SCALES
+
+CHANNELS
+END_CHANNELS
+\end{lstlisting}
+
+The above runcard can be used as input to the job-submission workflow described
+in Sect.~\ref{sec:user:workflow}.
+After a run on the CERN lxplus submission
+system with a total runtime of order 50k CPU hours, one obtains a value of
+$68.5(2)$~pb for the total NNLO fiducial cross section.
+Figure~\ref{fig:exZJ} shows an example of a differential distribution, namely the transverse momentum of the leading jet.
+The runcard with all generated data files and plots are included as ancillary files to this publication.
+
+We remind the reader that more example runcards, including reference results, are
+available on the website \myurl{https://nnlojet.hepforge.org/examples.html}.
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.6\textwidth]{plot_ptj1.pdf}
+  \caption{Differential distributions at LO, NLO, and NNLO for the transverse
+    momentum of the leading jet in $Z+1j$. The uncertainty bands represent the envelope of a 7-point scale variation.}
+  \label{fig:exZJ}
+\end{figure}
+
+
+\end{appendix}
+
+
+%%%%%%%%% END TODO: CONTENTS
+
+
+%%%%%%%%%% TODO: BIBLIOGRAPHY
+% Provide your bibliography here. You have two options:
+
+%%% FIRST OPTION
+% Write your entries here directly, following the example below, including:
+% Author(s), Title, Journal Ref. with year in parentheses at the end, followed by the DOI number.
+
+%\begin{thebibliography}{99}
+%\bibitem{1931_Bethe_ZP_71} H. A. Bethe, {\it Zur Theorie der Metalle. i. Eigenwerte und Eigenfunktionen der linearen Atomkette}, Zeit. f{\"u}r Phys. {\bf 71}, 205 (1931), \doi{10.1007\%2FBF01341708}.
+%\bibitem{arXiv:1108.2700} P. Ginsparg, {\it It was twenty years ago today... }, \url{http://arxiv.org/abs/1108.2700}.
+%\end{thebibliography}
+
+%%% SECOND OPTION
+% Use your bibtex library, formatted by the SciPost style file.
+\bibliography{NNLOJET.bib}
+
+%%%%%%%%%% END TODO: BIBLIOGRAPHY
+
+
+\end{document}

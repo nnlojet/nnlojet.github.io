@@ -1,0 +1,81 @@
+
+PROCESS  HJ
+
+  collider = LHC
+  sqrts = 13000.0
+  jet = antikt[0.4]  jet_exclusive = .false.  jet_recomb = V4
+  decay_type = 3
+
+END_PROCESS
+
+RUN  RRa  ! <--- this is the JOB name
+  PDF = PDF4LHC15_nnlo_30[0]
+  tcut = 1d-8
+  iseed   = 30
+  reset_vegas_grid = .true.
+  angular_average  = .true.
+  cache_kinematics = .true.
+  multi_channel    = .false.
+  lips_reduce      = .true. 
+
+
+  production = 25000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.004029643852
+  MASS[Z]  = 91.1876
+  WIDTH[Z] = 2.4952
+  MASS[W]  = 80.398
+  WIDTH[W] = 2.1054
+  MASS[t]  = 173.2
+  WIDTH[t] = 1.41
+END_PARAMETERS
+
+SELECTORS
+    select jets_pt    min = 30
+    select jets_abs_y max = 99
+END_SELECTORS
+
+HISTOGRAMS
+
+        ptj1  > ptj1_lin     nbins = 30    min = 0d0    max = 300d0
+        ptj2  > ptj2_lin     nbins = 30    min = 0d0    max = 300d0
+        ptj3  > ptj3_lin     nbins = 30    min = 0d0    max = 300d0
+        pth   > pth_lin      nbins = 40    min = 0d0    max = 400d0
+        etaj1 > etaj1_lin    nbins = 20    min =-5d0    max = 5d0
+        etaj2 > etaj2_lin    nbins = 20    min =-5d0    max = 5d0
+        etaj3 > etaj3_lin    nbins = 20    min =-5d0    max = 5d0
+        etah  > etah_lin     nbins = 50    min =-5d0    max = 5d0
+        yj1   > yj1_lin      nbins = 20    min =-5d0    max = 5d0
+        yj2   > yj2_lin      nbins = 20    min =-5d0    max = 5d0
+        yj3   > yj3_lin      nbins = 20    min =-5d0    max = 5d0
+        yh    > yh_lin       nbins = 50    min =-5d0    max = 5d0
+        pthjj > pthjj_lin    nbins = 30    min = 0d0    max = 300d0
+
+
+END_HISTOGRAMS
+
+SCALES
+
+    muf =  1.0 * 125     mur =  1.0 * 125
+    muf =  2.0 * 125     mur =  2.0 * 125
+    muf =  0.5 * 125     mur =  0.5 * 125 
+    muf =  1.0 * 125     mur =  0.5 * 125
+    muf =  0.5 * 125     mur =  1.0 * 125
+    muf =  1.0 * 125     mur =  2.0 * 125
+    muf =  2.0 * 125     mur =  1.0 * 125
+
+END_SCALES
+
+
+CHANNELS
+
+  RRa
+
+END_CHANNELS
+
+
+
+
