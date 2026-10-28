@@ -75,7 +75,7 @@ def main() -> None:
     OUTPUT.mkdir()
     for folder in ['index_files', 'runcards', 'example_runs']:
         shutil.copytree(WEB / folder, OUTPUT / folder)
-    for name in ['nnlogo.svg', 'NNLOJET_meeting_2025.jpg', 'exampleZ.run']:
+    for name in ['nnlogo.svg', 'NNLOJET_meeting_2025.jpg', 'NNLOJET_meeting_2026.jpg', 'exampleZ.run']:
         shutil.copy2(WEB / name, OUTPUT / name)
     for pattern in ['*.png', '*.svg']:
         for path in (BUILD / 'html').glob(pattern):
