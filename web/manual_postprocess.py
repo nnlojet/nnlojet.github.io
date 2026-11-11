@@ -23,7 +23,7 @@ LEGACY = {
     'Runcard syntax': 'manual5.html',
     'Using NNLOJET': 'manual6.html',
     'References': 'manual7.html',
-    'Conclusion': 'manual-conclusion.html',
+    'Summary and support': 'manual-conclusion.html',
 }
 
 
