@@ -9,12 +9,15 @@
 
 \documentclass{SciPost}
 
+% Version of NNLOJET described by this manual.
+\newcommand{\nnlojetversion}{1.0.0}
+
 % Prevent all line breaks in inline equations.
 \binoppenalty=10000
 \relpenalty=10000
 
 \hypersetup{
-    pdftitle=NNLOJET,
+    pdftitle={NNLOJET Manual v\nnlojetversion},
     pdfauthor=NNLOJET,
     colorlinks,
     linkcolor={red!50!black},
@@ -298,8 +301,8 @@
 
 \fancypagestyle{SPstyle}{
 \fancyhf{}
-\lhead{\colorbox{scipostblue}{\bf \color{white} ~SciPost Physics Codebases }}
-\rhead{{\bf \color{scipostdeepblue} ~Submission }}
+\lhead{\colorbox{scipostblue}{\bf \color{white} ~NNLOJET Manual }}
+\rhead{{\bf \color{scipostdeepblue} ~v\nnlojetversion }}
 \renewcommand{\headrulewidth}{1pt}
 \fancyfoot[C]{\textbf{\thepage}}
 }
@@ -308,15 +311,9 @@
 
 \pagestyle{SPstyle}
 
-\vspace*{-3.5em}
-\begin{flushright}
-CERN-TH-2025-012, IPPP/25/09, ZU-TH 11/25
-\end{flushright}
-
 \begin{center}
 {\Large \textbf{\color{scipostdeepblue}{
-  NNLOJET: a parton-level event generator for\\
-  jet cross sections at NNLO QCD accuracy
+  NNLOJET Manual v\nnlojetversion
 }}}
 \end{center}
 
@@ -325,88 +322,6 @@ CERN-TH-2025-012, IPPP/25/09, ZU-TH 11/25
   \\*\medskip
   \textbf{NNLOJET Collaboration}
 \end{center}
-
-\begin{center}\textbf{
-A.~Huss$^{1,\star}$, L.~Bonino$^{2}$, O.~Braun-White$^{3}$, S.~Caletti$^4$, X.~Chen$^{5}$, J.~Cruz--Martinez$^{1}$, J.~Currie$^{3}$, Y.S. Dai$^{5}$, W.~Feng$^{2}$,
-G.~Fontana$^{2}$,  E.~Fox$^{3}$, R.~Gauld$^{6}$, A.~Gehrmann--De~Ridder$^{2,4}$,
-T.~Gehrmann$^{2}$, E.W.N.~Glover$^{3}$, M.~H\"ofer$^{7}$,
-P.~Jakub\v{c}\'{i}k$^{2}$, M.~Jaquier$^{8}$, M.~L\"ochner$^{2}$,
-F.~Lorkowski$^{2}$, I.~Majer$^{4}$, M.~Marcoli$^{3}$, P.~Meinzinger$^{2}$, F.~Merlotti$^{4}$, J.~Mo$^{2}$,
-T.~Morgan$^{3}$, J.~Niehues$^{3,9}$,
-J.~Pires$^{10,11}$, C.~T.~Preuss$^{12,13}$, A.~Rodriguez Garcia$^4$, K.~Sch\"onwald$^{2}$,
-R.~Sch\"urmann$^{2}$, V.~Sotnikov$^{2}$, G.~Stagnitto$^{14}$, H.T. Sun$^{5}$, D.~Walker$^{3}$, S.~Wells$^{3}$, J.~Whitehead$^{15}$, T.Z.~Yang$^{2}$ and
-H.~Zhang$^{16}$
-}\end{center}
-
-\begin{center}
-% affiliations - Format: institute, city, country
-{\bf 1} Theoretical Physics Department, CERN, 1211 Geneva 23, Switzerland
-\\
-{\bf 2} Physik-Institut, Universit\"at Z\"urich, Winterthurerstrasse 190, 8057 Z\"urich, Switzerland
-\\
-{\bf 3} Institute for Particle Physics Phenomenology, Department of Physics,\\ University of Durham, Durham, DH1 3LE, UK
-\\
-{\bf 4} Institute for Theoretical Physics, ETH, CH-8093 Z\"urich, Switzerland
-\\
-{\bf 5} School of Physics, Shandong University, Jinan, Shandong 250100, China
-\\
-{\bf 6} Max-Planck-Institut f\"ur Physik, Werner-Heisenberg-Institut, 85748 Garching, Germany
-\\
-{\bf 7} Institute for Theoretical Physics, KIT, 76131 Karlsruhe, Germany
-\\
-{\bf 8} Institute for Theoretical Particle Physics, KIT, 76131 Karlsruhe, Germany
-\\
-{\bf 9} EKFZ for Digital Health, TU Dresden, 01307 Dresden, Germany
-\\
-{\bf 10}  LIP, Avenida Professor Gama Pinto 2, 1649-003 Lisboa, Portugal
-\\
-{\bf 11} Faculdade de Ciências, Universidade de Lisboa, 1749-016 Lisboa, Portugal
-\\
-{\bf 12} Department of Physics, University of Wuppertal, 42119 Wuppertal, Germany
-\\
-{\bf 13} Institut f\"ur Theoretische Physik, Georg-August-Universität G\"ottingen, \\  37077 G\"ottingen, Germany
-\\
-{\bf 14} Universit\`{a} degli Studi di Milano-Bicocca and INFN, \\Piazza della Scienza 3, 20126 Milano, Italy
-\\
-{\bf 15} Jagiellonian University,
-ul.\ prof.\ Stanislawa \L{}ojasiewicza 11, 31-342 Krak\'ow, Poland\\
-{\bf 16} PSI Center for Neutron and Muon Sciences, 5232 Villigen PSI, Switzerland
-% email address of corresponding author(s)
-\\[\baselineskip]
-$\star$ \href{mailto:alexander.huss@cern.ch}{\small alexander.huss@cern.ch}
-%\,,\quad
-%$\dagger$ \href{mailto:email2}{\small email2}
-\end{center}
-
-
-\section*{\color{scipostdeepblue}{Abstract}}
-{\boldmath\textbf{%
-The antenna subtraction method for NNLO QCD calculations is implemented in the NNLOJET parton-level event generator code
-to compute jet cross sections and related observables in electron--positron, lepton--hadron and hadron--hadron collisions. We describe the open-source
-NNLOJET code and its usage.
-}}
-
-\vspace{\baselineskip}
-% \vfill
-
-%%%%%%%%%% BLOCK: Copyright information
-% This block will be filled during the proof stage, and finilized just before publication.
-% It exists here only as a placeholder, and should not be modified by authors.
-\noindent\textcolor{white!90!black}{%
-\fbox{\parbox{0.975\linewidth}{%
-\textcolor{white!40!black}{\begin{tabular}{lr}%
-  \begin{minipage}{0.6\textwidth}%
-    {\small Copyright attribution to authors. \newline
-    This work is a submission to SciPost Physics Codebases. \newline
-    License information to appear upon publication. \newline
-    Publication information to appear upon publication.}
-  \end{minipage} & \begin{minipage}{0.4\textwidth}
-    {\small Received Date \newline Accepted Date \newline Published Date}%
-  \end{minipage}
-\end{tabular}}
-}}
-}
-%%%%%%%%%% BLOCK: Copyright information
 
 
 
