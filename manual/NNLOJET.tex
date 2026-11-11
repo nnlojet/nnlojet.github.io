@@ -1319,12 +1319,12 @@ The attributes of particle \runcard{<particle>} are set with the syntax \runcard
 \runcard{<particle>} may assume any acronym from Table~\ref{tab:ParticleAcronyms} as its value. The possible attributes are listed in the following, with the default value taken from \cite{ParticleDataGroup:2018ovx}:
 \begin{itemize}
   \item \runcard{mass[<particle>] = DBLE}: the mass of the particle, which can be set for
-  the massive particles in the Standard Model and the proton.
-  The mass values correspond to the mass scheme defined below;
+  the massive particles in the Standard Model and the proton;
   \item \runcard{width[<particle>] = DBLE}: the decay width of the particle.
   $\PZ$, $\PW$, $\PH$ and top quark are supported.
-  The widths correspond to the scheme defined below.
 \end{itemize}
+The masses and widths of the $\PZ$ and $\PW$ bosons are interpreted as on-shell values and are converted internally to the mass scheme selected with \runcard{scheme[MV]} (see below).
+Pole-scheme values can be provided instead with \runcard{mass[Z,POLE]} and \runcard{mass[W,POLE]}, in which case the corresponding width is also interpreted as a pole-scheme value.
 Further parameters and prescriptions can be set as follows:
 \begin{itemize}
   \item \runcard{hard_photon_alpha0 = BOOL}: switch to use $\alpha_0$ as the electroweak coupling for resolved photons in photon-production processes (default: \runcard{.false.});
@@ -1336,23 +1336,22 @@ Further parameters and prescriptions can be set as follows:
     \begin{itemize}
       \item \runcard{OS} (default): on-shell scheme;
       \item \runcard{POLE}: pole scheme;
-      \item \runcard{MSBAR}: $\overline{\mathrm{MS}}$-scheme;
     \end{itemize}
     \item \runcard{GV}: define the width schemes for electroweak gauge bosons.
     Possible values are:
     \begin{itemize}
       \item \runcard{NWA}: for the narrow-width approximation;
-      \item \runcard{CMS}: for complex-mass scheme;
+      \item \runcard{CMS}: for complex-mass scheme (implies the pole mass scheme);
       \item \runcard{NAIVE} (default): for naive fixed-width scheme;
-      \item \makebox{\lstinline|RUN|}: for running on-shell scheme;
-      \item \runcard{POLE}: for pole scheme;
+      \item \makebox{\lstinline|RUN|}: for running on-shell scheme (implies the on-shell mass scheme);
+      \item \runcard{POLE}: equivalent to \runcard{scheme[MV] = POLE};
     \end{itemize}
     \item \runcard{ALPHA}: the electroweak coupling prescription.
     Possible values are:
     \begin{itemize}
       \item \runcard{GMU} (default): $G_\mu$ scheme, derived from the Fermi constant
       and the  $\PZ$ and $\PW$ masses (override default value with \runcard{GF = DBLE});
-      \item \runcard{FIX}: fixed scheme (override default value with \runcard{alpha = DBLE});
+      \item \runcard{FIX}: fixed scheme, with the value set by \runcard{alpha = DBLE} (required, as there is no default value);
       \item \makebox{\lstinline|ALPHA0|}: $\alpha_0$ scheme (override default value with \runcard{alpha0 = DBLE});
       \item \makebox{\lstinline|ALPHAMZ|}: $\alpha(M_\PZ)$ scheme (override default value with \runcard{alphaMZ = DBLE});
     \end{itemize}
