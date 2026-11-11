@@ -1731,7 +1731,7 @@ Subsequently, the user will be prompted to set several configuration options tha
   \item \command{(key)job-max-runtime(/key) = (lit)STR(/lit)|(lit)DBLE(/lit)}:
   specifies the maximum runtime for a single NNLOJET execution or a job on the cluster.
   The format is either a time interval specified with units (s, m, h, d, w), e.g.\ \command{(lit)1h 30m(/lit)}, or a floating point number in seconds.
-  (default: \command{(lit)1h 10m(/lit)})
+  (default: \command{(lit)1h 10m(/lit)}, i.e.\ \command{(lit)4200(/lit)} seconds)
   \item \command{(key)job-fill-max-runtime(/key) = (lit)yes(/lit)|(lit)no(/lit)}:
   specifies if the workflow should attempt to exhaust the maximum runtime that was set for each NNLOJET execution.
   This option is intended to fully utilize the wallclock time limit of cluster queues.
