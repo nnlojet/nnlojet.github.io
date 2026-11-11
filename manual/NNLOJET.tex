@@ -1604,14 +1604,17 @@ Therefore, the information provided here is intended for expert users and/or to 
 
 The \runcard{CHANNELS} block specifies all the channels to be computed during the run by giving a list of identifiers. The \textsc{Vegas} integrand is defined as the sum of the channels specified in this block (optionally grouped according to the value of the \runcard{multi_channel} flag, see Sect.~\ref{sec:runcard:run}).
 The process-id number associated with a given channel can be found in the respective \texttt{driver/process/XYZ/selectchannelXYZ.f} source file of the associated process \texttt{XYZ}.
+They can also be listed, grouped by contribution and parton luminosity, with \command{NNLOJET --listlumi <process_name>}.
 In addition, the following abbreviations are defined to simplify the specification:
 \begin{itemize}
-  \item \runcard{ALL};
-  \item \runcard{LO}, \runcard{NLO}, \runcard{NNLO};
-  \item \runcard{V}, \runcard{R};
-  \item \runcard{VV}, \runcard{RV}, \runcard{RR}, \runcard{RRa}, \runcard{RRb}.
+  \item \runcard{ALL}: all channels of the process;
+  \item \runcard{LO}: all Born-level channels;
+  \item \runcard{V}, \runcard{R}: all channels of the one-loop and real-emission contributions at NLO;
+  \item \runcard{VV}, \runcard{RV}, \runcard{RR}, \runcard{RRa}, \runcard{RRb}: all channels of the double-virtual, real--virtual and double-real contributions at NNLO.
 \end{itemize}
-The suffices \texttt{a} and \texttt{b} for the double-real (\runcard{RR}) contribution only exist for specific processes and correspond to a separation of the phase space into two disjoint parts with optimized sampling strategies.
+There are no \runcard{NLO} or \runcard{NNLO} abbreviations: a complete NLO calculation, for example, is obtained by listing \runcard{LO R V}.
+The suffixes \texttt{a} and \texttt{b} for the double-real (\runcard{RR}) contribution only exist for specific processes and correspond to a separation of the phase space into two disjoint parts with optimized sampling strategies; for all other processes, \runcard{RRa} and \runcard{RRb} result in an error.
+The same suffix can be appended to the process id of an individual double-real channel to select one of the two regions.
 The general syntax for the channel block is as follows:
 \begin{lstlisting}[language=nnlojet]
 CHANNELS region = STR
