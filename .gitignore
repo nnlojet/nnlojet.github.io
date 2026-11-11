@@ -7,3 +7,15 @@
 .DS_Store
 ._*
 __MACOSX/
+
+# LaTeX build files from compiling the manual in place
+/manual/*.aux
+/manual/*.bbl
+/manual/*.blg
+/manual/*.fdb_latexmk
+/manual/*.fls
+/manual/*.log
+/manual/*.out
+/manual/*.toc
+/manual/*.synctex.gz
+/manual/NNLOJET.pdf
