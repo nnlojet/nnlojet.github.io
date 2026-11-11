@@ -1589,7 +1589,7 @@ END_SCALES
 \end{lstlisting}
 and requires at least one scale specification to be present.
 The first entry will be considered the central scale that is also used for the \textsc{Vegas} grid adaption.
-Up to six additional scale specifications can be supplied.
+Up to 14 additional scale specifications can be supplied, i.e.\ at most 15 in total.
 A scale specification constitutes a line in the block that specifies the factorization scale $\mu_F$ (\runcard{muF}) and the renormalization scale $\mu_R$ (\runcard{muR})
 \begin{lstlisting}[language=nnlojet]
 muF = <sclF>  muR = <sclR>
@@ -1599,7 +1599,8 @@ In case a process that contains a fragmentation function is run, the associated 
 muF = [<sclF>,<sclA>]  muR = <sclR>
 \end{lstlisting}
 which otherwise will default to $\mu_A = \mu_F$ in case only a single scale is specified.
-This is currently the case only for \runcard{GJ_frag} with the \runcard{photon_fragmentation} option, see Sect.~\ref{sec:runcard:proc}; the pair syntax results in an error if no fragmentation contribution is active.
+This is currently the case only for \runcard{GJ_frag} with the \runcard{photon_fragmentation} option, see Sect.~\ref{sec:runcard:proc}.
+The pair syntax results in an error if no fragmentation contribution is active, and it cannot be combined with the \runcard{scale_coefficients} option of the \runcard{RUN} block.
 The scale \runcard{<scl>} can be set in two ways:
 \begin{itemize}
   \item fixed scale: \runcard{<scl> = DBLE} in units of $[\GeV]$;
