@@ -1015,7 +1015,7 @@ The currently supported options and values for the \runcard{PROCESS} block are l
 
 A collider choice is specified with:
 \begin{itemize}
-  \item \runcard{collider = STR} \textbf{[required]}: using pre-defined collider setups:
+  \item \runcard{collider = STR} \textbf{[required unless both \runcard{beam1} and \runcard{beam2} are set]}: using pre-defined collider setups:
   \begin{itemize}
     \item proton--proton collider: \runcard{PP};
     \item proton--antiproton collider: \runcard{PAP};
@@ -1035,7 +1035,7 @@ A collider choice is specified with:
   \runcard{(blk)CU(/blk)} ($\mathrm{{}^{\scriptscriptstyle64}_{\scriptscriptstyle29}Cu}$),
   \runcard{(blk)AU(/blk)} ($\mathrm{{}^{\scriptscriptstyle197}_{\scriptscriptstyle79}Au}$),
   \runcard{(blk)PB(/blk)} ($\mathrm{{}^{\scriptscriptstyle208}_{\scriptscriptstyle82}Pb}$).
-Setting \runcard{beam1} and \runcard{beam2} will override the \runcard{collider} choice.
+The options are processed in the order in which they appear in the block: \runcard{beam1} and \runcard{beam2} override the \runcard{collider} choice only if they are set after it.
 It is the responsibility of the user to choose a compatible (nuclear) PDF set for each beam in the \runcard{RUN} block described below.
 The centre-of-mass energy is specified for the nucleon--nucleon system.
 In case of an asymmetric beams setup (\runcard{beam1} $\ne$ \runcard{beam2}), NNLOJET will further perform the appropriate longitudinal boost of the hadronic centre-of-mass system.
@@ -1043,12 +1043,14 @@ The collider coordinate system is then chosen such that  \runcard{beam1} is in t
 \end{itemize}
 
 
-The collider energy is provided by setting either one of the following options:
+The collider energy is provided by setting exactly one of the following options \textbf{[required]}:
 \begin{itemize}
-  \item \runcard{sqrts = DBLE} \textbf{[required]}: definition of centre-of-mass energy;
+  \item \runcard{sqrts = DBLE}: definition of centre-of-mass energy;
   \item \runcard{Ebeam1 = DBLE}, \runcard{Ebeam2 = DBLE}: definition of energy of individual beams instead of specifying \runcard{sqrts}, allows for asymmetric collisions.
-Setting  \runcard{Ebeam1} and \runcard{Ebeam2} will override the \runcard{sqrts} value.
+  Both values must be given, as a single \runcard{Ebeam1} or \runcard{Ebeam2} is ignored.
+  This option is not supported for collisions of different nuclear species (e.g.\ \runcard{beam1 = P} and \runcard{beam2 = PB}): use \runcard{sqrts} in this case.
 \end{itemize}
+Specifying both \runcard{sqrts} and \runcard{Ebeam1}, \runcard{Ebeam2} results in an error.
 
 The standard jet reconstruction algorithms are implemented directly in NNLOJET and can be specified with the following options:
 \begin{itemize}
