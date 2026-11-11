@@ -1822,12 +1822,12 @@ It should be noted that the same combination procedure is also triggered at the 
 
 The \command{finalize} sub-command facilitates a manual trigger to perform a re-combination of results with changed internal parameters of the merging algorithm.
 The main purpose of the merging algorithm is to combine the partial results of different parts of the calculation into a final prediction and to mitigate the impact from outliers.
-Potential issues pertaining to the treatment of outliers, as well as the approach employed in our implementation are presented in Ref.~\cite{Gehrmann-DeRidder:2016ycd}.
+Potential issues pertaining to the treatment of outliers, as well as the general approach employed in our implementation, are presented in Ref.~\cite{Gehrmann-DeRidder:2016ycd}.
 The underlying algorithm is controlled by a set of parameters that have sensible defaults but can also be overridden by the user.
 This is useful to check if the combine step is potentially introducing a systematic bias as well as to optimize the combination to obtain the best possible result from the raw data.
 The merging proceeds in steps with a dynamical termination condition, which are applied for each histogram separately on a \emph{bin-by-bin} basis:
 \begin{enumerate}
-  \item trim: apply an outlier-rejection procedure based on the inter-quartile-range to discard data points which are identified as severe outliers;
+  \item trim: apply an outlier-rejection procedure based on the median absolute deviation to discard data points which are identified as severe outliers;
   \item $k$-scan: on the trimmed dataset, merge pairs of (pseudo-)jobs in an unweighted manner into a new pseudo-job, which is statistically equivalent to running a single job with the combined statistics;
   \item weighted combination: all pseudo-jobs are merged using a weighted average to further suppress outliers and the result is stored;
   \item repeat steps 2 \& 3 until \makebox{\lstinline!nsteps!} results from weighted combinations are accumulated;
@@ -1838,24 +1838,26 @@ The core strategy is to combine as many individual jobs into pseudo-jobs as nece
 The parameters controlling the trimming step are:
 \begin{itemize}
   \item \command{(key)trim-threshold(/key) = (lit)DBLE(/lit)}:
-  a threshold value for the distance from the median in units of the inter-quartile-distance beyond which a data point will be considered an outlier and is discarded.
+  a threshold value for the distance from the median beyond which a data point will be considered an outlier and is discarded.
+  The distance is measured in units of a robust estimate of the standard deviation obtained from the median absolute deviation, which is determined separately for the data points below and above the median to account for asymmetric distributions.
+  The distance is further weighted by the statistics of the individual job relative to the average, such that a deviation is more significant for jobs with a larger number of events.
   Larger values for this parameter reduce the number of data points that are discarded.
-  (default = \command{(lit)3.5(/lit)})
+  (default = \command{(lit)8(/lit)})
   \item \command{(key)trim-max-fraction(/key) = (lit)DBLE(/lit)}:
-  a safeguard on the maximal fraction of data points that are allowed to be trimmed away.
-  For each bin in violation of this condition, its threshold value is dynamically increased until the ratio of trimmed data in that bin falls below this value.
-  (default = \command{(lit)0.01(/lit)})
+  a safeguard on the maximal fraction of data points that are allowed to be trimmed away in each bin.
+  Data points are discarded in order of decreasing distance from the median until either the threshold or this fraction is reached.
+  (default = \command{(lit)0.007(/lit)})
 \end{itemize}
 The termination condition of identifying a plateau (the $k$-scan) is controlled by the following parameters:
 \begin{itemize}
   \item \command{(key)k-scan-nsteps(/key) = (lit)INT(/lit)}:
-  the number of pair-combination steps across which the pleateau is checked.
-  (default: \command{(lit)2(/lit)})
+  the number of pair-combination steps across which the plateau is checked.
+  (default: \command{(lit)3(/lit)})
   \item \command{(key)k-scan-maxdev-steps(/key) = (lit)DBLE(/lit)}:
   the tolerance for the plateau condition in units of the standard deviation.
   Across the last \command{(key)k-scan-nsteps(/key)} steps of the $k$-scan, require that all points are mutually compatible within this tolerance.
   Note that the default value is smaller than 1 as the individual points from the $k$-scan are determined from the \emph{same} dataset and thus are strongly correlated.
-  (default = \command{(lit)0.5(/lit)})
+  (default = \command{(lit)0.4(/lit)})
 \end{itemize}
 The default values for this parameter can be set using the \command{config} sub-command described below.
 Alternatively, these options can also be overridden temporarily for a single \command{finalize} step by passing the desired settings as options, e.g.
