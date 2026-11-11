@@ -587,7 +587,7 @@ standard \textsc{LHAPDF}~\cite{Buckley:2014ana} interface.
 The NNLOJET code is mainly written in modern Fortran with some modules, dependencies and driver files written in C++ and Python.
 Multi-threading capabilities are supported through \textsc{OpenMP}.
 The NNLOJET installation requires compilers for Fortran/C/C++, a Python 3 interpreter (minimum version 3.10),
-as well as CMake (minimum version 3.18) to be available on the system.
+as well as CMake (minimum version 3.24) to be available on the system.
 In addition, \textsc{LHAPDF\,6}~\cite{Buckley:2014ana} must be present, ideally with the \command{lhapdf-config} executable searchable from the \command{\$PATH} of the system. The user is responsible for downloading the necessary PDF sets to be used in the calculation.
 
 
@@ -610,7 +610,7 @@ The compilation can be run on \command{N} cores in parallel with the \command{-j
 %
 The installation can be customised, by passing additional \command{[options]} to the \command{cmake} command. The syntax is \command{-D <var>=<value>}. The most relevant options are:
 \begin{itemize}
-  \item \command{CMAKE_INSTALL_PREFIX=/path/to/nnlojet}: target directory where to install NNLOJET (default: \command{/usr/local});
+  \item \command{CMAKE_INSTALL_PREFIX=/path/to/nnlojet}: target directory where to install NNLOJET (default: \command{install} inside the source directory, i.e.\ \command{nnlojet-X.Y.Z/install});
   \item \command{CMAKE_BUILD_TYPE=Debug|Release|RelWithDebInfo|MinSizeRel}: build option for NNLOJET (default: \command{Release});
   \item \command{LHAPDF_ROOT_DIR=/path/to/LHAPDF}: CMake will attempt to find the library automatically but the path can be supplied manually;
   \item \command{Python3_ROOT_DIR=/path/to/python}: CMake will attempt to find a python installation automatically but the path can be supplied manually;
