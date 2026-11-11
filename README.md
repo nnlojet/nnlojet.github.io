@@ -37,9 +37,11 @@ software distribution. No placeholder software archives are included.
 
 ## Manual provenance
 
-All 93 substantive files from `NNLOJET_code_arXiv_v2.tar.gz` are included
-byte-for-byte under `manual/`; only macOS metadata was excluded.
-`MANUAL-SOURCES.sha256` records their initial checksums. It is a provenance
-snapshot, not a CI check that prevents future manuscript edits.
+The manual started from the 93 substantive files of
+`NNLOJET_code_arXiv_v2.tar.gz` (the SciPost release paper); only macOS metadata
+was excluded. They are preserved byte-for-byte at git tag `paper-scipost`, and
+`MANUAL-SOURCES.sha256` records their checksums. It is a provenance snapshot,
+not a CI check: `manual/` has since been edited into a standalone manual
+(tags `manual-v<version>`).
 Existing copyright and licensing notices are retained. This packaging does
 not assign a new license to the scientific manuscript or website content.
