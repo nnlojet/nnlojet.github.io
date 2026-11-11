@@ -1722,14 +1722,16 @@ Subsequently, the user will be prompted to set several configuration options tha
   It is also possible to restrict the calculation to only a specific coefficient, \command{(key)nnlo(/key)=(key)lo(/key)+(key)nlo_only(/key)+(key)nnlo_only(/key)}.
   (default: \command{(key)nnlo(/key)})
   \item \command{(key)target-rel-acc(/key) = (lit)DBLE(/lit)}:
-  specifies the desired relative accuracy on the total cross section
-  evaluated with the chosen fiducial cuts and for the specified \command{(key)order(/key)}.
+  specifies the desired relative accuracy of the calculation at the chosen \command{(key)order(/key)}.
+  The accuracy estimate takes into account both the total cross section evaluated with the chosen fiducial cuts and the histograms:
+  for each part of the calculation, the relative uncertainty is taken as the geometric mean of the relative uncertainty of the total cross section and the largest relative uncertainty among the histograms integrated over all their bins.
+  This ensures that also the differential distributions are adequately sampled.
   While the specification of a \runcard{REWEIGHT} function can be introduced to bias the phase-space sampling, the target accuracy is always defined with respect to the unweighted cross section.
   (default: \command{(lit)0.01(/lit)})
   \item \command{(key)job-max-runtime(/key) = (lit)STR(/lit)|(lit)DBLE(/lit)}:
   specifies the maximum runtime for a single NNLOJET execution or a job on the cluster.
   The format is either a time interval specified with units (s, m, h, d, w), e.g.\ \command{(lit)1h 30m(/lit)}, or a floating point number in seconds.
-  (default: \command{(lit)1h(/lit)})
+  (default: \command{(lit)1h 10m(/lit)})
   \item \command{(key)job-fill-max-runtime(/key) = (lit)yes(/lit)|(lit)no(/lit)}:
   specifies if the workflow should attempt to exhaust the maximum runtime that was set for each NNLOJET execution.
   This option is intended to fully utilize the wallclock time limit of cluster queues.
@@ -1740,18 +1742,18 @@ Subsequently, the user will be prompted to set several configuration options tha
   (default: \command{(lit)100(/lit)})
   \item \command{(key)jobs-max-concurrent(/key) = (lit)INT(/lit)}:
   specifies the maximum number of NNLOJET executions that can be run simultaneously. If cluster submission is selected, this option specifies the maximum number of jobs that are simultaneously submitted to the cluster.
-  (default: \command{(lit)10(/lit)})
+  (default: \command{(lit)10(/lit)}, limited to the number of available CPU cores for local execution)
 \end{itemize}
 If a cluster submission is selected, the user will be prompted to provide additional settings required for an execution on the respective cluster type:
 \begin{itemize}
   \item \command{(key)poll-time(/key) = (lit)STR(/lit)|(lit)DBLE(/lit)}:
   specifies the interval in which the scheduler is queried for an update on the status of the submitted jobs.
   The format is either a time interval specified with units (s, m, h, d, w), e.g.\ \command{(lit)1h 30m(/lit)}, or a floating point number in seconds.
-  (default: 10\% of the \command{(key)job-max-runtime(/key)})
+  (default: 10\% of the \command{(key)job-max-runtime(/key)}, but at least 10\,s)
   \item \command{(key)submission-template(/key) = (lit)INT(/lit)} (index from a list displayed to the user):
   the job submission on a cluster relies on a submission script for the job scheduler.
   The workflow provides a set of built-in submission templates that can be selected by the user.
-  The chosen template will be copied as a file \command{<cluster>.template} to the run directory and can be modified to any specific needs.
+  The chosen template will be copied to the run directory under its original file name (e.g.\ \command{htcondor.template}) and can be modified to any specific needs.
   Note that it is up to the user to ensure that the time limits set by the submission script, e.g.\ as imposed by a wallclock time limit of special queues of the cluster, are consistent with the \command{(key)job-max-runtime(/key)} setting.
 \end{itemize}
 All configurations are stored in the \command{config.json} file inside the run directory, however, it is strongly advised against modifying this file manually.
