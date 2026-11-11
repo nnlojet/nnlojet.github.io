@@ -1690,7 +1690,7 @@ The main results are provided in the form of histogram files that are described 
 
 Every NNLOJET calculation (or \textit{run}) is associated with a directory that contains all the necessary input and configuration files as well as the intermediate output and the final result.
 The \command{nnlojet-run} workflow is designed to manage the creation of the run directory, the execution of the NNLOJET core executable, and the retrieval of the final results in a user-friendly way.
-To this end, the workflow provides four separate sub-commands: \command{init}, \command{config}, \command{submit}, and \command{finalize}, which are described in the following.
+To this end, the workflow provides the main sub-commands \command{init}, \command{config}, \command{submit}, and \command{finalize}, as well as the auxiliary sub-commands \command{doctor} and \command{signal}, which are described in the following.
 A short description of the commands and available options can be displayed by adding the \command{--help} command line argument:
 \begin{lstlisting}[language=commands]
 $ nnlojet-run --help
@@ -1880,6 +1880,23 @@ In addition, advanced settings of the workflow can be viewed and set with
 $ nnlojet-run config <run-path> --advanced
 \end{lstlisting}
 which provides, e.g.\ the possibility to change the seed offset of the workflow.
+
+
+\subsubsection{\texorpdfstring{\command{doctor}}{doctor} and \texorpdfstring{\command{signal}}{signal}}
+%
+The \command{doctor} sub-command checks the consistency between the database of a run directory and the job directories stored on disk, and repairs it where possible:
+\begin{lstlisting}[language=commands]
+$ nnlojet-run doctor <run-path> [--scan-dir]
+\end{lstlisting}
+Jobs in the database whose directories no longer exist can be removed, and the status of the remaining jobs is updated from their output.
+With the optional \command{--scan-dir} argument, the job directories are additionally re-scanned for output files.
+This can be useful after an abnormal termination of the workflow or if job directories were modified manually.
+
+The \command{signal} sub-command sends a signal to a workflow that is currently running on the same run directory:
+\begin{lstlisting}[language=commands]
+$ nnlojet-run signal <run-path> merge
+\end{lstlisting}
+Currently, the only available signal is \command{merge}, which requests an immediate merge of all completed jobs, such that intermediate results can be inspected while the calculation is still running.
 
 
 \subsubsection{Run directory}
