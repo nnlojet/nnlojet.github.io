@@ -1787,7 +1787,7 @@ As both the warmup and the pre-production stages are necessary to proceed to the
 During the main production stage, on the other hand, the workflow will continuously dispatch new jobs in an attempt to exhaust the specified concurrent resource limits and accumulate results until either the target accuracy is reached or the maximum number of jobs is exhausted.
 Upon termination of all jobs, a summary of the calculation is given by printing the final cross section number with its associated uncertainty.
 In case the target accuracy was not reached with the allocated resources, an estimate of the number of additional jobs required to reach the requested accuracy is provided.
-The final results of the calculation are saved to \command{<run-path>/results/final}.
+The final results of the calculation are saved to \command{<run-path>/result/final}.
 %
 \begin{figure}[tb]
   \centering
@@ -1912,12 +1912,14 @@ The run directory is structured as follows:
   \item \command{db.sqlite}: a database file that contains the status of the run (process and job information);
   \item \command{log.sqlite}: a database file that contains the logging information of the submission;
   \item \command{template.run}: the template runcard for the calculation;
-  \item \command{raw} directory: contains the raw output of the NNLOJET runs saved in two subdirectories (\command{warmup}, \command{production}) with the individual job results;
-  \item \command{results} directory: contains the final results of the calculation;
+  \item \command{<cluster>.template}: the job-submission template in case of a cluster execution policy;
+  \item \command{tmp} directory: the output of the short test run performed by \command{init} to validate the runcard;
+  \item \command{raw} directory: contains the raw output of the NNLOJET runs saved in two subdirectories (\command{warmup}, \command{production}) with the individual job results, as well as one HDF5 file \command{<part>.hdf5} per part of the calculation that collects the job results for the merging;
+  \item \command{result} directory: contains the results of the calculation;
   \begin{itemize}
-    \item \command{final} directory: contains the final results in the form of data files \command{<order>.<obs>.dat} for all complete orders;
+    \item \command{final} directory: contains the final results in the form of data files \command{<order>.<obs>.dat} for all complete orders, with the order in lower case (e.g.\ \command{nnlo.cross.dat}, \command{nnlo_only.cross.dat});
     \item \command{merge} directory: contains the result of the currently active order;
-    \item \command{parts} directory: all intermediate combined results separately for each part of the calculation;
+    \item \command{part} directory: all intermediate combined results separately for each part of the calculation;
   \end{itemize}
 \end{itemize}
 The file format of the histogram data files is described below in Sect.~\ref{sec:user:histo}.
