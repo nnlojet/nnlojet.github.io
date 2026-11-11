@@ -24,7 +24,6 @@ LEGACY = {
     'Using NNLOJET': 'manual6.html',
     'References': 'manual7.html',
     'Conclusion': 'manual-conclusion.html',
-    'Example: Z+1j at NNLO': 'manual-example.html',
 }
 
 

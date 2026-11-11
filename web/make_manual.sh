@@ -12,7 +12,7 @@ for cmd in "$PYTHON" "$MYSED" latexmk pdflatex bibtex lwarpmk pdftocairo pdftote
 done
 "$MYSED" --version | head -1 | grep -q 'GNU sed' || { echo 'GNU sed is required (MYSED=gsed on macOS).' >&2; exit 1; }
 "$PYTHON" -c 'import lxml.html' || { echo 'Install python3-lxml (or lxml in your Python environment).' >&2; exit 1; }
-for name in NNLOJET.tex NNLOJET.bib SciPost.cls SciPost_bibstyle.bst nnlogo_col.pdf dokan_monitor.png plot_ptj1.pdf; do
+for name in NNLOJET.tex NNLOJET.bib SciPost.cls SciPost_bibstyle.bst nnlogo_col.pdf dokan_monitor.png; do
     test -s "$source_dir/$name" || { echo "Missing manual source: $source_dir/$name" >&2; exit 1; }
 done
 # Only this fixed, generated directory is ever removed. Never remove manual/.
@@ -22,7 +22,7 @@ cp -a "$source_dir/." "$build/pdf/"
 cp -a "$source_dir/." "$build/html/"
 trap 'echo "Manual build failed; inspect $build/pdf/ and $build/html/ for TeX logs." >&2' ERR
 
-# Downloadable PDF: unmodified paper, not the HTML variant.
+# Downloadable PDF: unmodified manual source, not the HTML variant.
 cd "$build/pdf"
 latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error NNLOJET.tex
 cp NNLOJET.pdf "$build/manual.pdf"
@@ -109,7 +109,7 @@ ${MYSED} -i 's/\\mathrm{d} \\text{\\runcard{<obs>}}\$/\\mathrm{d}\$\\runcard{<ob
 ${MYSED} -i 's/\\text{\\runcard{ptz_bin1}}/\\text{\\texttt{ptz\\_bin1}}/' manual.tex
 ${MYSED} -i -E '/DeclareRobustCommand/s/\\makebox\{(.*)\}$/\1/' manual.tex
 
-# The full release paper also uses TeV in the worked example.
+# Drop the \TeV macro (harmless if unused).
 ${MYSED} -i '/\\DeclareRobustCommand{\\TeV}{\\ensuremathrm{TeV}\\xspace}/d ; s/\\TeV\b/\\mathrm{TeV}/g' manual.tex
 
 # SVG versions of PDF figures for the browser. No source PDF is modified.
