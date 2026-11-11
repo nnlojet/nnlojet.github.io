@@ -795,7 +795,7 @@ Only fixed-size cones admit some amount of collinear photon radiation off QCD pa
 fragmentation processes~\cite{Koller:1978kq}.
 The NNLOJET implementation of
 $\Pp\Pp \to \Pgg+X$ and $\Pp\Pp \to \Pgg+1j$ to NNLO QCD with a dynamical isolation cone is described in~\cite{Chen:2019zmr}. Its extension to
-fixed-cone isolation is documented in~\cite{Chen:2022gpk}, employing an empirical
+fixed-cone isolation (process \runcard{GJ_frag}) is documented in~\cite{Chen:2022gpk}, employing an empirical
 parametrization of the photon fragmentation functions~\cite{Bourhis:1997yu}. Di-photon production  $\Pp\Pp \to \Pgg\Pgg$ is currently implemented to NNLO QCD only
 for dynamical cone isolation~\cite{Gehrmann:2020oec}. The matrix elements up to NNLO QCD for both processes are taken
 from~\cite{DelDuca:1999pa,Signer:1995np,Anastasiou:2002zn,Campbell:2014yka}.
@@ -993,6 +993,7 @@ The currently supported process names (\runcard{<process_name>}) at NNLO can be 
     by $W$-bosons;
   \end{itemize}
   \item \runcard{GJ}: production of photon plus one jet;
+  \item \runcard{GJ_frag}: production of photon plus one jet, including the photon-fragmentation contribution required for fixed-cone isolation (see \runcard{photon_fragmentation} below); this process is not listed by \command{NNLOJET --listprocs};
   \item \runcard{GG}: production of  photon pair;
   \item \runcard{JJ}: production of two jets;
   % \item \runcard{VFH}, \runcard{VFHJ}: production of \PH-boson in vector-boson-fusion channel;
@@ -1074,7 +1075,7 @@ Several optional settings in the \runcard{PROCESS} block are only relevant for s
   Options for \runcard{STR}:
   \begin{itemize}
     \item \runcard{ZGAMMA}: both $\PZ$ bosons and photons are allowed in the amplitudes (default, except for the processes listed below);
-    \item \runcard{GAMMA}: only photons (default for \runcard{GJ}, \runcard{GG}, \runcard{epLJ}, and \runcard{epLJJ});
+    \item \runcard{GAMMA}: only photons (default for \runcard{GJ}, \runcard{GJ_frag}, \runcard{GG}, \runcard{epLJ}, and \runcard{epLJJ});
     \item \makebox{\lstinline|Z|}: only $\PZ$ bosons are allowed;
   \end{itemize}
   \item \runcard{L_NC = STR}: decay mode of $\PZ$ bosons decay to leptons. Values:
@@ -1153,13 +1154,20 @@ The isolation of photons and leptons is defined using the following options:
   \end{itemize}
   \item \runcard{photon_recomb = DBLE}: angular distance $R$ below which two photons are recombined;
   \item \runcard{photon_fragmentation = STR}:
-  definition of photon fragmentation setup. The parameteter specifies the parametrization of the photon fragmentation functions:
+  definition of photon fragmentation setup. The parameter specifies the parametrization of the photon fragmentation functions:
   \begin{itemize}
     \item \runcard{ALEPH}: a simple parametrization obtained from a one-parameter fit by ALEPH~\cite{ALEPH:1995zdi};
     \item \runcard{BFG0}, \runcard{BFGPERT}: BFG0~\cite{Bourhis:1997yu};
     \item \runcard{BFG1}, \runcard{BFGI}: BFGI~\cite{Bourhis:1997yu};
     \item \runcard{BFG2}, \runcard{BFGII}: BFGII~\cite{Bourhis:1997yu}.
   \end{itemize}
+  The fragmentation contribution is only available for \runcard{PROCESS GJ_frag}: using this option with \runcard{GJ} or \runcard{GG} results in an error.
+  Without this option, \runcard{GJ_frag} is equivalent to \runcard{GJ}.
+  The fragmentation contribution enters from NLO onwards, such that LO predictions do not depend on the fragmentation setup.
+
+  \textbf{Note:} isolation prescriptions that admit collinear photon radiation off QCD partons, such as fixed-cone isolation, are infrared safe only if the fragmentation contribution is included.
+  For \runcard{GJ} with fixed-cone isolation, use \runcard{PROCESS GJ_frag} together with \runcard{photon_fragmentation}; \runcard{GG} is restricted to dynamical isolation cones.
+  NNLOJET does not check this: a fixed-cone isolation without fragmentation runs without warning, but the result depends on the technical cutoff \runcard{tcut}.
 \end{itemize}
 
 Finally, several \runcard{PROCESS} settings are relevant only for DIS:
@@ -1586,7 +1594,12 @@ A scale specification constitutes a line in the block that specifies the factori
 \begin{lstlisting}[language=nnlojet]
 muF = <sclF>  muR = <sclR>
 \end{lstlisting}
-In case a process that contains a fragmentation function is run, the associated factorization scale ($\mu_A$) can be set separately using a pair \runcard{muF = [<sclF>,<sclA>]}, which otherwise will default to $\mu_A = \mu_F$ in case only a single scale is specified.
+In case a process that contains a fragmentation function is run, the associated fragmentation scale ($\mu_A$) can be set separately using a pair
+\begin{lstlisting}[language=nnlojet]
+muF = [<sclF>,<sclA>]  muR = <sclR>
+\end{lstlisting}
+which otherwise will default to $\mu_A = \mu_F$ in case only a single scale is specified.
+This is currently the case only for \runcard{GJ_frag} with the \runcard{photon_fragmentation} option, see Sect.~\ref{sec:runcard:proc}; the pair syntax results in an error if no fragmentation contribution is active.
 The scale \runcard{<scl>} can be set in two ways:
 \begin{itemize}
   \item fixed scale: \runcard{<scl> = DBLE} in units of $[\GeV]$;
