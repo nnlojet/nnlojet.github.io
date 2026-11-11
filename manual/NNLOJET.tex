@@ -999,7 +999,7 @@ The currently supported process names (\runcard{<process_name>}) at NNLO can be 
   % \item \runcard{VFH2}, \runcard{VFH2J}: production of \PH-boson in vector-boson-fusion channel, with decay mode to $\Pgg$;
   % \item \runcard{VFH3}, \runcard{VFH3J}: production of \PH-boson in vector-boson-fusion channel, with decay mode to $2l+\Pgg$;
   % \item \runcard{VFH4}, \runcard{VFH4J}: production of \PH-boson in vector-boson-fusion channel, with decay mode to $4l$ and $2l2\nu$;
-  \item  \runcard{eeJJ}, \runcard{eeJJJ}: production of up to three jets in electron--position colliders;
+  \item  \runcard{eeJJ}, \runcard{eeJJJ}: production of up to three jets in electron--positron colliders;
   \item \runcard{epLJ}, \runcard{epLJJ}: production of up to two jets in neutral-current lepton-proton collisions, resulting in lepton-plus-jets final states (no distinction is made between leptons and antileptons);
   \item \runcard{epNJ}, \runcard{epNJJ}:  production of up to two jets in charged-current lepton-proton collisions, resulting in neutrino-plus-jets final states;
     \item \runcard{epNbJ}, \runcard{epNbJJ}:  production of up to two jets in charged-current antilepton-proton collisions, resulting in antineutrino-plus-jets final states.
@@ -1073,8 +1073,8 @@ Several optional settings in the \runcard{PROCESS} block are only relevant for s
   \item \runcard{V_NC = STR}: restriction on virtual neutral-current gauge-bosons.
   Options for \runcard{STR}:
   \begin{itemize}
-    \item \runcard{ZGAMMA} (default): both $\PZ$ bosons and photons are allowed in the amplitudes;
-    \item \runcard{GAMMA}: only photons, useful for example in DIS processes;
+    \item \runcard{ZGAMMA}: both $\PZ$ bosons and photons are allowed in the amplitudes (default, except for the processes listed below);
+    \item \runcard{GAMMA}: only photons (default for \runcard{GJ}, \runcard{GG}, \runcard{epLJ}, and \runcard{epLJJ});
     \item \makebox{\lstinline|Z|}: only $\PZ$ bosons are allowed;
   \end{itemize}
   \item \runcard{L_NC = STR}: decay mode of $\PZ$ bosons decay to leptons. Values:
