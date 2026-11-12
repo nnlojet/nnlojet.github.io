@@ -115,6 +115,14 @@ def main() -> None:
                 h = headings[0]
                 anchor = etree.Element('a', id=h.get('id', 'references-start'))
                 h.getparent().replace(h, anchor)
+        # The References page has two headings (see above): keep only the TOC entry of the
+        # last one, which is the heading that remains on the page.
+        ref_links = [link for link in doc.xpath('.//nav[@class="toc"]//a')
+                     if link.get('href', '').startswith('manual7.html')
+                     and link.text_content().strip().endswith('References')]
+        for link in ref_links[:-1]:
+            entry = link.getparent() if link.getparent().tag == 'p' else link
+            entry.drop_tree()
         # Suppress the artificial appendix letter on the reference TOC entry.
         for link in doc.xpath('.//nav[@class="toc"]//a'):
             if link.get('href', '').startswith('manual7.html'):
