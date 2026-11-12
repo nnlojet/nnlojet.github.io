@@ -14,11 +14,11 @@
   </li>
   <li><b>How can I update the nnlojet-run workflow to the latest development version?</b>
     <p>If you encounter issues with the nnlojet-run workflow, we recommend updating to the latest development version before submitting a bug report or opening an issue ticket. <br> To replace your current workflow with the development version:<br>
-      1. Delete the dokan directory in the root of the nnlojet folder.<br>
-      2. Clone the latest development version by running:
+      1. In the <kbd>nnlojet-X.Y.Z</kbd> directory, delete the <kbd>dokan</kbd> directory.<br>
+      2. In the same place, clone the latest development version by running:
       <kbd class="display">
-	$ git clone git@github.com:aykhuss/dokan.git <br>
+	$ git clone https://github.com/aykhuss/dokan.git <br>
       </kbd>
-      3. Follow the installation instructions to rebuild the nnlojet-run workflow from this version.<br>
+      3. Reinstall the nnlojet-run workflow from this version, by running <kbd>make install</kbd> again in the <kbd>build</kbd> directory.</p>
   </li>
 </ul>
