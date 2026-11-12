@@ -257,7 +257,7 @@
   %otherkeywords = {=,[,],+,*,&},
   otherkeywords = {&},
   alsoletter = {.-},
-  keywords = [1]{PROCESS,END_PROCESS,RUN,END_RUN,PARAMETERS,END_PARAMETERS,SELECTORS,END_SELECTORS,HISTOGRAMS,END_HISTOGRAMS,SCALES,END_SCALES,CHANNELS,END_CHANNELS,MULTI_RUN,END_MULTI_RUN,SETUP,END_SETUP,REWEIGHT,PDF_INTERPOLATION,UNIT_PHASE},
+  keywords = [1]{PROCESS,END_PROCESS,RUN,END_RUN,PARAMETERS,END_PARAMETERS,SELECTORS,END_SELECTORS,HISTOGRAMS,END_HISTOGRAMS,SCALES,END_SCALES,CHANNELS,END_CHANNELS,FASTJET,END_FASTJET,MULTI_RUN,END_MULTI_RUN,SETUP,END_SETUP,REWEIGHT,PDF_INTERPOLATION,UNIT_PHASE},
   keywords = [2]{collider,beam1,beam2,sqrts,Ebeam1,Ebeam2,jet,jet_exclusive,jet_recomb,lepton_isolation,photon_isolation,photon_recomb,photon_fragmentation,V_NC,L_NC,pol,lab_ordereta,dis_eventshapes,eprc,dis_frame,decay_type,select,reject,select_if_valid,reject_if_valid,PDF,PDF1,PDF2,iseed,imethod,warmup,production,tcut,reset_vegas_grid,phase_space,angular_average,cache_kinematics,scale_coefficients,multi_channel,match_obs,lips_reduce,iplot,print_max_weight,pole_check,point_check,MASS,WIDTH,alpha,alpha0,alphaMZ,GF,hard_photon_alpha0,SCHEME,ckm,mur,muf},
   keywords = [3]{%
     Z,ZJ,ZJJ,ZJJJ,W,WJ,WJJ,WJJJ,Wp,WpJ,WpJJ,WpJJJ,Wm,WmJ,WmJJ,WmJJJ,H,HJ,HJJ,HJJJ,H2,H2J,H2JJ,H2JJJ,HTO2P,HTO2PJ,HTO2PJJ,HTO2PJJJ,HTO2TAU,HTO2TAUJ,HTO2TAUJJ,HTO2TAUJJJ,H3,H3J,H3JJ,H3JJJ,HTO2L1P,HTO2L1PJ,HTO2L1PJJ,HTO2L1PJJJ,H4,H4J,H4JJ,H4JJJ,HTO4E,HTO4EJ,HTO4EJJ,HTO4EJJJ,HTO2E2MU,HTO2E2MUJ,HTO2E2MUJJ,HTO2E2MUJJJ,HTO2L2N,HTO2L2NJ,HTO2L2NJJ,HTO2L2NJJJ,GJ,GJJ,GJJJ,GG,JJ,eeJJ,eeJJJ,epLJ,epLJJ,epNJ,epNJJ,epNbJ,epNbJJ,%
@@ -614,7 +614,9 @@ The installation can be customised, by passing additional \command{[options]} to
   \item \command{CMAKE_BUILD_TYPE=Debug|Release|RelWithDebInfo|MinSizeRel}: build option for NNLOJET (default: \command{Release});
   \item \command{LHAPDF_ROOT_DIR=/path/to/LHAPDF}: CMake will attempt to find the library automatically but the path can be supplied manually;
   \item \command{Python3_ROOT_DIR=/path/to/python}: CMake will attempt to find a python installation automatically but the path can be supplied manually;
-  \item \command{DOKAN=ON|OFF}: optionally skip the installation of the \command{nnlojet-run} script (default: \command{ON}).
+  \item \command{DOKAN=ON|OFF}: optionally skip the installation of the \command{nnlojet-run} script (default: \command{ON});
+  \item \command{FASTJET=ON|OFF}: enable the interface to the \textsc{FastJet} library~\cite{Cacciari:2011ma} for additional jet definitions, see Sect.~\ref{sec:runcard:fastjet} (default: \command{OFF}).
+  CMake locates \textsc{FastJet} through the \command{fastjet-config} executable, which is searched for in the \command{\$PATH} of the system and in the \command{bin} directory of \command{FASTJET_ROOT_DIR}, if set.
   % \item \command{PINEAPPL=[ON|OFF]}: enable interpolation grid support using the PineAPPL library~\cite{Carrazza:2020gss,Schwan:2021txc} (default: \command{OFF});
   % \textbf{TG: should be commented out}
   % \item \command{APPLFAST=[ON|OFF]}: enable interpolation grid support using the APPLfast bridge code~\cite{Britzger:2017maj} to interface with APPLgrid~\cite{Carli:2005ji,Carli:2010rw} and/or fastNLO~\cite{Kluge:2006xs,Britzger:2012bs} (default: \command{OFF});
@@ -863,6 +865,7 @@ The runcard is composed of the following separate blocks:
   \item \runcard{HISTOGRAMS}: defines output histograms (observable, binning, extra options);
   \item \runcard{SCALES} \textbf{[required]}: specifies the set of renormalization and factorization scales for simultaneous evaluation;
   \item \runcard{CHANNELS} \textbf{[required]}: selects the subprocesses to be activated;
+  \item \runcard{FASTJET}: defines additional jet algorithms evaluated with the \textsc{FastJet} library (only available if NNLOJET is compiled with \textsc{FastJet} support);
   % \item \runcard{MULTI_RUN} (optional): enables simultaneous runs with multiple selectors;
 \end{itemize}
 as well as optional single-line settings:
@@ -1640,6 +1643,48 @@ In addition to specifying the sub-process on individual lines, any number of (wh
 can be given in a single line as well.
 The \runcard{region} option only matters for the double-real contribution and processes where a phase-space separation was introduced; allowed values in this case are:
 \texttt{a} for the \runcard{RRa} piece, \texttt{b} for the \runcard{RRb} piece, and \texttt{all} (default) to include both.
+
+
+%----------
+\subsubsection{FastJet block}
+\label{sec:runcard:fastjet}
+%----------
+In addition to the jet algorithms implemented directly in NNLOJET (see the \runcard{jet} option in Sect.~\ref{sec:runcard:proc}), jets can be reconstructed with the \textsc{FastJet} library~\cite{Cacciari:2011ma}.
+This requires NNLOJET to be compiled with the \command{FASTJET=ON} option, see Sect.~\ref{sec:framework:inst}; otherwise the block is ignored and the corresponding observables are not available.
+The optional \runcard{FASTJET} block defines one or more jet algorithms, each identified by a user-defined name:
+\begin{lstlisting}[language=nnlojet]
+FASTJET
+  <name> = ppgenkt[R = DBLE, palg = DBLE]
+  ...
+END_FASTJET
+\end{lstlisting}
+Several definitions can also be given on a single line, separated by white space.
+The \runcard{ppgenkt} algorithm is the generalised $k_T$ algorithm for hadron colliders as implemented in \textsc{FastJet}, with the standard four-momentum (E-scheme) recombination, and takes the following parameters:
+\begin{itemize}
+  \item \runcard{R = DBLE} \textbf{[required]}: the jet-resolution parameter;
+  \item \runcard{palg = DBLE}: the exponent $p$ of the generalised $k_T$ distance measure, with \runcard{(lit)-1(/lit)} for the anti-$k_T$, \runcard{(lit)0(/lit)} for the Cambridge--Aachen and \runcard{(lit)1(/lit)} for the $k_T$ algorithm (default: \runcard{(lit)-1(/lit)}).
+\end{itemize}
+The \textsc{FastJet} algorithms are applied to the same final-state partons as the jet algorithm of the \runcard{PROCESS} block, which must therefore still be specified (\runcard{jet = none} cannot be combined with a \runcard{FASTJET} block).
+The jet-level selectors of the \runcard{SELECTORS} block (e.g.\ \runcard{jets_pt}, \runcard{jets_abs_y}) are applied to the jets of every \textsc{FastJet} algorithm.
+For each algorithm \runcard{<name>}, the following observables are defined:
+\begin{itemize}
+  \item \runcard{<name>_njets}: the number of jets;
+  \item the transverse momentum (\runcard{<name>_ptjN}), rapidity (\runcard{<name>_yjN}, \runcard{<name>_abs_yjN}) and pseudorapidity (\runcard{<name>_etajN}, \runcard{<name>_abs_etajN}) of the \runcard{N}-th leading jet, where \runcard{N} ranges from 1 to 5;
+  \item \runcard{<name>_m12}, \runcard{<name>_ptavg_12}, \runcard{<name>_ystar}, \runcard{<name>_yboost}: the invariant mass, the average transverse momentum, and the rapidity variables $y^* = |y_{j_1}-y_{j_2}|/2$ and $y_\mathrm{boost} = |y_{j_1}+y_{j_2}|/2$ of the two leading jets.
+\end{itemize}
+These observables are not listed by \command{NNLOJET --listobs}, as they are only defined once the runcard is read, but they can be used like any other observable in the \runcard{SELECTORS} and \runcard{HISTOGRAMS} blocks.
+For example, the following runcard excerpt fills the leading-jet transverse momentum for the anti-$k_T$ algorithm with $R=0.4$ and the $k_T$ algorithm with $R=0.6$ in the same run:
+\begin{lstlisting}[language=nnlojet]
+FASTJET
+  ak4 = ppgenkt[R=0.4]
+  kt6 = ppgenkt[R=0.6, palg=1]
+END_FASTJET
+
+HISTOGRAMS
+  ak4_ptj1 [30,50,100,200,500]
+  kt6_ptj1 [30,50,100,200,500]
+END_HISTOGRAMS
+\end{lstlisting}
 
 
 %----------
