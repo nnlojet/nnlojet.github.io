@@ -27,13 +27,31 @@ LEGACY = {
 }
 
 
+def manual_title() -> str:
+    version = re.search(r'\\newcommand\{\\nnlojetversion\}\{([^}]+)\}',
+                        (ROOT / 'manual' / 'NNLOJET.tex').read_text(encoding='utf-8'))
+    if not version:
+        raise SystemExit('Could not find \\nnlojetversion in manual/NNLOJET.tex.')
+    return f'NNLOJET Manual v{version[1]}'
+
+
+# Replaces the title block of the PDF (title, logo, collaboration) on the landing page.
+INTRO = '''<h1>{title}</h1>
+<p>The manual is also available as a <a href="nnlojet-manual.pdf" target="_blank" rel="noopener">PDF</a>.
+If you use NNLOJET in a scientific publication, please cite the NNLOJET release paper:
+A. Huss et al. (NNLOJET Collaboration), <i>NNLOJET: a parton-level event generator for jet cross
+sections at NNLO QCD accuracy</i>, SciPost Phys. Codeb. 69,
+<a href="https://doi.org/10.21468/SciPostPhysCodeb.69" target="_blank" rel="noopener">doi:10.21468/SciPostPhysCodeb.69</a>
+[<a href="https://arxiv.org/abs/2503.22804" target="_blank" rel="noopener">arXiv:2503.22804</a>].</p>'''
+
+
 def heading_title(text: str) -> str:
     text = re.sub(r'<span\b[^>]*class="sectionnumber"[^>]*>.*?</span>', '', text, flags=re.S)
     text = html.unescape(re.sub(r'<[^>]+>', '', text))
     return ' '.join(text.replace(r'\(', '').replace(r'\)', '').split())
 
 
-def clean_fragment(text: str) -> str:
+def clean_fragment(text: str, title: str) -> str:
     """Retain the old script's inline-listing repairs, but protect preformatted code."""
     body = re.search(r'<body\b[^>]*>(.*?)</body>', text, re.S)
     if not body:
@@ -41,7 +59,7 @@ def clean_fragment(text: str) -> str:
     text = body.group(1)
     text = re.sub(r'<nav\b(?![^>]*class="toc")[^>]*>.*?</nav>', '', text, flags=re.S)
     text = re.sub(r'(<\/?)[hH]([456])\b', lambda m: m[1]+'h'+str(int(m[2])-2), text)
-    text = text.replace('<h1>manual</h1>', '<h1>NNLOJET manual</h1>')
+    text = text.replace('<h1>manual</h1>', f'<h1>{title}</h1>')
     # Do not reindent or collapse whitespace inside downloadable/example code.
     blocks: list[str] = []
     def keep_pre(m: re.Match[str]) -> str:
@@ -73,6 +91,7 @@ def main() -> None:
         key=lambda p: int(re.search(r'\d+', p.stem)[0]))
     if len(paths) < 2:
         raise SystemExit('No split lwarp manual found; run web/make_manual.sh first.')
+    manual_name = manual_title()
     mapping = {'manual.html': 'manual.html'}
     navigation = []
     documents = {}
@@ -95,7 +114,7 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     names = re.compile(r'(?P<before>\b(?:href|src)\s*=\s*["\'])(?P<name>' + '|'.join(re.escape(n) for n in mapping) + r')(?=[#?"\'])')
     for old_name, raw_text in documents.items():
-        text = clean_fragment(raw_text)
+        text = clean_fragment(raw_text, manual_name)
         # Apply the mapping simultaneously: raw manual7 is not the references page.
         text = names.sub(lambda m: m['before'] + mapping[m['name']], text)
         def citation(m: re.Match[str]) -> str:
@@ -108,6 +127,17 @@ def main() -> None:
             text = re.sub(r'<span class="listmarker">\[(\d+)\]', r'<span class="listmarker" id="reference-\1">[\1]', text)
         # This replaces the old host-dependent Tidy pass with an explicit local parser.
         doc = lhtml.fragment_fromstring(text, create_parent='div')
+        if old_name == 'manual.html':
+            blocks = [div for div in doc.xpath('.//div[@class="center"]')
+                      if div.xpath('.//b[contains(., "NNLOJET Manual")] | .//img[contains(@src, "nnlogo")]')]
+            if len(blocks) != 2:
+                raise SystemExit('The title block of the manual has changed; review its HTML conversion.')
+            intro = lhtml.fragments_fromstring(INTRO.format(title=html.escape(manual_name)))
+            parent, index = blocks[0].getparent(), blocks[0].getparent().index(blocks[0])
+            for block in blocks:
+                block.drop_tree()
+            for offset, element in enumerate(intro):
+                parent.insert(index + offset, element)
         if mapping[old_name] == 'manual7.html':
             headings = doc.xpath('.//h2')
             if len(headings) > 1 and 'References' in headings[0].text_content():
