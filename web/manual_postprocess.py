@@ -79,6 +79,14 @@ def clean_fragment(text: str, title: str) -> str:
     text = re.sub(r'\(\s*'+code, r'(\1', text)
     text = re.sub(code+r'\s*\)', r'\1)', text)
     text = re.sub(r'<(process_name|run_name|seed_number|t-cut|contribution|Observable)>', r'&lt;\1&gt;', text)
+    # lwarp puts a line break after inline code, which shows as a space before punctuation.
+    text = re.sub(r'</span>\s+(?=[,.;:)](?:\s|<|$))', '</span>', text)
+    # lwarp splits inline code at spaces (e.g. <var> = <val>): join the pieces again.
+    split_code = r'(<span class="inlineprogramlisting">[^<]*)</span>\s+<span class="inlineprogramlisting">'
+    while re.search(split_code, text):
+        text = re.sub(split_code, r'\1 ', text)
+    # A citation after ~ gets both a non-breaking and a normal space.
+    text = re.sub(r'(\xa0|&nbsp;)\s+(?=\[\[\[)', r'\1', text)
     text = re.sub(r'<span\s+style="background:[^\"]*width:1012pt[^\"]*"\s*><!--.*?--></span>', '', text, flags=re.S)
     for i, block in enumerate(blocks):
         text = text.replace(f'NNLOJET_PRE_BLOCK_{i}_END', block)

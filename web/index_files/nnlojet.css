@@ -99,6 +99,9 @@ kbd.display {
         "Nimbus Mono L", "Liberation Mono", "FreeMono", "Andale Mono",
         "Courier New", monospace;
     overflow-x: auto;
+    padding: 0 0.2em;
+    border-radius: 3px;
+    background: #dce0e8;
 }
 .programlisting {
     overflow-x: auto;
