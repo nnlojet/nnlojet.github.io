@@ -586,7 +586,7 @@ standard \textsc{LHAPDF}~\cite{Buckley:2014ana} interface.
 \label{sec:framework:deps}
 %----------
 The NNLOJET code is mainly written in modern Fortran with some modules, dependencies and driver files written in C++ and Python.
-The NNLOJET installation requires compilers for Fortran/C/C++, a Python 3 interpreter (minimum version 3.10),
+The NNLOJET installation requires compilers for Fortran/C/C++, a Python 3 interpreter (minimum version 3.10; see the \command{DOKAN_FETCH_PYTHON} option in Sect.~\ref{sec:framework:inst} for systems without it),
 as well as CMake (minimum version 3.24) to be available on the system.
 In addition, \textsc{LHAPDF\,6}~\cite{Buckley:2014ana} must be present, ideally with the \command{lhapdf-config} executable searchable from the \command{\$PATH} of the system. The user is responsible for downloading the necessary PDF sets to be used in the calculation.
 
@@ -615,6 +615,8 @@ The installation can be customised, by passing additional \command{[options]} to
   \item \command{LHAPDF_ROOT_DIR=/path/to/LHAPDF}: CMake will attempt to find the library automatically but the path can be supplied manually;
   \item \command{Python3_ROOT_DIR=/path/to/python}: CMake will attempt to find a python installation automatically but the path can be supplied manually;
   \item \command{DOKAN=ON|OFF}: optionally skip the installation of the \command{nnlojet-run} script (default: \command{ON});
+  \item \command{DOKAN_FETCH_PYTHON=ON|OFF}: instead of using a Python interpreter installed on the system, download a self-contained Python~3.12 build during \command{make install} and install it in the \command{dokan-python} subdirectory of the installation directory, where it is only used by the \command{nnlojet-run} workflow (default: \command{OFF}).
+  This is useful on systems that do not provide Python~3.10 or newer;
   \item \command{FASTJET=ON|OFF}: enable the interface to the \textsc{FastJet} library~\cite{Cacciari:2011ma} for additional jet definitions, see Sect.~\ref{sec:runcard:fastjet} (default: \command{OFF}).
   CMake locates \textsc{FastJet} through the \command{fastjet-config} executable, which is searched for in the \command{\$PATH} of the system and in the \command{bin} directory of \command{FASTJET_ROOT_DIR}, if set.
   % \item \command{PINEAPPL=[ON|OFF]}: enable interpolation grid support using the PineAPPL library~\cite{Carrazza:2020gss,Schwan:2021txc} (default: \command{OFF});
