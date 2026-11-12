@@ -2008,6 +2008,45 @@ The direct execution of the core \command{NNLOJET} executable produces output fi
 \end{itemize}
 where \command{<proc>} denotes the process name, \command{<run>} the run name, \command{<seed>} the seed number, \command{<cont>} the contribution (LO, R, V, \ldots), and \command{<obs>} the observable name.
 
+Independent runs with different seeds, as well as the different contributions, can be combined into final results with the \command{nnlojet-merge} command, which is installed together with \command{nnlojet-run} and applies the same merging algorithm as the \command{finalize} sub-command described in Sect.~\ref{sec:user:workflow}:
+\begin{lstlisting}[language=commands]
+$ nnlojet-merge [-C <config-file>] [-j [N]]
+\end{lstlisting}
+The merging is steered by a configuration file (default: \command{combine.ini} in the current directory), and the optional argument \command{-j [N]} runs it with \command{N} parallel workers (all available CPU cores if \command{N} is omitted).
+The configuration file has the following sections:
+\begin{itemize}
+  \item \command{[Paths]}: the directory \command{raw_dir} containing the histogram files and the output directory \command{out_dir};
+  \item \command{[Options]} (optional):
+  \begin{itemize}
+    \item \command{recursive = True}: also search the sub-directories of each part for histogram files;
+    \item \command{weights = True}: also write out the weights of the individual runs in the combination;
+    \item \command{trim = [<threshold>, <max-fraction>]}: override the default trimming parameters, see Sect.~\ref{sec:user:workflow} (\command{False} switches the trimming off);
+    \item \command{k-scan = [<nsteps>, <maxdev-steps>]}: override the default $k$-scan parameters (\command{False} switches the $k$-scan off);
+  \end{itemize}
+  \item \command{[Parts]}: one line per sub-directory of \command{raw_dir}, each containing the histogram files of one part of the calculation; an optional value (\command{<directory> = <name>}) sets the name of the part;
+  \item \command{[Observables]}: the observables to be combined, or \command{ALL} for all observables found in the files;
+  \item \command{[Merge]}, \command{[Final]}: named sums of parts and of \command{[Merge]} entries, written with the \command{+} operator (see the example below).
+\end{itemize}
+The results are written as files \command{<name>.<obs>.dat} to the sub-directories \command{Parts} (for each part and each \command{[Merge]} entry) and \command{Final} (for each \command{[Final]} entry) of \command{out_dir}.
+For example, with the histogram files of the LO and V contributions to an NLO calculation stored in the directories \command{raw/LO} and \command{raw/V}, the configuration
+\begin{lstlisting}[language=commands]
+[Paths]
+raw_dir = raw
+out_dir = combined
+
+[Parts]
+LO
+V
+
+[Observables]
+ALL
+
+[Final]
+lo  = LO
+nlo = LO + V
+\end{lstlisting}
+produces the final LO and NLO results as the files \command{lo.<obs>.dat} and \command{nlo.<obs>.dat} in the directory \command{combined/Final}.
+
 
 \subsection{Histogram data files}
 \label{sec:user:histo}
