@@ -1,0 +1,56 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+! Two-jet rate in e+e- annihilation at the Z pole (LEP1), with jets
+! reconstructed by the Durham algorithm at ycut = 0.01.
+! jet_exclusive = .true. requires exactly two jets, such that the cross section
+! is the two-jet rate times the total hadronic cross section.
+! For e+e- collisions only the renormalisation scale is relevant: here it is
+! varied by a factor of two around sqrt(s).
+
+PROCESS  eeJJ
+  collider = EPEM  sqrts = 91.1876
+  jet = durham[0.01]  jet_exclusive = .true.
+END_PROCESS
+
+RUN  eeJJ2jetRate
+  PDF = NNPDF31_nnlo_as_0118[0]   ! only used for the running of alpha_s
+  iseed      = 1
+  warmup     = 20000[5]
+  production = 100000[10]
+END_RUN
+
+PARAMETERS
+  SCHEME[ALPHA] = ALPHAMZ   ! alpha(MZ) for the electroweak coupling
+  ALPHAMZ       = 0.0077562  ! = 1/128.93
+END_PARAMETERS
+
+SELECTORS
+END_SELECTORS
+
+HISTOGRAMS
+  cross > xs_2jet_pb  fac = 0.001   ! two-jet cross section in pb (default unit: fb)
+  T     > thrust      nbins = 20  min = 0.8  max = 1.0
+END_HISTOGRAMS
+
+SCALES
+  muf = 91.1876     mur = 91.1876
+  muf = 91.1876     mur = 45.5938
+  muf = 91.1876     mur = 182.3752
+END_SCALES
+
+CHANNELS
+  ! Contributions to compute (one or more per line):
+  !   LO           Born
+  !   R  V         NLO real and virtual corrections
+  !   RR  RV  VV   NNLO double-real, real-virtual, double-virtual corrections
+  ! (RRa/RRb restrict the double-real to one of its two phase-space regions)
+  LO
+END_CHANNELS

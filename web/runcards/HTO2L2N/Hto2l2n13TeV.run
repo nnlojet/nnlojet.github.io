@@ -1,0 +1,62 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+! Higgs-boson production in gluon fusion (HEFT) with decay to two leptons
+! and two neutrinos at the 13 TeV LHC (only the H -> W W* -> l nu l nu
+! contribution is included). No cuts on the decay products.
+
+PROCESS  Hto2l2n
+  collider = PP  sqrts = 13000.0
+  jet = antikt[0.4]  jet_exclusive = .false.  jet_recomb = V4
+  decay_type = 2
+END_PROCESS
+
+RUN  Hto2l2n13TeV
+  PDF = PDF4LHC21_40[0]
+  tcut = 1d-8
+  iseed      = 1
+  warmup     = 20000[5]
+  production = 100000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.0041
+END_PARAMETERS
+
+SELECTORS
+  select jets_pt     min = 30
+  select jets_abs_y  max = 4.4
+END_SELECTORS
+
+HISTOGRAMS
+  pth     > pth      [0, 10, 20, 30, 45, 60, 80, 120, 200, 350]
+  abs_yh  > abs_yh   [0, 0.15, 0.3, 0.6, 0.9, 1.2, 1.6, 2.0, 2.5, 3.5]
+  njets   > njets    nbins = 4   min = -0.5  max = 3.5
+END_HISTOGRAMS
+
+SCALES
+  muf = 0.5 * 125     mur = 0.5 * 125
+  muf = 1 * 125     mur = 1 * 125
+  muf = 0.25 * 125     mur = 0.25 * 125
+  muf = 0.5 * 125     mur = 1 * 125
+  muf = 1 * 125     mur = 0.5 * 125
+  muf = 0.5 * 125     mur = 0.25 * 125
+  muf = 0.25 * 125     mur = 0.5 * 125
+END_SCALES
+
+CHANNELS
+  ! Contributions to compute (one or more per line):
+  !   LO           Born
+  !   R  V         NLO real and virtual corrections
+  !   RR  RV  VV   NNLO double-real, real-virtual, double-virtual corrections
+  ! (RRa/RRb restrict the double-real to one of its two phase-space regions)
+  LO
+END_CHANNELS

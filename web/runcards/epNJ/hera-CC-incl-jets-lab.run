@@ -1,0 +1,61 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+! Charged-current deep-inelastic scattering (e- p -> nu + X) with at least one jet
+! in the laboratory frame at HERA (Ee = 27.6 GeV, Ep = 920 GeV), with
+! cuts on Q2, inelasticity y and missing transverse momentum (ptl = pT of
+! the outgoing neutrino). At LO the jet is the struck quark.
+
+PROCESS  epNJ
+  collider = PE  Ebeam1 = 920  Ebeam2 = 27.6
+  jet = kt[1]  jet_exclusive = .false.  jet_recomb = V4
+END_PROCESS
+
+RUN  CCjetsLab
+  PDF = NNPDF40_nnlo_as_01180[0]
+  iseed      = 1
+  warmup     = 20000[5]
+  production = 100000[10]
+END_RUN
+
+SELECTORS
+  select q2        min = 200
+  select y         max = 0.9
+  select ptl       min = 12
+  select jets_pt   min = 5
+  select jets_eta  min = -1   max = 2.5
+  select njets     min = 1
+END_SELECTORS
+
+HISTOGRAMS
+  q2     > q2      [200, 400, 700, 1500, 3000, 5000, 10000, 30000]
+  x      > x       [0.006, 0.01, 0.02, 0.04, 0.08, 0.15, 0.3, 0.6]
+  ptj1   > ptj1    [5, 10, 14, 18, 25, 35, 50, 100]
+  etaj1  > etaj1   nbins = 14  min = -1  max = 2.5
+END_HISTOGRAMS
+
+SCALES
+  muf = 1 * q     mur = 1 * q
+  muf = 2 * q     mur = 2 * q
+  muf = 0.5 * q     mur = 0.5 * q
+  muf = 1 * q     mur = 2 * q
+  muf = 2 * q     mur = 1 * q
+  muf = 1 * q     mur = 0.5 * q
+  muf = 0.5 * q     mur = 1 * q
+END_SCALES
+
+CHANNELS
+  ! Contributions to compute (one or more per line):
+  !   LO           Born
+  !   R  V         NLO real and virtual corrections
+  !   RR  RV  VV   NNLO double-real, real-virtual, double-virtual corrections
+  ! (RRa/RRb restrict the double-real to one of its two phase-space regions)
+  LO
+END_CHANNELS

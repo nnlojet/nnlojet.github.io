@@ -1,0 +1,68 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+! Higgs-boson production in gluon fusion (HEFT) in association with a jet,
+! with decay to two leptons and two neutrinos at the 13 TeV LHC (only the
+! H -> W W* -> l nu l nu contribution is included). Same jet definition as
+! HTO4EJ/Hto4eJ.run; no cuts on the decay products.
+! Exactly one jet is required (jet_exclusive = .true.), as in the one-jet
+! category of H -> WW analyses: events with additional jets are vetoed.
+! Central scale: dscale1/2 = sqrt(m2l2n^2 + sum pt{jets}^2)/2.
+
+PROCESS  Hto2l2nJ
+  collider = PP  sqrts = 13000.0
+  jet = antikt[0.4]  jet_exclusive = .true.  jet_recomb = V4
+  decay_type = 2
+END_PROCESS
+
+RUN  Hto2l2nJ13TeV
+  PDF = PDF4LHC21_40[0]
+  tcut = 1d-8
+  iseed      = 1
+  warmup     = 20000[5]
+  production = 100000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.0041
+END_PARAMETERS
+
+SELECTORS
+  select jets_pt     min = 30
+  select jets_abs_y  max = 4.4
+END_SELECTORS
+
+HISTOGRAMS
+  ptj1     > ptj1      [30, 40, 55, 75, 120, 200, 350]
+  abs_yj1  > abs_yj1   nbins = 11  min = 0  max = 4.4
+  pth      > pth       [0, 30, 60, 80, 120, 200, 350]
+  abs_yh   > abs_yh    [0, 0.3, 0.6, 0.9, 1.2, 1.6, 2.0, 2.5, 3.5]
+  njets    > njets     nbins = 4   min = -0.5  max = 3.5
+END_HISTOGRAMS
+
+SCALES
+  muf = 0.5 * dscale1     mur = 0.5 * dscale1
+  muf = 1 * dscale1     mur = 1 * dscale1
+  muf = 0.25 * dscale1     mur = 0.25 * dscale1
+  muf = 0.5 * dscale1     mur = 1 * dscale1
+  muf = 1 * dscale1     mur = 0.5 * dscale1
+  muf = 0.5 * dscale1     mur = 0.25 * dscale1
+  muf = 0.25 * dscale1     mur = 0.5 * dscale1
+END_SCALES
+
+CHANNELS
+  ! Contributions to compute (one or more per line):
+  !   LO           Born
+  !   R  V         NLO real and virtual corrections
+  !   RR  RV  VV   NNLO double-real, real-virtual, double-virtual corrections
+  ! (RRa/RRb restrict the double-real to one of its two phase-space regions)
+  LO
+END_CHANNELS
