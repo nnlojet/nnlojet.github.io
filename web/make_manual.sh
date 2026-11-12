@@ -30,9 +30,13 @@ done
 trap 'echo "Manual build failed; inspect $build/pdf/ and $build/html/ for TeX logs." >&2' ERR
 
 # Downloadable PDF: unmodified manual source, not the HTML variant.
-cd "$build/pdf"
-latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error NNLOJET.tex
-cp NNLOJET.pdf "$build/manual.pdf"
+# It is built in the background, in parallel with the (slower) HTML version below,
+# as its own process group, so that the whole job is stopped if this script stops early.
+set -m
+(cd "$build/pdf" && exec latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error NNLOJET.tex > "$build/pdf.log" 2>&1) &
+pdf_job=$!
+set +m
+trap 'kill -- -"$pdf_job" 2>/dev/null || true' EXIT
 
 # HTML compatibility changes apply exclusively to disposable copies.
 cd "$build/html"
@@ -121,6 +125,12 @@ pdflatex -interaction=nonstopmode -halt-on-error -file-line-error manual.tex
 latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error manual_html.tex
 lwarpmk pdftohtml
 "$PYTHON" "$root/web/manual_postprocess.py"
+if ! wait "$pdf_job"; then
+    tail -n 20 "$build/pdf.log" >&2
+    echo "PDF build failed; see $build/pdf.log and the TeX logs in $build/pdf/." >&2
+    exit 1
+fi
+cp "$build/pdf/NNLOJET.pdf" "$build/manual.pdf"
 test -s "$build/manual.pdf"
 test -s "$build/fragments/manual.html"
 echo "Manual PDF and HTML generated in $build"
