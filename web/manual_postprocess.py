@@ -137,21 +137,25 @@ def main() -> None:
         documents[path.name] = text
         if path.name == 'manual.html':
             continue
-        heading = re.search(r'<h4\b[^>]*>(.*?)</h4>', text, re.S)
+        heading = re.search(r'<h([4-6])\b[^>]*>(.*?)</h\1>', text, re.S)
         if not heading:
             raise SystemExit(f'No main heading in {path.name}; review lwarp output.')
-        title = heading_title(heading[1])
+        title = heading_title(heading[2])
         filename = LEGACY.get(title, 'manual-'+re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')+'.html')
         if filename in mapping.values():
             raise SystemExit(f'Duplicate manual filename: {filename}')
         mapping[path.name] = filename
-        navigation.append({'file': filename, 'title': title})
+        navigation.append({'file': filename, 'title': title, 'level': int(heading[1]) - 3})
     if 'manual7.html' not in mapping.values():
         raise SystemExit('The References page could not be located.')
     OUT.mkdir(parents=True, exist_ok=True)
     names = re.compile(r'(?P<before>\b(?:href|src)\s*=\s*["\'])(?P<name>' + '|'.join(re.escape(n) for n in mapping) + r')(?=[#?"\'])')
     for old_name, raw_text in documents.items():
         text = clean_fragment(raw_text, manual_name)
+        # Sub-pages (e.g. a runcard block): the page title becomes <h2>, as on chapter pages.
+        level = next((p['level'] for p in navigation if p['file'] == mapping[old_name]), 1)
+        if level > 1:
+            text = re.sub(r'(</?)h([2-6])\b', lambda m: f'{m[1]}h{int(m[2]) - level + 1}', text)
         # Apply the mapping simultaneously: raw manual7 is not the references page.
         text = names.sub(lambda m: m['before'] + mapping[m['name']], text)
         def citation(m: re.Match[str]) -> str:
@@ -197,6 +201,21 @@ def main() -> None:
                 for span in link.xpath('.//span'):
                     if span.text_content().strip() in {'B', '7', '8', '9'}:
                         span.drop_tree()
+        # A page with sub-pages lists them at its end.
+        position = next((i for i, p in enumerate(navigation) if p['file'] == mapping[old_name]), None)
+        if position is not None:
+            children = []
+            for p in navigation[position+1:]:
+                if p['level'] <= level:
+                    break
+                if p['level'] == level + 1:
+                    children.append(p)
+            if children:
+                section = doc.xpath('.//section[@class="textbody"]')[-1]
+                section.extend(lhtml.fragments_fromstring(
+                    '<p>Continued on the following pages:</p><ul class="subpages">' + ''.join(
+                        f'<li><a href="{html.escape(p["file"], quote=True)}">{html.escape(p["title"])}</a></li>'
+                        for p in children) + '</ul>'))
         content = (html.escape(doc.text) if doc.text else '') + ''.join(
             lhtml.tostring(child, encoding='unicode', method='html') for child in doc)
         (OUT / mapping[old_name]).write_text(content, encoding='utf-8')

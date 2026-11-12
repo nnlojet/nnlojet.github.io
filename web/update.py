@@ -28,6 +28,27 @@ PAGES = {
 }
 
 
+def manual_sidebar(navigation: list[dict], current: str) -> str:
+    """Manual pages as nested lists; sub-pages are shown only within the current chapter."""
+    def render(indices: list[int]) -> str:
+        out, k = [], 0
+        while k < len(indices):
+            page = navigation[indices[k]]
+            sub = []
+            for i in indices[k+1:]:
+                if navigation[i]['level'] <= page['level']:
+                    break
+                sub.append(i)
+            mark = ' aria-current="page"' if page['file'] == current else ''
+            item = f'<li><a href="{html.escape(page["file"], quote=True)}"{mark}>{html.escape(page["title"])}</a>'
+            if sub and current in [page['file']] + [navigation[i]['file'] for i in sub]:
+                item += '<ol>' + render(sub) + '</ol>'
+            out.append(item + '</li>')
+            k += 1 + len(sub)
+        return ''.join(out)
+    return render(list(range(len(navigation))))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--preview', action='store_true', help='Local-only preview: disable unavailable release downloads instead of failing.')
@@ -100,7 +121,7 @@ def main() -> None:
         for target, title in PAGES.items():
             children = ''
             if target == 'manual.html' and name in manual_names:
-                children = '<ol>' + ''.join(f'<li><a href="{html.escape(p["file"], quote=True)}">{html.escape(p["title"])}</a></li>' for p in navigation) + '</ol>'
+                children = '<ol>' + manual_sidebar(navigation, name) + '</ol>'
             new_tab = ' target="_blank" rel="noopener"' if target.endswith('.pdf') else ''
             sidebar.append(f'<li><a href="{target}"{new_tab}>{title}</a>{children}</li>')
         page = (template.replace('SIDEBAR', '\n'.join(sidebar))

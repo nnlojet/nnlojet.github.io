@@ -69,6 +69,7 @@ kbd.display {
 .sidebar ol a { font-size: 100%; }
 .sidebar a { border-bottom: 1px dotted #9ca0b0; }
 .sidebar a:hover { border-bottom-style: solid; }
+.sidebar a[aria-current="page"] { font-weight: bold; }
 .sidebar .logo a { border: none; }
 .sidebar hr {
     width: 50%;

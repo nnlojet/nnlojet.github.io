@@ -64,6 +64,12 @@ ${MYSED} -i '/\\urlstyle{same}/d' manual.tex
 ${MYSED} -i 's/\\textsc{/\\HTMLtextsc{/g' manual.tex
 ${MYSED} -i '/\\begin{document}/i\\\newcommand{\\HTMLtextsc}[1]{\\InlineClass{textsc}{#1}}' manual.tex
 
+# Split the long Runcard syntax chapter: one page per subsection and per runcard block
+# (General syntax stays on the chapter page; the Process block gets its own page).
+${MYSED} -i '/^\\section{Runcard syntax}/i\\\setcounter{FileDepth}{2}' manual.tex
+${MYSED} -i '/^\\subsection{Runcard sections}/i\\\setcounter{FileDepth}{3}\\boolfalse{CombineHigherDepths}' manual.tex
+${MYSED} -i '/^\\section{Using NNLOJET}/i\\\setcounter{FileDepth}{1}' manual.tex
+
 # Move references to separate section
 ${MYSED} -i '/\\bibliography{NNLOJET.bib}/i\\\warpHTMLonly{\\section{References}}' manual.tex
 
