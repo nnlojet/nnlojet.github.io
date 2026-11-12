@@ -1829,6 +1829,16 @@ A complete list of option overrides with a short description is provided via
 \begin{lstlisting}[language=commands]
 $ nnlojet-run submit --help
 \end{lstlisting}
+In addition to the configuration settings, the following options control a single submission:
+\begin{itemize}
+  \item \command{--channels <ch1> <ch2> ...}: only run the listed channels; a channel is identified by its label as given by \command{NNLOJET --listlumi <process_name>} (e.g.\ \command{LO_1} or \command{RRa_3}, corresponding to row 1 of the LO column and row 3 of the RRa column of the live monitor), while the name of a contribution selects all of its channels (e.g.\ \command{RV});
+  \item \command{--skip-channels <ch1> <ch2> ...}: exclude the listed channels from the submission, with the same syntax;
+  \item \command{--no-warmup}: accept the existing \textsc{Vegas} grids and skip the quality checks of the warmup phase (parts without any completed warmup still run a single warmup step);
+  \item \command{--warmup}: re-open the warmup phase for all parts whose grids do not fulfill the quality criteria with the current settings;
+  \item \command{--live-monitor}, \command{--no-live-monitor}: switch the live monitor of Fig.~\ref{fig:workflow_table} on or off;
+  \item \command{--log-level debug|info|warn|error|critical}: verbosity of the logging output;
+  \item \command{--local-cores <N>}: maximum number of CPU cores used on the local machine.
+\end{itemize}
 
 Once the \command{submit} sub-command is executed, the workflow is started and the process remains active for the entirety of the calculation, spawning sub-processes to execute the core \command{NNLOJET} program.
 The full calculation is divided into separate components represented by the individual lines of Eqs.~\eqref{eq:NLOsub} and \eqref{eq:NNLOsub} and further decomposed into independent partonic luminosities.
@@ -1921,6 +1931,12 @@ $ nnlojet-run finalize <run-path> --trim-threshold 5 \
   --k-scan-nsteps 3 --k-scan-maxdev-steps 0.1
 \end{lstlisting}
 which is documented in the corresponding help output: \command{nnlojet-run finalize --help}.
+Further options of the \command{finalize} sub-command are:
+\begin{itemize}
+  \item \command{--skip-grids}: skip the combination of interpolation grids, which can take a substantial amount of time;
+  \item \command{--local-cores <N>}: maximum number of CPU cores used for the merging;
+  \item \command{--reset}: remove all merged results (the \command{result} directory) and mark all jobs as not merged, such that the next \command{finalize} or \command{submit} recombines all results from scratch.
+\end{itemize}
 
 
 \subsubsection{\texorpdfstring{\command{config}}{config}}
