@@ -12,11 +12,13 @@
 ! with decay to two leptons and two neutrinos at the 13 TeV LHC (only the
 ! H -> W W* -> l nu l nu contribution is included). Same jet definition as
 ! HTO4EJ/Hto4eJ.run; no cuts on the decay products.
+! Exactly one jet is required (jet_exclusive = .true.), as in the one-jet
+! category of H -> WW analyses: events with additional jets are vetoed.
 ! Central scale: dscale1/2 = sqrt(m2l2n^2 + sum pt{jets}^2)/2.
 
 PROCESS  Hto2l2nJ
   collider = PP  sqrts = 13000.0
-  jet = antikt[0.4]  jet_exclusive = .false.  jet_recomb = V4
+  jet = antikt[0.4]  jet_exclusive = .true.  jet_recomb = V4
   decay_type = 2
 END_PROCESS
 

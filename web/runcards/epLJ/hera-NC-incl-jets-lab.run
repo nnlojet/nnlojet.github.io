@@ -12,10 +12,17 @@
 ! in the laboratory frame at HERA (Ee = 27.6 GeV, Ep = 920 GeV), with
 ! H1-like cuts on Q2, inelasticity y and the jet kinematics.
 ! At LO the jet is the struck quark.
+! Z-boson exchange is included (V_NC = ZGAMMA; the default for neutral-current
+! DIS is photon exchange only) and the electron beam is longitudinally
+! polarised (pol = -0.3, as at HERA II). The polarisation only affects the
+! Z-exchange contributions.
 
 PROCESS  epLJ
   collider = PE  Ebeam1 = 920  Ebeam2 = 27.6
   jet = kt[1]  jet_exclusive = .false.  jet_recomb = V4
+  dis_frame = LAB     ! jets are reconstructed in the laboratory frame (default for epLJ)
+  V_NC      = ZGAMMA  ! photon and Z-boson exchange
+  pol       = -0.3    ! polarisation of the lepton beam: -1 (+1) purely left- (right-)handed
 END_PROCESS
 
 RUN  NCjetsLab

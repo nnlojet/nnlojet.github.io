@@ -11,8 +11,10 @@
 ! Isolated photon + jet at the 13 TeV LHC including the photon fragmentation
 ! contribution (BFG set II fragmentation functions).
 ! Same fiducial cuts as GJ/nnlojet-1904.01044-GJ.run, but with a fixed-cone
-! isolation instead of the hybrid one (the frix component of the hybrid
-! isolation removes the fragmentation contribution).
+! isolation instead of the hybrid one (the smooth-cone component of the
+! hybrid isolation removes the fragmentation contribution). A fixed-cone
+! isolation requires PROCESS GJ_frag with photon_fragmentation: with PROCESS GJ
+! the result would not be infrared safe.
 ! The fragmentation scale muA defaults to muF; it can be set separately
 ! with  muf = [muF, muA]  in the SCALES block.
 
@@ -112,6 +114,8 @@ HISTOGRAMS
 END_HISTOGRAMS
 
 SCALES
+    ! muf = [<muF>, <muA>] sets the fragmentation scale muA separately, e.g.
+    ! muf = [1.0 * pt_gam, 0.5 * pt_gam]     mur = 1.0 * pt_gam
 
     muf = 1.0 * pt_gam     mur = 1.0 * pt_gam
     muf = 0.5 * pt_gam     mur = 0.5 * pt_gam 
