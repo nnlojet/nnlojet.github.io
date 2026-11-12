@@ -1861,8 +1861,8 @@ The final results of the calculation are saved to \command{<run-path>/result/fin
     The indexed rows represent independent luminosity channels.
     In each cell of the table, the phase of calculation is indicated: warmup (``WRM'') or production (``PRD''), highlighted in bold while jobs of the current submission are running.
     A part that cannot receive further jobs, e.g.\ after repeated failures or because a single job would exceed the \command{(key)job-max-runtime(/key)}, is flagged as stuck (``STK'').
-    The entry \lstinline[mathescape]!A[$n_R$/$n_A$]! indicates the number $n_R$ of running jobs of the current submission and the number $n_A$ of active jobs, which includes both pending and actively running jobs, while the number $n_D$ of completed jobs is indicated as \lstinline[mathescape]!D[$n_D$]!.
-    In case of unsuccessful NNLOJET executions, the cell will additionally include an entry \lstinline[mathescape]!F[$n_F$]!, indicating the number of failed jobs $n_F$.
+    The entry \texttt{A[}$n_R$\texttt{/}$n_A$\texttt{]} indicates the number $n_R$ of running jobs of the current submission and the number $n_A$ of active jobs, which includes both pending and actively running jobs, while the number $n_D$ of completed jobs is indicated as \texttt{D[}$n_D$\texttt{]}.
+    In case of unsuccessful NNLOJET executions, the cell will additionally include an entry \texttt{F[}$n_F$\texttt{]}, indicating the number of failed jobs $n_F$.
     The title of the table (not shown) displays the current estimate of the cross section together with a legend.
   }
   \label{fig:workflow_table}
