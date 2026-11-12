@@ -103,6 +103,7 @@ kbd.display {
     border-radius: 3px;
     background: #dce0e8;
 }
+.inlineprogramlisting.term { font-weight: bold; } /* option defined by a list item */
 .programlisting {
     overflow-x: auto;
     padding: 0.2em;

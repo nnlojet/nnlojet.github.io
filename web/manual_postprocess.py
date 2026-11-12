@@ -81,6 +81,8 @@ def clean_fragment(text: str, title: str) -> str:
     text = re.sub(r'<(process_name|run_name|seed_number|t-cut|contribution|Observable)>', r'&lt;\1&gt;', text)
     # lwarp puts a line break after inline code, which shows as a space before punctuation.
     text = re.sub(r'</span>\s+(?=[,.;:)](?:\s|<|$))', '</span>', text)
+    # Inside \textbf, lwarp leaves the code span empty and puts the word after it.
+    text = re.sub(r'<span class="inlineprogramlisting"></span>([\w-]+)', r'<span class="inlineprogramlisting">\1</span>', text)
     # lwarp splits inline code at spaces (e.g. <var> = <val>): join the pieces again.
     split_code = r'(<span class="inlineprogramlisting">[^<]*)</span>\s+<span class="inlineprogramlisting">'
     while re.search(split_code, text):
@@ -93,6 +95,31 @@ def clean_fragment(text: str, title: str) -> str:
     for i, block in enumerate(blocks):
         text = text.replace(f'NNLOJET_PRE_BLOCK_{i}_END', block)
     return text
+
+
+def mark_list_terms(doc: lhtml.HtmlElement) -> None:
+    """Highlight the runcard options defined by list items, e.g. `pol = DBLE`: ...
+
+    These are the inline code snippets between the list marker and the first colon,
+    if the item starts with code and the colon follows shortly after it.
+    """
+    for marker in doc.xpath('.//span[@class="listmarker"]'):
+        if (marker.tail or '').strip():
+            continue  # the item starts with text
+        codes, text, node = [], '', marker.getnext()
+        while node is not None and len(text) <= 60:
+            if node.get('class') == 'inlineprogramlisting':
+                codes.append(node)
+            else:
+                text += node.text_content()
+            tail = node.tail or ''
+            if ':' in tail or ':' in text:
+                if codes and len(text + tail.split(':')[0]) <= 60:
+                    for code in codes:
+                        code.set('class', 'inlineprogramlisting term')
+                break
+            text += tail
+            node = node.getnext()
 
 
 def main() -> None:
@@ -137,6 +164,7 @@ def main() -> None:
             text = re.sub(r'<span class="listmarker">\[(\d+)\]', r'<span class="listmarker" id="reference-\1">[\1]', text)
         # This replaces the old host-dependent Tidy pass with an explicit local parser.
         doc = lhtml.fragment_fromstring(text, create_parent='div')
+        mark_list_terms(doc)
         if old_name == 'manual.html':
             blocks = [div for div in doc.xpath('.//div[@class="center"]')
                       if div.xpath('.//b[contains(., "NNLOJET Manual")] | .//img[contains(@src, "nnlogo")]')]
