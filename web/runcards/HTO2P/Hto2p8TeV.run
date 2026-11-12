@@ -1,0 +1,72 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+! Higgs-boson production in gluon fusion (HEFT) with decay to two photons
+! at the 8 TeV LHC. Same photon fiducial cuts and isolation as
+! HTO2PJ/nnlojet-1607.08817-HJCMS8TeV.run, without jet requirement.
+
+PROCESS  HTO2P
+  collider = pp  sqrts = 8000.0
+  jet = antikt[0.5]  jet_exclusive = .false.  jet_recomb = V4
+  photon_isolation = etsum[R_cone=0.4, ETmax_const=10]
+  decay_type = 3
+END_PROCESS
+
+RUN  Hto2p8TeV
+  PDF = PDF4LHC21_40[0]
+  tcut = 1d-8
+  iseed      = 1
+  warmup     = 20000[5]
+  production = 100000[10]
+END_RUN
+
+PARAMETERS
+  MASS[H]  = 125
+  WIDTH[H] = 0.0041
+END_PARAMETERS
+
+SELECTORS
+  select abs_yg1  max = 2.5
+  select abs_yg2  max = 2.5
+  select ptg1     min = 41.67
+  select ptg2     min = 31.25
+
+  ! jet definition (only used for the njets distribution)
+  select jets_pt     min = 25
+  select jets_abs_y  max = 2.5
+END_SELECTORS
+
+HISTOGRAMS
+  pth             > pth              [0, 15, 30, 45, 80, 120, 200, 400]
+  abs_yh          > abs_yh           [0, 0.3, 0.6, 0.9, 1.2, 1.6, 2.5]
+  ptg1            > ptg1             nbins = 20  min = 40  max = 140
+  ptg2            > ptg2             nbins = 20  min = 30  max = 130
+  abs_cos_thetaCS > abs_cos_thetaCS  nbins = 10  min = 0   max = 1
+  njets           > njets            nbins = 4   min = -0.5  max = 3.5
+END_HISTOGRAMS
+
+SCALES
+  muf = 0.5 * eth     mur = 0.5 * eth
+  muf = 1 * eth     mur = 1 * eth
+  muf = 0.25 * eth     mur = 0.25 * eth
+  muf = 0.5 * eth     mur = 1 * eth
+  muf = 1 * eth     mur = 0.5 * eth
+  muf = 0.5 * eth     mur = 0.25 * eth
+  muf = 0.25 * eth     mur = 0.5 * eth
+END_SCALES
+
+CHANNELS
+  ! Contributions to compute (one or more per line):
+  !   LO           Born
+  !   R  V         NLO real and virtual corrections
+  !   RR  RV  VV   NNLO double-real, real-virtual, double-virtual corrections
+  ! (RRa/RRb restrict the double-real to one of its two phase-space regions)
+  LO
+END_CHANNELS

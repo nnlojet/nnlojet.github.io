@@ -1,0 +1,73 @@
+
+!###############################################!
+!##                                           ##!
+!##     _  ___  ____   ____     ____________  ##!
+!##    / |/ / |/ / /  / __ \__ / / __/_  __/  ##!
+!##   /    /    / /__/ /_/ / // / _/  / /     ##!
+!##  /_/|_/_/|_/____/\____/\___/___/ /_/      ##!
+!##                                           ##!
+!###############################################!
+
+! Charged-current deep-inelastic scattering (e+ p -> nubar + X) with at least two jets
+! in the Breit frame at HERA (Ee = 27.6 GeV, Ep = 920 GeV), with
+! H1-like dijet cuts. Central scale: dscl = sqrt((Q2 + ptavg_12^2)/2).
+
+PROCESS  epNbJJ
+  collider = ep  Ebeam1 = 27.6  Ebeam2 = 920
+  jet = kt[1]  jet_exclusive = .false.  jet_recomb = Et
+END_PROCESS
+
+RUN  CCdijetsBreit
+  PDF = NNPDF40_nnlo_as_01180[0]
+  iseed      = 1
+  warmup     = 20000[5]
+  production = 100000[10]
+END_RUN
+
+SELECTORS
+  select q2             min = 150  max = 15000
+  select y              min = 0.2  max = 0.7
+  select jets_pt        min = 5
+  select jets_hera_eta  min = -1.5  max = 2.5
+  select njets          min = 2
+  select m12            min = 16
+END_SELECTORS
+
+HISTOGRAMS
+  q2  > q2  [150, 270, 400, 700, 1500, 5000, 15000]
+  ptavg_12 > ptavg_12_q2_150_270 [7, 11, 18, 30, 50]
+    HISTOGRAM_SELECTORS
+      select  q2  min = 150  max = 270
+    END_HISTOGRAM_SELECTORS
+  ptavg_12 > ptavg_12_q2_270_700 [7, 11, 18, 30, 50]
+    HISTOGRAM_SELECTORS
+      select  q2  min = 270  max = 700
+    END_HISTOGRAM_SELECTORS
+  ptavg_12 > ptavg_12_q2_700_5000 [7, 11, 18, 30, 50]
+    HISTOGRAM_SELECTORS
+      select  q2  min = 700  max = 5000
+    END_HISTOGRAM_SELECTORS
+  ptavg_12 > ptavg_12_q2_5000_15000 [7, 11, 18, 30, 50]
+    HISTOGRAM_SELECTORS
+      select  q2  min = 5000  max = 15000
+    END_HISTOGRAM_SELECTORS
+END_HISTOGRAMS
+
+SCALES
+  muf = 1 * dscl     mur = 1 * dscl
+  muf = 2 * dscl     mur = 2 * dscl
+  muf = 0.5 * dscl     mur = 0.5 * dscl
+  muf = 1 * dscl     mur = 2 * dscl
+  muf = 2 * dscl     mur = 1 * dscl
+  muf = 1 * dscl     mur = 0.5 * dscl
+  muf = 0.5 * dscl     mur = 1 * dscl
+END_SCALES
+
+CHANNELS
+  ! Contributions to compute (one or more per line):
+  !   LO           Born
+  !   R  V         NLO real and virtual corrections
+  !   RR  RV  VV   NNLO double-real, real-virtual, double-virtual corrections
+  ! (RRa/RRb restrict the double-real to one of its two phase-space regions)
+  LO
+END_CHANNELS
