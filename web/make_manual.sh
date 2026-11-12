@@ -60,6 +60,10 @@ ${MYSED} -i -z -E 's/\\\n( *)\&/\\\n\1\\mrowcell \&/g' manual.tex
 ${MYSED} -i '/\\usepackage{mathtools}/d' manual.tex
 ${MYSED} -i '/\\urlstyle{same}/d' manual.tex
 
+# lwarp writes \textsc in capitals (FastJet -> FASTJET): keep the case, CSS shows small caps
+${MYSED} -i 's/\\textsc{/\\HTMLtextsc{/g' manual.tex
+${MYSED} -i '/\\begin{document}/i\\\newcommand{\\HTMLtextsc}[1]{\\InlineClass{textsc}{#1}}' manual.tex
+
 # Move references to separate section
 ${MYSED} -i '/\\bibliography{NNLOJET.bib}/i\\\warpHTMLonly{\\section{References}}' manual.tex
 

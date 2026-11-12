@@ -111,6 +111,7 @@ kbd.display {
     border: 1px dashed #9ca0b0;
 }
 .textbody { text-align: justify; }
+.textsc { font-variant: small-caps; }
 .itemize > li { padding: 0; }
 .listmarker { margin-right: 0.5em; }
 .figure { margin: 0; }
