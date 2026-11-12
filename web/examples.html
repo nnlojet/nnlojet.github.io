@@ -1,232 +1,220 @@
 <h2>Examples</h2>
-<p>
-  Here we present example runcards for different processes. The arXiv numbers
-  refer either to NNLOJET publications or to experimental papers.
-</p>
-
+<p>Example runcards for all processes available in NNLOJET v1.0.3. Runcards named <code>nnlojet-&lt;arXiv&gt;-...</code> use the setup of an NNLOJET publication, runcards named <code>&lt;experiment&gt;-&lt;arXiv&gt;</code> the fiducial setup of a measurement; the other runcards are illustrative setups, described in their header comments.</p>
+<p>Every runcard can be run directly, e.g. <kbd>NNLOJET --run Z/atlas-1109.5141.run</kbd>, which computes the leading-order contribution (<code>LO</code>) selected in the <code>CHANNELS</code> block. The higher-order contributions are selected in the <code>CHANNELS</code> block, as explained in the comment there, together with suitable <code>warmup</code> and <code>production</code> settings. Alternatively, the complete calculation can be run with the <code>nnlojet-run</code> workflow, see the <a href="manual.html">manual</a>. The PDF sets used in the runcards must be installed in LHAPDF.</p>
+<h3>Runcards by process</h3>
 <ul>
-  <li>Z
+  <li id="Z"><strong>Z</strong>: production of a Z boson (decaying to leptons)
     <ul>
-      <li><a href="runcards/Z_atlas-1109.5141.run">atlas-1109.5141.run</a></li>
-      <li><a href="runcards/Z_d0-0702025.run">d0-0702025.run</a></li>
-      <li><a href="runcards/Z_lhcb-1607.06495.run">lhcb-1607.06495.run</a></li>
-      <li><a href="runcards/Z_cdf-0908.3914.run">cdf-0908.3914.run</a></li>
-      <li><a href="runcards/Z_atlas-1612.03016.run">atlas-1612.03016.run</a></li>
-      <li><a href="runcards/Z_atlas-1710.05167.run">atlas-1710.05167.run</a></li>
-      <li><a href="runcards/Z_atlas-1404.1212.run">atlas-1404.1212.run</a></li>
-      <li><a href="runcards/Z_lhcb-1511.08039.run">lhcb-1511.08039.run</a></li>
-      <li><a href="runcards/Z_atlas-1612.03016-CC.run">atlas-1612.03016-CC.run</a></li>
-      <li><a href="runcards/Z_atlas-1305.4192.run">atlas-1305.4192.run</a></li>
-      <li><a href="runcards/Z_cms-1310.7291.run">cms-1310.7291.run</a></li>
-      <li><a href="runcards/Z_atlas-1606.01736.run">atlas-1606.01736.run</a></li>
-      <li><a href="runcards/Z_atlas-1612.03016-CF.run">atlas-1612.03016-CF.run</a></li>
-      <li><a href="runcards/Z_lhcb-1505.07024.run">lhcb-1505.07024.run</a></li>
-      <li><a href="runcards/Z_atlas-1603.09222.run">atlas-1603.09222.run</a></li>
+      <li><a href="runcards/Z/atlas-1109.5141.run">atlas-1109.5141.run</a> [<a href="https://arxiv.org/abs/1109.5141" target="_blank" rel="noopener">arXiv:1109.5141</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/Z/atlas-1305.4192.run">atlas-1305.4192.run</a> [<a href="https://arxiv.org/abs/1305.4192" target="_blank" rel="noopener">arXiv:1305.4192</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/Z/atlas-1404.1212.run">atlas-1404.1212.run</a> [<a href="https://arxiv.org/abs/1404.1212" target="_blank" rel="noopener">arXiv:1404.1212</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/Z/atlas-1603.09222.run">atlas-1603.09222.run</a> [<a href="https://arxiv.org/abs/1603.09222" target="_blank" rel="noopener">arXiv:1603.09222</a>]: Fiducial setup of the ATLAS measurement at 13 TeV</li>
+      <li><a href="runcards/Z/atlas-1606.01736.run">atlas-1606.01736.run</a> [<a href="https://arxiv.org/abs/1606.01736" target="_blank" rel="noopener">arXiv:1606.01736</a>]: Fiducial setup of the ATLAS measurement at 8 TeV</li>
+      <li><a href="runcards/Z/atlas-1612.03016-CC.run">atlas-1612.03016-CC.run</a> [<a href="https://arxiv.org/abs/1612.03016" target="_blank" rel="noopener">arXiv:1612.03016</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/Z/atlas-1612.03016-CF.run">atlas-1612.03016-CF.run</a> [<a href="https://arxiv.org/abs/1612.03016" target="_blank" rel="noopener">arXiv:1612.03016</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/Z/atlas-1710.05167.run">atlas-1710.05167.run</a> [<a href="https://arxiv.org/abs/1710.05167" target="_blank" rel="noopener">arXiv:1710.05167</a>]: Fiducial setup of the ATLAS measurement at 8 TeV</li>
+      <li><a href="runcards/Z/cdf-0908.3914.run">cdf-0908.3914.run</a> [<a href="https://arxiv.org/abs/0908.3914" target="_blank" rel="noopener">arXiv:0908.3914</a>]: Fiducial setup of the CDF measurement at 1.96 TeV</li>
+      <li><a href="runcards/Z/cms-1310.7291.run">cms-1310.7291.run</a> [<a href="https://arxiv.org/abs/1310.7291" target="_blank" rel="noopener">arXiv:1310.7291</a>]: Fiducial setup of the CMS measurement at 7 TeV</li>
+      <li><a href="runcards/Z/d0-0702025.run">d0-0702025.run</a> [<a href="https://arxiv.org/abs/0702025" target="_blank" rel="noopener">arXiv:0702025</a>]: Fiducial setup of the D0 measurement at 1.96 TeV</li>
+      <li><a href="runcards/Z/lhcb-1505.07024.run">lhcb-1505.07024.run</a> [<a href="https://arxiv.org/abs/1505.07024" target="_blank" rel="noopener">arXiv:1505.07024</a>]: Fiducial setup of the LHCB measurement at 7 TeV</li>
+      <li><a href="runcards/Z/lhcb-1511.08039.run">lhcb-1511.08039.run</a> [<a href="https://arxiv.org/abs/1511.08039" target="_blank" rel="noopener">arXiv:1511.08039</a>]: Fiducial setup of the LHCB measurement at 8 TeV</li>
+      <li><a href="runcards/Z/lhcb-1607.06495.run">lhcb-1607.06495.run</a> [<a href="https://arxiv.org/abs/1607.06495" target="_blank" rel="noopener">arXiv:1607.06495</a>]: Fiducial setup of the LHCB measurement at 13 TeV</li>
     </ul>
   </li>
-
-  <li>ZJ
+  <li id="ZJ"><strong>ZJ</strong>: production of a Z boson plus a jet
     <ul>
-      <li><a href="runcards/ZJ_nnlojet-1901.11041-ZJ.run">nnlojet-1901.11041-ZJ.run</a></li>
+      <li><a href="runcards/ZJ/nnlojet-1901.11041-ZJ.run">nnlojet-1901.11041-ZJ.run</a> [<a href="https://arxiv.org/abs/1901.11041" target="_blank" rel="noopener">arXiv:1901.11041</a>]: Setup of an NNLOJET publication at 7 TeV</li>
+      <li><a href="runcards/ZJ/Znunu-monojet13TeV.run">Znunu-monojet13TeV.run</a>: Z boson decaying to neutrinos in association with jets (&quot;monojet&quot; signature) at the 13 TeV LHC, with illustrative cuts on the missing transverse momentum and the jets.</li>
     </ul>
   </li>
-
-  <li>WP
+  <li id="WP"><strong>WP</strong>: production of a positively charged W boson
     <ul>
-      <li><a href="runcards/WP_atlas-1109.5141.run">atlas-1109.5141.run</a></li>
-      <li><a href="runcards/WP_atlas-1612.03016.run">atlas-1612.03016.run</a></li>
-      <li><a href="runcards/WP_cms-1603.01803.run">cms-1603.01803.run</a></li>
-      <li><a href="runcards/WP_lhcb-1511.08039.run">lhcb-1511.08039.run</a></li>
-      <li><a href="runcards/WP_cms-1312.6283.run">cms-1312.6283.run</a></li>
-      <li><a href="runcards/WP_cms-1206.2598.run">cms-1206.2598.run</a></li>
-      <li><a href="runcards/WP_d0-1309.2591.run">d0-1309.2591.run</a></li>
-      <li><a href="runcards/WP_lhcb-1505.07024.run">lhcb-1505.07024.run</a></li>
-      <li><a href="runcards/WP_atlas-1603.09222.run">atlas-1603.09222.run</a></li>
+      <li><a href="runcards/WP/atlas-1109.5141.run">atlas-1109.5141.run</a> [<a href="https://arxiv.org/abs/1109.5141" target="_blank" rel="noopener">arXiv:1109.5141</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/WP/atlas-1603.09222.run">atlas-1603.09222.run</a> [<a href="https://arxiv.org/abs/1603.09222" target="_blank" rel="noopener">arXiv:1603.09222</a>]: Fiducial setup of the ATLAS measurement at 13 TeV</li>
+      <li><a href="runcards/WP/atlas-1612.03016.run">atlas-1612.03016.run</a> [<a href="https://arxiv.org/abs/1612.03016" target="_blank" rel="noopener">arXiv:1612.03016</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/WP/cms-1206.2598.run">cms-1206.2598.run</a> [<a href="https://arxiv.org/abs/1206.2598" target="_blank" rel="noopener">arXiv:1206.2598</a>]: Fiducial setup of the CMS measurement at 7 TeV</li>
+      <li><a href="runcards/WP/cms-1312.6283.run">cms-1312.6283.run</a> [<a href="https://arxiv.org/abs/1312.6283" target="_blank" rel="noopener">arXiv:1312.6283</a>]: Fiducial setup of the CMS measurement at 7 TeV</li>
+      <li><a href="runcards/WP/cms-1603.01803.run">cms-1603.01803.run</a> [<a href="https://arxiv.org/abs/1603.01803" target="_blank" rel="noopener">arXiv:1603.01803</a>]: Fiducial setup of the CMS measurement at 8 TeV</li>
+      <li><a href="runcards/WP/d0-1309.2591.run">d0-1309.2591.run</a> [<a href="https://arxiv.org/abs/1309.2591" target="_blank" rel="noopener">arXiv:1309.2591</a>]: Fiducial setup of the D0 measurement at 1.96 TeV</li>
+      <li><a href="runcards/WP/lhcb-1505.07024.run">lhcb-1505.07024.run</a> [<a href="https://arxiv.org/abs/1505.07024" target="_blank" rel="noopener">arXiv:1505.07024</a>]: Fiducial setup of the LHCB measurement at 7 TeV</li>
+      <li><a href="runcards/WP/lhcb-1511.08039.run">lhcb-1511.08039.run</a> [<a href="https://arxiv.org/abs/1511.08039" target="_blank" rel="noopener">arXiv:1511.08039</a>]: Fiducial setup of the LHCB measurement at 8 TeV</li>
     </ul>
   </li>
-
-  <li>WPJ
-    <ul></ul>
-  </li>
-
-  <li>WM
+  <li id="WPJ"><strong>WPJ</strong>: production of a positively charged W boson plus a jet
     <ul>
-      <li><a href="runcards/WM_atlas-1109.5141.run">atlas-1109.5141.run</a></li>
-      <li><a href="runcards/WM_atlas-1612.03016.run">atlas-1612.03016.run</a></li>
-      <li><a href="runcards/WM_cms-1603.01803.run">cms-1603.01803.run</a></li>
-      <li><a href="runcards/WM_lhcb-1511.08039.run">lhcb-1511.08039.run</a></li>
-      <li><a href="runcards/WM_cms-1312.6283.run">cms-1312.6283.run</a></li>
-      <li><a href="runcards/WM_cms-1206.2598.run">cms-1206.2598.run</a></li>
-      <li><a href="runcards/WM_d0-1309.2591.run">d0-1309.2591.run</a></li>
-      <li><a href="runcards/WM_lhcb-1505.07024.run">lhcb-1505.07024.run</a></li>
-      <li><a href="runcards/WM_atlas-1603.09222.run">atlas-1603.09222.run</a></li>
+      <li><a href="runcards/WPJ/WpJ7TeV.run">WpJ7TeV.run</a>: W+ + jet at the 7 TeV LHC (ATLAS-like fiducial cuts).</li>
     </ul>
   </li>
-
-  <li>WMJ
+  <li id="WM"><strong>WM</strong>: production of a negatively charged W boson
     <ul>
-      <li><a href="runcards/WMJ_nnlojet-1901.11041-WmJ.run">nnlojet-1901.11041-WmJ.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-1901.11041-WmJ-results.info" class="result-link">nnlojet-1901.11041-WmJ-results.info</a></li>
-            <li><a href="example_runs/nnlojet-1901.11041-WmJ-results.tar.gz" class="result-link">nnlojet-1901.11041-WmJ-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/WM/atlas-1109.5141.run">atlas-1109.5141.run</a> [<a href="https://arxiv.org/abs/1109.5141" target="_blank" rel="noopener">arXiv:1109.5141</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/WM/atlas-1603.09222.run">atlas-1603.09222.run</a> [<a href="https://arxiv.org/abs/1603.09222" target="_blank" rel="noopener">arXiv:1603.09222</a>]: Fiducial setup of the ATLAS measurement at 13 TeV</li>
+      <li><a href="runcards/WM/atlas-1612.03016.run">atlas-1612.03016.run</a> [<a href="https://arxiv.org/abs/1612.03016" target="_blank" rel="noopener">arXiv:1612.03016</a>]: Fiducial setup of the ATLAS measurement at 7 TeV</li>
+      <li><a href="runcards/WM/cms-1206.2598.run">cms-1206.2598.run</a> [<a href="https://arxiv.org/abs/1206.2598" target="_blank" rel="noopener">arXiv:1206.2598</a>]: Fiducial setup of the CMS measurement at 7 TeV</li>
+      <li><a href="runcards/WM/cms-1312.6283.run">cms-1312.6283.run</a> [<a href="https://arxiv.org/abs/1312.6283" target="_blank" rel="noopener">arXiv:1312.6283</a>]: Fiducial setup of the CMS measurement at 7 TeV</li>
+      <li><a href="runcards/WM/cms-1603.01803.run">cms-1603.01803.run</a> [<a href="https://arxiv.org/abs/1603.01803" target="_blank" rel="noopener">arXiv:1603.01803</a>]: Fiducial setup of the CMS measurement at 8 TeV</li>
+      <li><a href="runcards/WM/d0-1309.2591.run">d0-1309.2591.run</a> [<a href="https://arxiv.org/abs/1309.2591" target="_blank" rel="noopener">arXiv:1309.2591</a>]: Fiducial setup of the D0 measurement at 1.96 TeV</li>
+      <li><a href="runcards/WM/lhcb-1505.07024.run">lhcb-1505.07024.run</a> [<a href="https://arxiv.org/abs/1505.07024" target="_blank" rel="noopener">arXiv:1505.07024</a>]: Fiducial setup of the LHCB measurement at 7 TeV</li>
+      <li><a href="runcards/WM/lhcb-1511.08039.run">lhcb-1511.08039.run</a> [<a href="https://arxiv.org/abs/1511.08039" target="_blank" rel="noopener">arXiv:1511.08039</a>]: Fiducial setup of the LHCB measurement at 8 TeV</li>
     </ul>
   </li>
-
-  <li>H
-    <ul></ul>
-  </li>
-
-  <li>HJ
+  <li id="WMJ"><strong>WMJ</strong>: production of a negatively charged W boson plus a jet
     <ul>
-      <li><a href="runcards/HJ_nnlojet-1610.07922-HJ.run">nnlojet-1610.07922-HJ.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-1610.07922-HJ-results.info" class="result-link">nnlojet-1610.07922-HJ-results.info</a></li>
-            <li><a href="example_runs/nnlojet-1610.07922-HJ-results.tar.gz" class="result-link">nnlojet-1610.07922-HJ-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/WMJ/nnlojet-1901.11041-WmJ.run">nnlojet-1901.11041-WmJ.run</a> [<a href="https://arxiv.org/abs/1901.11041" target="_blank" rel="noopener">arXiv:1901.11041</a>]: Setup of an NNLOJET publication at 7 TeV</li>
     </ul>
   </li>
-
-  <li>HTO2P
-    <ul></ul>
-  </li>
-
-  <li>HTO2PJ
+  <li id="H"><strong>H</strong>: production of a Higgs boson
     <ul>
-      <li><a href="runcards/HTO2PJ_nnlojet-1607.08817-HJCMS8TeV.run">nnlojet-1607.08817-HJCMS8TeV.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-1607.08817-HJCMS8TeV-results.info" class="result-link">nnlojet-1607.08817-HJCMS8TeV-results.info</a></li>
-            <li><a href="example_runs/nnlojet-1607.08817-HJCMS8TeV-results.tar.gz" class="result-link">nnlojet-1607.08817-HJCMS8TeV-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/H/H13TeV.run">H13TeV.run</a>: Inclusive Higgs-boson production in gluon fusion (HEFT, mt -&gt; infinity) at the 13 TeV LHC.</li>
     </ul>
   </li>
-
-  <li>HTO2L1P
-    <ul></ul>
-  </li>
-
-  <li>HTO2L1PJ
+  <li id="HJ"><strong>HJ</strong>: production of a Higgs boson plus a jet
     <ul>
-      <li><a href="runcards/HTO2L1PJ_nnlojet-2111.02157-HTO2l1pJ13TeV.run">nnlojet-2111.02157-HTO2l1pJ13TeV.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-2111.02157-HTO2l1pJ13TeV-results.info" class="result-link">nnlojet-2111.02157-HTO2l1pJ13TeV-results.info</a></li>
-            <li><a href="example_runs/nnlojet-2111.02157-HTO2l1pJ13TeV-results.tar.gz" class="result-link">nnlojet-2111.02157-HTO2l1pJ13TeV-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/HJ/nnlojet-1610.07922-HJ.run">nnlojet-1610.07922-HJ.run</a> [<a href="https://arxiv.org/abs/1610.07922" target="_blank" rel="noopener">arXiv:1610.07922</a>]: Setup of an NNLOJET publication at 13 TeV</li>
     </ul>
   </li>
-
-  <li>HTO4E
-    <ul></ul>
-  </li>
-
-  <li>HTO2E2MU
-    <ul></ul>
-  </li>
-
-  <li>HTO2L2N
-    <ul></ul>
-  </li>
-
-  <li>HTO4EJ
+  <li id="HTO2P"><strong>HTO2P</strong>: production of a Higgs boson decaying to two photons
     <ul>
-      <li><a href="runcards/HTO4EJ_Hto4eJ.run">Hto4eJ.run</a></li>
+      <li><a href="runcards/HTO2P/Hto2p8TeV.run">Hto2p8TeV.run</a>: Higgs-boson production in gluon fusion (HEFT) with decay to two photons at the 8 TeV LHC.</li>
     </ul>
   </li>
-
-  <li>HTO2E2MUJ
+  <li id="HTO2PJ"><strong>HTO2PJ</strong>: production of a Higgs boson plus a jet, decaying to two photons
     <ul>
-      <li><a href="runcards/HTO2E2MUJ_nnlojet-1905.13738-Hto2e2muJ13TeV.run">nnlojet-1905.13738-Hto2e2muJ13TeV.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-1905.13738-Hto2e2muJ13TeV-results.info" class="result-link">nnlojet-1905.13738-Hto2e2muJ13TeV-results.info</a></li>
-            <li><a href="example_runs/nnlojet-1905.13738-Hto2e2muJ13TeV-results.tar.gz" class="result-link">nnlojet-1905.13738-Hto2e2muJ13TeV-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/HTO2PJ/nnlojet-1607.08817-HJCMS8TeV.run">nnlojet-1607.08817-HJCMS8TeV.run</a> [<a href="https://arxiv.org/abs/1607.08817" target="_blank" rel="noopener">arXiv:1607.08817</a>]: Setup of an NNLOJET publication at 8 TeV</li>
     </ul>
   </li>
-
-  <li>HTO2L2NJ
-    <ul></ul>
-  </li>
-
-  <li>GJ
+  <li id="HTO2L1P"><strong>HTO2L1P</strong>: production of a Higgs boson with Dalitz decay to l+l- and a photon
     <ul>
-      <li><a href="runcards/GJ_nnlojet-1904.01044-Ginc.run">nnlojet-1904.01044-Ginc.run</a></li>
-      <li><a href="runcards/GJ_nnlojet-1904.01044-GJ.run">nnlojet-1904.01044-GJ.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-1904.01044-GJ-results.info" class="result-link">nnlojet-1904.01044-GJ-results.info</a></li>
-            <li><a href="example_runs/nnlojet-1904.01044-GJ-results.tar.gz" class="result-link">nnlojet-1904.01044-GJ-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/HTO2L1P/Hto2l1p13TeV.run">Hto2l1p13TeV.run</a>: Higgs-boson production in gluon fusion (HEFT) with decay to l+ l- photon (through H -&gt; Z gamma) at the 13 TeV LHC.</li>
     </ul>
   </li>
-
-  <li>GG
+  <li id="HTO2L1PJ"><strong>HTO2L1PJ</strong>: production of a Higgs boson plus a jet, with Dalitz decay to l+l- and a photon
     <ul>
-      <li><a href="runcards/GG_atlas-2107.09330.run">atlas-2107.09330.run</a></li>
-        <ul>
-            <li><a href="example_runs/atlas-2107.09330-GG-results.info" class="result-link">atlas-2107.09330-GG-results.info</a></li>
-            <li><a href="example_runs/atlas-2107.09330-GG-results.tar.gz" class="result-link">atlas-2107.09330-GG-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/HTO2L1PJ/nnlojet-2111.02157-HTO2l1pJ13TeV.run">nnlojet-2111.02157-HTO2l1pJ13TeV.run</a> [<a href="https://arxiv.org/abs/2111.02157" target="_blank" rel="noopener">arXiv:2111.02157</a>]: Setup of an NNLOJET publication at 13 TeV</li>
     </ul>
   </li>
-
-  <li>JJ
+  <li id="HTO4E"><strong>HTO4E</strong>: production of a Higgs boson decaying to (l+l-)(l+l-)
     <ul>
-      <li><a href="runcards/JJ_nnlojet-2204.10173-JJFCCMS.run">nnlojet-2204.10173-JJFCCMS.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-2204.10173-JJFCCMS-results.info" class="result-link">nnlojet-2204.10173-JJFCCMS-results.info</a></li>
-            <li><a href="example_runs/nnlojet-2204.10173-JJFCCMS-results.tar.gz" class="result-link">nnlojet-2204.10173-JJFCCMS-results.tar.gz</a></li>
-        </ul>
-      <li><a href="runcards/JJ_nnlojet-2412.21165-CMS8TeV.run">nnlojet-2412.21165-CMS8TeV.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-2412.21165-CMS8TeV-results.info" class="result-link">nnlojet-2412.21165-CMS8TeV-results.info</a></li>
-            <li><a href="example_runs/nnlojet-2412.21165-CMS8TeV-results.tar.gz" class="result-link">nnlojet-2412.21165-CMS8TeV-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/HTO4E/Hto4e13TeV.run">Hto4e13TeV.run</a>: Higgs-boson production in gluon fusion (HEFT) with decay to four electrons (H -&gt; Z Z* -&gt; e+ e- e+ e-) at the 13 TeV LHC.</li>
     </ul>
   </li>
-
-  <li>eeJJ
+  <li id="HTO2E2MU"><strong>HTO2E2MU</strong>: production of a Higgs boson decaying to (l1+l1-)(l2+l2-)
     <ul>
-      <li><a href="runcards/eeJJ_eeJJ_incl.run">eeJJ_incl.run</a></li>
+      <li><a href="runcards/HTO2E2MU/Hto2e2mu13TeV.run">Hto2e2mu13TeV.run</a>: Higgs-boson production in gluon fusion (HEFT) with decay to two electrons and two muons (H -&gt; Z Z* -&gt; e+ e- mu+ mu-) at the 13 TeV LHC.</li>
     </ul>
   </li>
-
-  <li>eeJJJ
+  <li id="HTO2L2N"><strong>HTO2L2N</strong>: production of a Higgs boson decaying to (l1 nu1)(l2 nu2)
     <ul>
-      <li><a href="runcards/eeJJJ_eeJJJ.run">eeJJJ.run</a></li>
+      <li><a href="runcards/HTO2L2N/Hto2l2n13TeV.run">Hto2l2n13TeV.run</a>: Higgs-boson production in gluon fusion (HEFT) with decay to two leptons and two neutrinos at the 13 TeV LHC (only the H -&gt; W W* -&gt; l nu l nu contribution is included).</li>
     </ul>
   </li>
-
-  <li>epLJ
-    <ul></ul>
-  </li>
-
-  <li>epLJJ
+  <li id="HTO4EJ"><strong>HTO4EJ</strong>: production of a Higgs boson plus a jet, decaying to (l+l-)(l+l-)
     <ul>
-      <li><a href="runcards/epLJJ_nnlojet-1703.05977-ZEUS1j.run">nnlojet-1703.05977-ZEUS1j.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-1703.05977-ZEUS1j-results.info" class="result-link">nnlojet-1703.05977-ZEUS1j-results.info</a></li>
-            <li><a href="example_runs/nnlojet-1703.05977-ZEUS1j-results.tar.gz" class="result-link">nnlojet-1703.05977-ZEUS1j-results.tar.gz</a></li>
-        </ul>
-      <li><a href="runcards/epLJJ_nnlojet-1703.05977-ZEUS2j.run">nnlojet-1703.05977-ZEUS2j.run</a></li>
-        <ul>
-            <li><a href="example_runs/nnlojet-1703.05977-ZEUS2j-results.info" class="result-link">nnlojet-1703.05977-ZEUS2j-results.info</a></li>
-            <li><a href="example_runs/nnlojet-1703.05977-ZEUS2j-results.tar.gz" class="result-link">nnlojet-1703.05977-ZEUS2j-results.tar.gz</a></li>
-        </ul>
+      <li><a href="runcards/HTO4EJ/Hto4eJ.run">Hto4eJ.run</a>: Example setup at 13 TeV</li>
     </ul>
   </li>
-
-  <li>epNJ
-    <ul></ul>
+  <li id="HTO2E2MUJ"><strong>HTO2E2MUJ</strong>: production of a Higgs boson plus a jet, decaying to (l1+l1-)(l2+l2-)
+    <ul>
+      <li><a href="runcards/HTO2E2MUJ/nnlojet-1905.13738-Hto2e2muJ13TeV.run">nnlojet-1905.13738-Hto2e2muJ13TeV.run</a> [<a href="https://arxiv.org/abs/1905.13738" target="_blank" rel="noopener">arXiv:1905.13738</a>]: Setup of an NNLOJET publication at 13 TeV</li>
+    </ul>
   </li>
-
-  <li>epNJJ
-    <ul></ul>
+  <li id="HTO2L2NJ"><strong>HTO2L2NJ</strong>: production of a Higgs boson plus a jet, decaying to (l1 nu1)(l2 nu2)
+    <ul>
+      <li><a href="runcards/HTO2L2NJ/Hto2l2nJ13TeV.run">Hto2l2nJ13TeV.run</a>: Higgs-boson production in gluon fusion (HEFT) in association with a jet, with decay to two leptons and two neutrinos at the 13 TeV LHC (only the H -&gt; W W* -&gt; l nu l nu contribution is included).</li>
+    </ul>
   </li>
-
-  <li>epNbJ
-    <ul></ul>
+  <li id="GJ"><strong>GJ</strong>: production of a photon plus a jet
+    <ul>
+      <li><a href="runcards/GJ/nnlojet-1904.01044-Ginc.run">nnlojet-1904.01044-Ginc.run</a> [<a href="https://arxiv.org/abs/1904.01044" target="_blank" rel="noopener">arXiv:1904.01044</a>]: Setup of an NNLOJET publication at 13 TeV</li>
+      <li><a href="runcards/GJ/nnlojet-1904.01044-GJ.run">nnlojet-1904.01044-GJ.run</a> [<a href="https://arxiv.org/abs/1904.01044" target="_blank" rel="noopener">arXiv:1904.01044</a>]: Setup of an NNLOJET publication at 13 TeV</li>
+    </ul>
   </li>
-
-  <li>epNbJJ
-    <ul></ul>
+  <li id="GJ_frag"><strong>GJ_frag</strong>: production of a photon plus a jet, including photon fragmentation
+    <ul>
+      <li><a href="runcards/GJ_frag/GJfrag13TeV-cone.run">GJfrag13TeV-cone.run</a>: Isolated photon + jet at the 13 TeV LHC including the photon fragmentation contribution (BFG set II fragmentation functions).</li>
+    </ul>
   </li>
+  <li id="GG"><strong>GG</strong>: production of two photons
+    <ul>
+      <li><a href="runcards/GG/atlas-2107.09330.run">atlas-2107.09330.run</a> [<a href="https://arxiv.org/abs/2107.09330" target="_blank" rel="noopener">arXiv:2107.09330</a>]: Fiducial setup of the ATLAS measurement at 13 TeV</li>
+    </ul>
+  </li>
+  <li id="JJ"><strong>JJ</strong>: production of two jets
+    <ul>
+      <li><a href="runcards/JJ/nnlojet-2204.10173-JJFCCMS.run">nnlojet-2204.10173-JJFCCMS.run</a> [<a href="https://arxiv.org/abs/2204.10173" target="_blank" rel="noopener">arXiv:2204.10173</a>]: Setup of an NNLOJET publication at 13 TeV</li>
+      <li><a href="runcards/JJ/nnlojet-2412.21165-CMS8TeV.run">nnlojet-2412.21165-CMS8TeV.run</a> [<a href="https://arxiv.org/abs/2412.21165" target="_blank" rel="noopener">arXiv:2412.21165</a>]: Run card according to CMS 8 TeV 3D dijet measurement in 1705.02628 Result of this runcard is also presented in 2204.10173</li>
+    </ul>
+  </li>
+  <li id="eeJJ"><strong>eeJJ</strong>: production of two jets in electron-positron collisions
+    <ul>
+      <li><a href="runcards/eeJJ/2jet-rate-durham-mZ.run">2jet-rate-durham-mZ.run</a>: Two-jet rate in e+e- annihilation at the Z pole (LEP1), with jets reconstructed by the Durham algorithm at ycut = 0.01.</li>
+    </ul>
+  </li>
+  <li id="eeJJJ"><strong>eeJJJ</strong>: production of three jets in electron-positron collisions
+    <ul>
+      <li><a href="runcards/eeJJJ/event-shapes-mZ.run">event-shapes-mZ.run</a>: Event shapes in e+e- annihilation at the Z pole (LEP1).</li>
+    </ul>
+  </li>
+  <li id="epLJ"><strong>epLJ</strong>: production of a jet in neutral-current DIS
+    <ul>
+      <li><a href="runcards/epLJ/hera-NC-incl-jets-lab.run">hera-NC-incl-jets-lab.run</a>: Neutral-current deep-inelastic scattering (e- p) with at least one jet in the laboratory frame at HERA (Ee = 27.6 GeV, Ep = 920 GeV), with H1-like cuts on Q2, inelasticity y and the jet kinematics.</li>
+    </ul>
+  </li>
+  <li id="epLJJ"><strong>epLJJ</strong>: production of two jets in neutral-current DIS
+    <ul>
+      <li><a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS1j.run">nnlojet-1703.05977-ZEUS1j.run</a> [<a href="https://arxiv.org/abs/1703.05977" target="_blank" rel="noopener">arXiv:1703.05977</a>]: Setup of an NNLOJET publication</li>
+      <li><a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS2j.run">nnlojet-1703.05977-ZEUS2j.run</a> [<a href="https://arxiv.org/abs/1703.05977" target="_blank" rel="noopener">arXiv:1703.05977</a>]: Setup of an NNLOJET publication</li>
+    </ul>
+  </li>
+  <li id="epNJ"><strong>epNJ</strong>: production of a jet in charged-current DIS (electron beam)
+    <ul>
+      <li><a href="runcards/epNJ/hera-CC-incl-jets-lab.run">hera-CC-incl-jets-lab.run</a>: Charged-current deep-inelastic scattering (e- p -&gt; nu + X) with at least one jet in the laboratory frame at HERA (Ee = 27.6 GeV, Ep = 920 GeV), with cuts on Q2, inelasticity y and missing transverse momentum (ptl = pT of the outgoing neutrino).</li>
+    </ul>
+  </li>
+  <li id="epNJJ"><strong>epNJJ</strong>: production of two jets in charged-current DIS (electron beam)
+    <ul>
+      <li><a href="runcards/epNJJ/hera-CC-dijets-breit.run">hera-CC-dijets-breit.run</a>: Charged-current deep-inelastic scattering (e- p -&gt; nu + X) with at least two jets in the Breit frame at HERA (Ee = 27.6 GeV, Ep = 920 GeV), with H1-like dijet cuts.</li>
+    </ul>
+  </li>
+  <li id="epNbJ"><strong>epNbJ</strong>: production of a jet in charged-current DIS (positron beam)
+    <ul>
+      <li><a href="runcards/epNbJ/hera-CC-incl-jets-lab.run">hera-CC-incl-jets-lab.run</a>: Charged-current deep-inelastic scattering (e+ p -&gt; nubar + X) with at least one jet in the laboratory frame at HERA (Ee = 27.6 GeV, Ep = 920 GeV), with cuts on Q2, inelasticity y and missing transverse momentum (ptl = pT of the outgoing neutrino).</li>
+    </ul>
+  </li>
+  <li id="epNbJJ"><strong>epNbJJ</strong>: production of two jets in charged-current DIS (positron beam)
+    <ul>
+      <li><a href="runcards/epNbJJ/hera-CC-dijets-breit.run">hera-CC-dijets-breit.run</a>: Charged-current deep-inelastic scattering (e+ p -&gt; nubar + X) with at least two jets in the Breit frame at HERA (Ee = 27.6 GeV, Ep = 920 GeV), with H1-like dijet cuts.</li>
+    </ul>
+  </li>
+</ul>
+<h3>Runcard features</h3>
+<p>Example runcards that use specific runcard options:</p>
+<ul>
+  <li>Proton-antiproton collisions (<code>collider = PAP</code>): <a href="runcards/WM/d0-1309.2591.run">WM/d0-1309.2591.run</a>, <a href="runcards/WP/d0-1309.2591.run">WP/d0-1309.2591.run</a>, <a href="runcards/Z/cdf-0908.3914.run">Z/cdf-0908.3914.run</a></li>
+  <li>Lepton-proton collisions with beam energies (<code>collider = PE</code>, <code>Ebeam1</code>, <code>Ebeam2</code>): <a href="runcards/epLJ/hera-NC-incl-jets-lab.run">epLJ/hera-NC-incl-jets-lab.run</a>, <a href="runcards/epNbJ/hera-CC-incl-jets-lab.run">epNbJ/hera-CC-incl-jets-lab.run</a>, <a href="runcards/epNbJJ/hera-CC-dijets-breit.run">epNbJJ/hera-CC-dijets-breit.run</a></li>
+  <li>Polarised lepton beam and Z-boson exchange (<code>pol</code>, <code>V_NC</code>): <a href="runcards/epLJ/hera-NC-incl-jets-lab.run">epLJ/hera-NC-incl-jets-lab.run</a></li>
+  <li>Z boson decaying to neutrinos (<code>L_NC = NU</code>): <a href="runcards/ZJ/Znunu-monojet13TeV.run">ZJ/Znunu-monojet13TeV.run</a></li>
+  <li>Exclusive jet multiplicity (<code>jet_exclusive = .true.</code>): <a href="runcards/eeJJ/2jet-rate-durham-mZ.run">eeJJ/2jet-rate-durham-mZ.run</a>, <a href="runcards/HTO2L2NJ/Hto2l2nJ13TeV.run">HTO2L2NJ/Hto2l2nJ13TeV.run</a></li>
+  <li>Durham and JADE jet algorithms for electron-positron collisions: <a href="runcards/eeJJ/2jet-rate-durham-mZ.run">eeJJ/2jet-rate-durham-mZ.run</a>, <a href="runcards/eeJJJ/event-shapes-mZ.run">eeJJJ/event-shapes-mZ.run</a></li>
+  <li>Photon isolation (<code>photon_isolation</code>): <a href="runcards/GJ_frag/GJfrag13TeV-cone.run">GJ_frag/GJfrag13TeV-cone.run</a>, <a href="runcards/HTO2P/Hto2p8TeV.run">HTO2P/Hto2p8TeV.run</a>, <a href="runcards/GG/atlas-2107.09330.run">GG/atlas-2107.09330.run</a></li>
+  <li>Photon fragmentation (<code>photon_fragmentation</code>): <a href="runcards/GJ_frag/GJfrag13TeV-cone.run">GJ_frag/GJfrag13TeV-cone.run</a></li>
+  <li>Automatic warmup schedule (<code>warmup = &lt;ncall&gt;[auto]</code>): <a href="runcards/ZJ/Znunu-monojet13TeV.run">ZJ/Znunu-monojet13TeV.run</a></li>
+  <li>Multi-channel sampling and other optimisation settings (<code>multi_channel</code>): <a href="runcards/JJ/nnlojet-2412.21165-CMS8TeV.run">JJ/nnlojet-2412.21165-CMS8TeV.run</a>, <a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS1j.run">epLJJ/nnlojet-1703.05977-ZEUS1j.run</a>, <a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS2j.run">epLJJ/nnlojet-1703.05977-ZEUS2j.run</a></li>
+  <li>Scale coefficients and histogram scale overrides (<code>scale_coefficients</code>, <code>mu0</code>): <a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS1j.run">epLJJ/nnlojet-1703.05977-ZEUS1j.run</a></li>
+  <li>Complex-mass scheme for the W and Z bosons (<code>SCHEME[GV] = CMS</code>): <a href="runcards/GG/atlas-2107.09330.run">GG/atlas-2107.09330.run</a>, <a href="runcards/WM/atlas-1109.5141.run">WM/atlas-1109.5141.run</a>, <a href="runcards/WM/atlas-1603.09222.run">WM/atlas-1603.09222.run</a></li>
+  <li>Fixed electroweak coupling (<code>SCHEME[ALPHA] = FIX</code>): <a href="runcards/GJ_frag/GJfrag13TeV-cone.run">GJ_frag/GJfrag13TeV-cone.run</a>, <a href="runcards/GJ/nnlojet-1904.01044-Ginc.run">GJ/nnlojet-1904.01044-Ginc.run</a>, <a href="runcards/GJ/nnlojet-1904.01044-GJ.run">GJ/nnlojet-1904.01044-GJ.run</a></li>
+  <li>Electroweak coupling at the Z pole (<code>SCHEME[ALPHA] = ALPHAMZ</code>): <a href="runcards/eeJJ/2jet-rate-durham-mZ.run">eeJJ/2jet-rate-durham-mZ.run</a></li>
+  <li>Full CKM matrix (<code>CKM = FULL</code>): <a href="runcards/WM/atlas-1109.5141.run">WM/atlas-1109.5141.run</a>, <a href="runcards/WM/atlas-1603.09222.run">WM/atlas-1603.09222.run</a>, <a href="runcards/WM/atlas-1612.03016.run">WM/atlas-1612.03016.run</a></li>
+  <li>Vetoes with <code>reject</code> selectors: <a href="runcards/GJ_frag/GJfrag13TeV-cone.run">GJ_frag/GJfrag13TeV-cone.run</a>, <a href="runcards/GG/atlas-2107.09330.run">GG/atlas-2107.09330.run</a>, <a href="runcards/GJ/nnlojet-1904.01044-Ginc.run">GJ/nnlojet-1904.01044-Ginc.run</a></li>
+  <li>Selector groups (<code>OR</code> ... <code>END_OR</code>): <a href="runcards/eeJJJ/event-shapes-mZ.run">eeJJJ/event-shapes-mZ.run</a></li>
+  <li>Selectors applied only to valid observables (<code>select_if_valid</code>): <a href="runcards/ZJ/Znunu-monojet13TeV.run">ZJ/Znunu-monojet13TeV.run</a></li>
+  <li>Histogram selectors (<code>HISTOGRAM_SELECTORS</code>): <a href="runcards/epNbJJ/hera-CC-dijets-breit.run">epNbJJ/hera-CC-dijets-breit.run</a>, <a href="runcards/epNJJ/hera-CC-dijets-breit.run">epNJJ/hera-CC-dijets-breit.run</a>, <a href="runcards/GJ_frag/GJfrag13TeV-cone.run">GJ_frag/GJfrag13TeV-cone.run</a></li>
+  <li>Composite histograms (<code>COMPOSITE</code>): <a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS1j.run">epLJJ/nnlojet-1703.05977-ZEUS1j.run</a>, <a href="runcards/JJ/nnlojet-2204.10173-JJFCCMS.run">JJ/nnlojet-2204.10173-JJFCCMS.run</a>, <a href="runcards/Z/atlas-1612.03016-CF.run">Z/atlas-1612.03016-CF.run</a></li>
+  <li>Fiducial cross sections (<code>cross &gt; &lt;name&gt;</code>): <a href="runcards/eeJJ/2jet-rate-durham-mZ.run">eeJJ/2jet-rate-durham-mZ.run</a>, <a href="runcards/ZJ/Znunu-monojet13TeV.run">ZJ/Znunu-monojet13TeV.run</a>, <a href="runcards/HTO2L1PJ/nnlojet-2111.02157-HTO2l1pJ13TeV.run">HTO2L1PJ/nnlojet-2111.02157-HTO2l1pJ13TeV.run</a></li>
+  <li>Cumulant distributions (<code>cumulant</code>): <a href="runcards/eeJJJ/event-shapes-mZ.run">eeJJJ/event-shapes-mZ.run</a>, <a href="runcards/ZJ/Znunu-monojet13TeV.run">ZJ/Znunu-monojet13TeV.run</a></li>
+  <li>Logarithmic binning (<code>binning = LOG</code>): <a href="runcards/eeJJJ/event-shapes-mZ.run">eeJJJ/event-shapes-mZ.run</a></li>
+  <li>Breakdown into partonic luminosities (<code>output_type = 1</code>): <a href="runcards/ZJ/Znunu-monojet13TeV.run">ZJ/Znunu-monojet13TeV.run</a>, <a href="runcards/GG/atlas-2107.09330.run">GG/atlas-2107.09330.run</a></li>
+  <li>Rescaling a histogram (<code>fac</code>): <a href="runcards/eeJJ/2jet-rate-durham-mZ.run">eeJJ/2jet-rate-durham-mZ.run</a></li>
+  <li>Biasing the phase-space sampling (<code>REWEIGHT</code>): <a href="runcards/JJ/nnlojet-2412.21165-CMS8TeV.run">JJ/nnlojet-2412.21165-CMS8TeV.run</a>, <a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS1j.run">epLJJ/nnlojet-1703.05977-ZEUS1j.run</a>, <a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS2j.run">epLJJ/nnlojet-1703.05977-ZEUS2j.run</a></li>
+  <li>PDF interpolation (<code>PDF_INTERPOLATION</code>): <a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS1j.run">epLJJ/nnlojet-1703.05977-ZEUS1j.run</a>, <a href="runcards/epLJJ/nnlojet-1703.05977-ZEUS2j.run">epLJJ/nnlojet-1703.05977-ZEUS2j.run</a></li>
 </ul>
