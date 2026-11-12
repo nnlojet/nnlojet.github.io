@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import re
 import shutil
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -84,7 +85,12 @@ def main() -> None:
         if path.is_dir():
             shutil.copytree(path, OUTPUT / path.name)
     shutil.copy2(BUILD / 'lwarp.js', OUTPUT / 'index_files/lwarp.js')
-    for name in ['nnlojet-manual.pdf', 'nnlojet-v1.0.0.pdf']:
+    # Latest manual under a fixed name, plus a copy named after the NNLOJET version it documents.
+    version = re.search(r'\\newcommand\{\\nnlojetversion\}\{([^}]+)\}',
+                        (WEB.parent / 'manual' / 'NNLOJET.tex').read_text(encoding='utf-8'))
+    if not version:
+        raise SystemExit('Could not find \\nnlojetversion in manual/NNLOJET.tex.')
+    for name in ['nnlojet-manual.pdf', f'nnlojet-manual-v{version[1]}.pdf']:
         shutil.copy2(BUILD / 'manual.pdf', OUTPUT / name)
     for relative, source in release_assets.items():
         (OUTPUT / relative).parent.mkdir(parents=True, exist_ok=True)
