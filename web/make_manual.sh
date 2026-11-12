@@ -18,8 +18,15 @@ done
 # Only this fixed, generated directory is ever removed. Never remove manual/.
 rm -rf -- "$build"
 mkdir -p "$build/pdf" "$build/html" "$build/fragments"
-cp -a "$source_dir/." "$build/pdf/"
-cp -a "$source_dir/." "$build/html/"
+# Copy the sources, but not the output of compiling NNLOJET.tex in place
+# (otherwise e.g. a local NNLOJET.pdf would be converted like a figure below).
+for dest in "$build/pdf" "$build/html"; do
+    tar -C "$source_dir" -cf - \
+        --exclude='NNLOJET.aux' --exclude='NNLOJET.bbl' --exclude='NNLOJET.blg' \
+        --exclude='NNLOJET.fdb_latexmk' --exclude='NNLOJET.fls' --exclude='NNLOJET.log' \
+        --exclude='NNLOJET.out' --exclude='NNLOJET.toc' --exclude='NNLOJET.synctex.gz' \
+        --exclude='NNLOJET.pdf' . | tar -C "$dest" -xf -
+done
 trap 'echo "Manual build failed; inspect $build/pdf/ and $build/html/ for TeX logs." >&2' ERR
 
 # Downloadable PDF: unmodified manual source, not the HTML variant.
