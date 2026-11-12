@@ -340,7 +340,7 @@
 
 The Standard Model of particle physics is firmly established as the theoretical framework describing the interaction of
 elementary particles up to the highest energy scales that are accessible at particle collider experiments.
-Increasingly accurate experimental measurements allow to test the Standard Model and to
+Increasingly accurate experimental measurements allow one to test the Standard Model and to
 determine its parameters at an unprecedented level of quantitative precision. To enable these
 precision physics studies, a close interplay between experimental measurements and theoretical
 predictions is required.
@@ -607,7 +607,7 @@ $ make install
 \end{lstlisting}
 The compilation can be run on \command{N} cores in parallel with the \command{-jN} optional argument.
 %
-The installation can be customised, by passing additional \command{[options]} to the \command{cmake} command. The syntax is \command{-D <var>=<value>}. The most relevant options are:
+The installation can be customized, by passing additional \command{[options]} to the \command{cmake} command. The syntax is \command{-D <var>=<value>}. The most relevant options are:
 \begin{itemize}
   \item \command{CMAKE_INSTALL_PREFIX=/path/to/nnlojet}: target directory where to install NNLOJET (default: \command{install} inside the source directory, i.e.\ \command{nnlojet-X.Y.Z/install});
   \item \command{CMAKE_BUILD_TYPE=Debug|Release|RelWithDebInfo|MinSizeRel}: build option for NNLOJET (default: \command{Release});
@@ -754,7 +754,7 @@ of the generic NNLOJET infrastructure.
 %----------
 \subsection{Jet production in electron--proton collisions}
 %----------
-Jet production in deeply inelastic electron--proton scattering (DIS) allows to probe aspects of the proton structure that are difficult to assess in inclusive DIS
+Jet production in deeply inelastic electron--proton scattering (DIS) allows one to probe aspects of the proton structure that are difficult to assess in inclusive DIS
 and provides important precision tests of QCD. The implementation of
 $\Pe\Pp\to \mathrm{lepton}+2j$ up to NNLO QCD is described in~\cite{Currie:2017tpe,Niehues:2018was}, including both neutral-current and charged-current DIS.
 It is based on crossings~\cite{Gehrmann:2002zr}  of the $\Pep\Pem\to\,\jets$ matrix
@@ -766,7 +766,7 @@ are part of the NNLOJET infrastructure.
 %----------
 \subsection{Jet production in hadronic collisions}
 %----------
-Jet production is the most ubiqutous QCD process at hadron colliders, probing the basic
+Jet production is the most ubiquitous QCD process at hadron colliders, probing the basic
  $2\to 2$ parton scattering reactions. A number of kinematic distributions can be derived from single-inclusive jet production
 $\Pp\Pp \to j+X$ and from dijet production
 $\Pp\Pp\to 2j$. Their NNLOJET implementation is described
@@ -1388,7 +1388,7 @@ Further parameters and prescriptions can be set as follows:
 \subsubsection{Selectors block}
 \label{sec:runcard:selectors}
 %----------
-In NNLOJET, two types of selection criteria are distinguished: object-level and event-level criteria. Object-level criteria may be used to impose conditions on the reconstructed objects, i.e.\ jets and photons. For example, they allow to select jets with a minimum transverse momentum or within a specific rapidity range. Any object that does not fulfill these conditions is omitted from the event record.
+In NNLOJET, two types of selection criteria are distinguished: object-level and event-level criteria. Object-level criteria may be used to impose conditions on the reconstructed objects, i.e.\ jets and photons. For example, they allow one to select jets with a minimum transverse momentum or within a specific rapidity range. Any object that does not fulfill these conditions is omitted from the event record.
 
 Event-level criteria define which event candidates should be used to calculate cross sections and fill histograms. If an event-level criterion is not fulfilled, the entire event candidate is discarded.
 Typical examples are a minimum number of jets per event, additional constraints on the leading jet, or constraints on leptons.
@@ -1503,7 +1503,7 @@ HISTOGRAM_SELECTORS
 END_HISTOGRAM_SELECTORS
 \end{lstlisting}
 with the selector syntax defined in Sect.~\ref{sec:runcard:selectors} but without the support of \runcard{OR} blocks.
-This allows to generate multi-differential distributions in a flexible way as follows:
+This allows one to generate multi-differential distributions in a flexible way as follows:
 \begin{lstlisting}[language=nnlojet]
 ptz > ptz_bin1 nbins=75 min=0 max=150
 HISTOGRAM_SELECTORS
@@ -1536,7 +1536,7 @@ one has to further divide the histogram contents by the bin-width for $y_{\PZ}\i
 The way invalid observables (see Sect.~\ref{sec:runcard:obs} for the definition) are treated within the histogram selectors deserves special care.
 Once an observable is used in a \runcard{select} or \runcard{reject} statement within the \runcard{HISTOGRAM_SELECTORS} block, it is \emph{implicitly assumed} that it must be valid for all events that are considered for the histogram filling.
 This means that if an invalid observable is encountered for such a specification, the weight associated with that event is discarded in the accumulation of the histogram.
-If this is not the desired behaviour, it is instead possible to use the \runcard{select_if_valid} or \runcard{reject_if_valid} specifications that allow to ignore the selector in case the observable is evaluated with an invalid attribute.
+If this is not the desired behaviour, it is instead possible to use the \runcard{select_if_valid} or \runcard{reject_if_valid} specifications that allow one to ignore the selector in case the observable is evaluated with an invalid attribute.
 
 % The way invalid observables (see Sect.~\ref{sec:runcard:obs} for the definition) are treated within the histogram selectors can be controlled with an optional setting
 % \begin{lstlisting}[language=nnlojet]
@@ -1666,10 +1666,10 @@ FASTJET
 END_FASTJET
 \end{lstlisting}
 Several definitions can also be given on a single line, separated by white space.
-The \runcard{ppgenkt} algorithm is the generalised $k_T$ algorithm for hadron colliders as implemented in \textsc{FastJet}, with the standard four-momentum (E-scheme) recombination, and takes the following parameters:
+The \runcard{ppgenkt} algorithm is the generalized $k_T$ algorithm for hadron colliders as implemented in \textsc{FastJet}, with the standard four-momentum (E-scheme) recombination, and takes the following parameters:
 \begin{itemize}
   \item \runcard{R = DBLE} \textbf{[required]}: the jet-resolution parameter;
-  \item \runcard{palg = DBLE}: the exponent $p$ of the generalised $k_T$ distance measure, with \runcard{(lit)-1(/lit)} for the anti-$k_T$, \runcard{(lit)0(/lit)} for the Cambridge--Aachen and \runcard{(lit)1(/lit)} for the $k_T$ algorithm (default: \runcard{(lit)-1(/lit)}).
+  \item \runcard{palg = DBLE}: the exponent $p$ of the generalized $k_T$ distance measure, with \runcard{(lit)-1(/lit)} for the anti-$k_T$, \runcard{(lit)0(/lit)} for the Cambridge--Aachen and \runcard{(lit)1(/lit)} for the $k_T$ algorithm (default: \runcard{(lit)-1(/lit)}).
 \end{itemize}
 The \textsc{FastJet} algorithms are applied to the same final-state partons as the jet algorithm of the \runcard{PROCESS} block, which must therefore still be specified (\runcard{jet = none} cannot be combined with a \runcard{FASTJET} block).
 The jet-level selectors of the \runcard{SELECTORS} block (e.g.\ \runcard{jets_pt}, \runcard{jets_abs_y}) are applied to the jets of every \textsc{FastJet} algorithm.
