@@ -85,6 +85,8 @@ def clean_fragment(text: str, title: str) -> str:
     split_code = r'(<span class="inlineprogramlisting">[^<]*)</span>\s+<span class="inlineprogramlisting">'
     while re.search(split_code, text):
         text = re.sub(split_code, r'\1 ', text)
+    # The list marker has its own margin: drop the space after it, for aligned list items.
+    text = re.sub(r'(<span class="listmarker"[^>]*>[^<]*</span>)\s+', r'\1', text)
     # A citation after ~ gets both a non-breaking and a normal space.
     text = re.sub(r'(\xa0|&nbsp;)\s+(?=\[\[\[)', r'\1', text)
     text = re.sub(r'<span\s+style="background:[^\"]*width:1012pt[^\"]*"\s*><!--.*?--></span>', '', text, flags=re.S)

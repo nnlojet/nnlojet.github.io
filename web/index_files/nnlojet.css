@@ -110,12 +110,14 @@ kbd.display {
     background: #e6e9ef;
     border: 1px dashed #9ca0b0;
 }
-.textbody { text-align: justify; }
 .textsc { font-variant: small-caps; }
-.itemize > li { padding: 0; }
-.listmarker { margin-right: 0.5em; }
+/* Lists: small indentation, wrapped lines aligned with the text after the marker. */
+.textbody ul.itemize, .textbody ul.enumerate { padding-left: 1em; }
+.textbody ul.itemize > li, .textbody ul.enumerate > li { padding: 0 0 0 1.5em; text-indent: -1.5em; }
+.textbody li > :not(:first-child), .textbody .programlisting { text-indent: 0; }
+.listmarker { display: inline-block; min-width: 1em; margin-right: 0.5em; text-indent: 0; }
 .figure { margin: 0; }
-.figurecaption { max-width: 40em; display: inline-block; }
+.figurecaption { max-width: 40em; display: inline-block; text-align: left; }
 
 div.center { text-align: center; }
 div.center table { margin-left: auto; margin-right: auto; }
