@@ -125,7 +125,18 @@ def main() -> None:
                 children = '<ol>' + manual_sidebar(navigation, name) + '</ol>'
             new_tab = ' target="_blank" rel="noopener"' if target.endswith('.pdf') else ''
             sidebar.append(f'<li><a href="{target}"{new_tab}>{title}</a>{children}</li>')
-        page = (template.replace('SIDEBAR', '\n'.join(sidebar))
+        # Browser tab title, e.g. "NNLOJET – Quick start" or "NNLOJET Manual v1.0.3 – Run block".
+        manual_title = f'NNLOJET Manual v{version[1]}'
+        if name == 'index.html':
+            page_title = 'NNLOJET'
+        elif name == 'manual.html':
+            page_title = manual_title
+        elif name in manual_names:
+            page_title = manual_title + ' – ' + next(p['title'] for p in navigation if p['file'] == name)
+        else:
+            page_title = 'NNLOJET – ' + PAGES[name]
+        page = (template.replace('TITLE', html.escape(page_title))
+                .replace('SIDEBAR', '\n'.join(sidebar))
                 .replace('MANUAL\n', manual_scripts if name in manual_names else '')
                 .replace('CONTENT', content))
         # Repair legacy fragment nesting.
