@@ -96,9 +96,9 @@ def main() -> None:
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
     OUTPUT.mkdir()
-    for folder in ['index_files', 'runcards']:  # example_runs: not published until the results are checked
+    for folder in ['index_files', 'runcards', 'previous_meetings']:  # example_runs: not published until the results are checked
         shutil.copytree(WEB / folder, OUTPUT / folder)
-    for name in ['nnlogo.svg', 'NNLOJET_meeting_2025.jpg', 'NNLOJET_meeting_2026.jpg', 'exampleZ.run']:
+    for name in ['nnlogo.svg', 'NNLOJET_meeting_2026.jpg', 'exampleZ.run']:
         shutil.copy2(WEB / name, OUTPUT / name)
     for pattern in ['*.png', '*.svg']:
         for path in (BUILD / 'html').glob(pattern):
