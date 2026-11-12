@@ -1,4 +1,4 @@
-<h2>List of available processes (v1.0.0)</h2>
+<h2>List of available processes (v1.0.3)</h2>
 
 <p>
   For a more detailed description of each process and related references,
@@ -21,7 +21,7 @@
     <tr>
         <td style="vertical-align: top; font-weight: bold;"><math><mi>&#120410;</mi><mi>&#120421;</mi></math> scattering</td>
         <td>
-            Jet production
+            Jet production in neutral- and charged-current deep-inelastic scattering
             <ul>
                 <li><math><mi>e</mi><mi>p</mi><mo>&#x2192;</mo><mtext>lepton</mtext><mo>+</mo><mn>1</mn>&nbsp;<mtext>jet</mtext></math></li>
                 <li><math><mi>e</mi><mi>p</mi><mo>&#x2192;</mo><mtext>lepton</mtext><mo>+</mo><mn>2</mn>&nbsp;<mtext>jets</mtext></math></li>
@@ -46,7 +46,7 @@
             Photon (+ jet) production
             <ul>
                 <li><math><mi>p</mi><mi>p</mi><mo>&#x2192;</mo><mi>&gamma;</mi><mo>+</mo><mn>X</mn></math></li>
-                <li><math><mi>p</mi><mi>p</mi><mo>&#x2192;</mo><mi>&gamma;</mi><mo>+</mo><mi>1</mi>&nbsp;<mtext>jet</mtext></math></li>
+                <li><math><mi>p</mi><mi>p</mi><mo>&#x2192;</mo><mi>&gamma;</mi><mo>+</mo><mi>1</mi>&nbsp;<mtext>jet</mtext></math>, also with fixed-cone photon isolation including photon fragmentation</li>
                 <li><math><mi>p</mi><mi>p</mi><mo>&#x2192;</mo><mi>&gamma;&gamma;</mi></math></li>
             </ul>
             Higgs (+ jet) production
@@ -54,16 +54,20 @@
                 <li><math><mi>p</mi><mi>p</mi><mo>&#x2192;</mo><mi>H</mi><mo>+</mo><mn>X</mn></math></li>
                 <li><math><mi>p</mi><mi>p</mi><mo>&#x2192;</mo><mi>H</mi><mo>+</mo><mi>1</mi>&nbsp;<mtext>jet</mtext></math></li>
             </ul>
+            Both also with the Higgs boson decaying to
+            <math><mi>&gamma;&gamma;</mi></math>,
+            to <math><msup><mi>&#x2113;</mi><mo>+</mo></msup><msup><mi>&#x2113;</mi><mo>&minus;</mo></msup><mi>&gamma;</mi></math> (Dalitz decay),
+            to four charged leptons, or to two charged leptons and two neutrinos.
         </td>
     </tr>
 </table>
 
 <p style="font-style: italic;text-align: justify;">
-Note: For each process type contained at NNLO QCD, it is implicitly understood that NNLOJET also
+Note: For each process type available at NNLO QCD, it is implicitly understood that NNLOJET also
 provides the NLO correction to the process with one additional jet and the LO of the process
-with two additional jets. For example, since <math><mi>Z</mi><mo>+</mo><mi>1</mi>&nbsp;<mtext>jet</mtext></math> is available at NNLO, <math><mi>Z</mi><mo>+</mo><mi>2</mi>&nbsp;<mtext>jet</mtext></math> can be computed
-at NLO and <math><mi>Z</mi><mo>+</mo><mi>3</mi>&nbsp;<mtext>jet</mtext></math> at LO. To perform NLO and LO calculations of processes with additional
+with two additional jets. For example, since <math><mi>Z</mi><mo>+</mo><mi>1</mi>&nbsp;<mtext>jet</mtext></math> is available at NNLO, <math><mi>Z</mi><mo>+</mo><mi>2</mi>&nbsp;<mtext>jets</mtext></math> can be computed
+at NLO and <math><mi>Z</mi><mo>+</mo><mi>3</mi>&nbsp;<mtext>jets</mtext></math> at LO. To perform NLO and LO calculations of processes with additional
 jets in the final state, one can simply require a higher number of resolved jets in the runcard
-file. For example, the NLO correction to <math><mi>Z</mi><mo>+</mo><mi>2</mi><mi>j</mi></math> can be computed via an NNLO calculation for
-the ZJ process requiring at least two jets.
+file. For example, the NLO correction to <math><mi>Z</mi><mo>+</mo><mi>2</mi>&nbsp;<mtext>jets</mtext></math> can be computed via an NNLO calculation for
+the <kbd>ZJ</kbd> process requiring at least two jets.
 </p>
