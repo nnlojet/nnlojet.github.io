@@ -1175,9 +1175,15 @@ The isolation of photons and leptons is defined using the following options:
   NNLOJET does not check this: a fixed-cone isolation without fragmentation runs without warning, but the result depends on the technical cutoff \runcard{tcut}.
 \end{itemize}
 
+The longitudinal polarization of the incoming lepton beam can be set for DIS and electron--positron processes:
+\begin{itemize}
+  \item \runcard{pol = DBLE}: polarization $P$ of the incoming (electron) lepton beam, with $P=-1$ ($P=+1$) for a purely left-handed (right-handed) beam (default: 0.0).
+  The left- and right-handed couplings of the lepton are weighted by $(1-P)$ and $(1+P)$, respectively, such that the polarization only affects contributions from $\PZ$-boson exchange: it has no effect for photon exchange only, which is the default for the neutral-current DIS processes (see \runcard{V_NC} above).
+  The polarization is currently not applied to charged-current DIS processes (\runcard{epNJ}, \runcard{epNJJ}, \runcard{epNbJ}, \runcard{epNbJJ}).
+\end{itemize}
+
 Finally, several \runcard{PROCESS} settings are relevant only for DIS:
 \begin{itemize}
-  \item \runcard{pol = DBLE}: polarization fraction of incoming lepton beam (default: 0.0);
   \item \runcard{lab_ordereta = BOOL}: a flag to order jets in the laboratory frame in $\eta$ (default: \runcard{.false.});
   \item \runcard{dis_eventshapes = DBLE}: minimum value of hadronic energy in an event for DIS event shapes (default: 0.0);
   \item \runcard{eprc = BOOL}: switch to use a running electromagnetic coupling evaluated at the scale $Q^2$ (default: \runcard{.false.});
