@@ -9,8 +9,8 @@
 !###############################################!
 
 PROCESS  Z
-  collider = ppbar  sqrts = 1960.0
-  jet = none[0]
+  collider = PAP  sqrts = 1960.0
+  jet = none
 END_PROCESS
 
 RUN  CDF_Z0_1P96TEV_ZRAP
@@ -27,8 +27,8 @@ PARAMETERS
   MASS[W] = 80.377
   WIDTH[W] = 2.085
   CKM = FULL
-  SCHEME[ALPHA] = GF
-  SCHEME[WIDTH_V] = CMS
+  SCHEME[ALPHA] = GMU
+  SCHEME[GV] = CMS
   GF = 1.1663787e-05
 END_PARAMETERS
 

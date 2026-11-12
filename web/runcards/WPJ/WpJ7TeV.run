@@ -4,7 +4,7 @@
 
 PROCESS  WpJ
 
-  collider = pp
+  collider = PP
   sqrts = 7000.0
   jet = antikt[0.4]
   jet_exclusive = .false. 

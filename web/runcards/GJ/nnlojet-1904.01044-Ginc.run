@@ -1,11 +1,11 @@
 
 PROCESS  GJ
 
-  collider = pp
-  jet = none[0]
+  collider = PP
+  jet = none
   sqrts = 13000.0
-  photon_isolation = frix[R_cone=0.1, ETmax_epsilon=0.1, n=2]  &
-    &       + etsum[R_cone=0.4, ETmax_const=5, ETmax_epsilon=0, ET_threshold=0]
+  photon_isolation = smooth[R_cone=0.1, ETmax_epsilon=0.1, n=2]  &
+    &       + fixed[R_cone=0.4, ETmax_const=5, ETmax_epsilon=0]
   decay_type = 2
 
 END_PROCESS

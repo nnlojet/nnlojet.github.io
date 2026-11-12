@@ -1,7 +1,7 @@
 
 PROCESS  eeJJJ
 
-  collider = epem
+  collider = EPEM
   sqrts = 200.0
   jet = jade[0]
 

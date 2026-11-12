@@ -13,7 +13,7 @@
 ! HTO4EJ/Hto4eJ.run, without jet requirement.
 
 PROCESS  Hto4e
-  collider = pp  sqrts = 13000.0
+  collider = PP  sqrts = 13000.0
   jet = antikt[0.4]  jet_exclusive = .false.  jet_recomb = V4
   decay_type = 2
 END_PROCESS

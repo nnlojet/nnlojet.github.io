@@ -14,7 +14,7 @@
 ! At LO the jet is the struck quark.
 
 PROCESS  epLJ
-  collider = ep  Ebeam1 = 27.6  Ebeam2 = 920
+  collider = PE  Ebeam1 = 920  Ebeam2 = 27.6
   jet = kt[1]  jet_exclusive = .false.  jet_recomb = V4
 END_PROCESS
 

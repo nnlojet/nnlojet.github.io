@@ -9,8 +9,8 @@
 !###############################################!
 
 PROCESS  WP
-  collider = pp  sqrts = 7000.0
-  jet = none[0]
+  collider = PP  sqrts = 7000.0
+  jet = none
 END_PROCESS
 
 RUN  ATLAS_WP_7TEV_36FB_CC
@@ -27,8 +27,8 @@ PARAMETERS
   MASS[W] = 80.377
   WIDTH[W] = 2.085
   CKM = FULL
-  SCHEME[ALPHA] = GF
-  SCHEME[WIDTH_V] = CMS
+  SCHEME[ALPHA] = GMU
+  SCHEME[GV] = CMS
   GF = 1.1663787e-05
 END_PARAMETERS
 

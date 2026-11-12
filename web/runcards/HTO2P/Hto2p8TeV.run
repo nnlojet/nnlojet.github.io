@@ -13,9 +13,9 @@
 ! HTO2PJ/nnlojet-1607.08817-HJCMS8TeV.run, without jet requirement.
 
 PROCESS  HTO2P
-  collider = pp  sqrts = 8000.0
+  collider = PP  sqrts = 8000.0
   jet = antikt[0.5]  jet_exclusive = .false.  jet_recomb = V4
-  photon_isolation = etsum[R_cone=0.4, ETmax_const=10]
+  photon_isolation = fixed[R_cone=0.4, ETmax_const=10]
   decay_type = 3
 END_PROCESS
 

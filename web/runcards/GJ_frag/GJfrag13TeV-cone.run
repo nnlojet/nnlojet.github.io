@@ -19,10 +19,10 @@
 
 PROCESS  GJ_frag
 
-  collider = pp
+  collider = PP
   jet = antikt[0.4]  jet_exclusive = .false.  jet_recomb = V4
   sqrts = 13000.0
-  photon_isolation = etsum[R_cone=0.4, ETmax_const=10, ETmax_epsilon=0.0042, ET_threshold=0]
+  photon_isolation = fixed[R_cone=0.4, ETmax_const=10, ETmax_epsilon=0.0042]
   photon_fragmentation = BFG2
   decay_type = 2
 

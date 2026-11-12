@@ -1,7 +1,7 @@
 !Run card according to CMS 8 TeV 3D dijet measurement in 1705.02628
 !Result of this runcard is also presented in 2204.10173
-PROCESS  2jetfc
-  collider = pp  sqrts = 8000
+PROCESS  JJ
+  collider = PP  sqrts = 8000
   jet = antikt[0.7]  jet_exclusive = .false.  jet_recomb = V4
   decay_type = 0
 END_PROCESS

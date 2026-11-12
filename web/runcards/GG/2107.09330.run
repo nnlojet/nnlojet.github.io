@@ -1,9 +1,9 @@
 
 PROCESS  GG
 
-  collider = LHC
+  collider = PP
   sqrts = 13000.0
-  photon_isolation = frix[R_cone=0.1, ETmax_epsilon=0.15, n=1] + etsum[R_cone=0.2, ETmax_epsilon=0.09]
+  photon_isolation = smooth[R_cone=0.1, ETmax_epsilon=0.15, n=1] + fixed[R_cone=0.2, ETmax_epsilon=0.09]
   decay_type = 0
 
 END_PROCESS

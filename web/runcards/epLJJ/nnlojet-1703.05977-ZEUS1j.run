@@ -10,15 +10,14 @@
 
 
 PROCESS  epLJJ
-  collider = ep    Ebeam1 = 27.5  Ebeam2 = 920
-  jet = kt[1]  jet_exclusive = .false.  jet_recomb = Et
+  collider = PE    Ebeam1 = 920  Ebeam2 = 27.5
+  jet = kt[1]  jet_exclusive = .false.  jet_recomb = ET
 END_PROCESS
 
 
 RUN  ZEUS1j
   PDF = NNPDF30_nnlo_as_0118[0]
   iseed   = 1
-  imethod = 2
   angular_average    = .true.
   multi_channel      = 5
   scale_coefficients = .true.

@@ -1,5 +1,5 @@
 PROCESS eeJJ
-  collider = epem
+  collider = EPEM
   sqrts = 91.2
   jet = jade[0.01]
   V_NC = GAMMA
@@ -13,7 +13,7 @@ RUN EEJJINCL
 END_RUN
 
 PARAMETERS
-  SCHEME[ALPHA] = FIXED
+  SCHEME[ALPHA] = FIX
   ALPHA = 0.007818608287724784
   WIDTH[Z] = 2.490
   MASS[Z] = 91.187

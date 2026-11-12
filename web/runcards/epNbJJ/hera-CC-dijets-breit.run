@@ -13,8 +13,8 @@
 ! H1-like dijet cuts. Central scale: dscl = sqrt((Q2 + ptavg_12^2)/2).
 
 PROCESS  epNbJJ
-  collider = ep  Ebeam1 = 27.6  Ebeam2 = 920
-  jet = kt[1]  jet_exclusive = .false.  jet_recomb = Et
+  collider = PE  Ebeam1 = 920  Ebeam2 = 27.6
+  jet = kt[1]  jet_exclusive = .false.  jet_recomb = ET
 END_PROCESS
 
 RUN  CCdijetsBreit

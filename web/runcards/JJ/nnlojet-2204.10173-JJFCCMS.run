@@ -1,7 +1,7 @@
 
-PROCESS  1jetfc
+PROCESS  JJ
 
-  collider = LHC
+  collider = PP
   sqrts = 13000.0
   jet = antikt[0.7]  jet_exclusive = .false.  jet_recomb = V4
   decay_type = 0
@@ -37,6 +37,9 @@ END_PARAMETERS
 SELECTORS
         select jets_pt min = 97 max = 3103
         select jets_abs_y max = 2.5
+        ! inclusive jets: lower the default requirement of two jets for JJ.
+        ! NNLOJET prints a warning about a potential IR divergence, but the
+        ! jets_pt cut keeps the inclusive-jet cross section infrared safe.
         select njets min = 1
 END_SELECTORS
 

@@ -1,9 +1,9 @@
 
 PROCESS  Hto2l1pJ
 
-  collider = LHC
+  collider = PP
   sqrts = 13000.0
-  jet = none[0]
+  jet = none
   decay_type = 2
 
 END_PROCESS
