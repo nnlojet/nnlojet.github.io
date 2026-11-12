@@ -70,6 +70,9 @@ ${MYSED} -i '/^\\section{Runcard syntax}/i\\\setcounter{FileDepth}{2}' manual.te
 ${MYSED} -i '/^\\subsection{Runcard sections}/i\\\setcounter{FileDepth}{3}\\boolfalse{CombineHigherDepths}' manual.tex
 ${MYSED} -i '/^\\section{Using NNLOJET}/i\\\setcounter{FileDepth}{1}' manual.tex
 
+# List the (unnumbered) Acknowledgements in the table of contents
+${MYSED} -i '/^\\section\*{Acknowledgements}/a\\\addcontentsline{toc}{section}{Acknowledgements}' manual.tex
+
 # Move references to separate section
 ${MYSED} -i '/\\bibliography{NNLOJET.bib}/i\\\warpHTMLonly{\\section{References}}' manual.tex
 

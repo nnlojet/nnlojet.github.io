@@ -91,6 +91,7 @@ def main() -> None:
     notice = '<p role="status"><strong>Local preview — not for publication.</strong> Unavailable release downloads are disabled.</p>' if args.preview else ''
     template = template.replace('BANNER\n', notice)
     manual_scripts = '''<script src="index_files/lwarp.js"></script>
+<script defer src="index_files/manual.js"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>'''
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)

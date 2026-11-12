@@ -104,6 +104,28 @@ kbd.display {
     border-radius: 3px;
     background: #dce0e8;
 }
+/* Code blocks: copy button (index_files/manual.js) and light highlighting */
+.codeblock { position: relative; margin: 1em; }
+.codeblock > .programlisting { margin: 0; }
+.codeblock > button.copy {
+    position: absolute;
+    top: 0.15em;
+    right: 0.3em;
+    padding: 0 0.4em;
+    font-size: 75%;
+    line-height: 1.4;
+    color: #4c4f69;
+    background: #eff1f5;
+    border: 1px solid #9ca0b0;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: 0;
+}
+.codeblock:hover > button.copy, .codeblock > button.copy:focus { opacity: 1; }
+@media (hover: none) { .codeblock > button.copy { opacity: 0.7; } }
+.programlisting .prompt { color: #7c7f93; user-select: none; }
+.programlisting .comment { color: #7c7f93; font-style: italic; }
+.programlisting .keyword { color: #8839ef; font-weight: bold; }
 .inlineprogramlisting.term { font-weight: bold; } /* option defined by a list item */
 .programlisting {
     overflow-x: auto;

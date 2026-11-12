@@ -97,6 +97,34 @@ def clean_fragment(text: str, title: str) -> str:
     return text
 
 
+RUNCARD_KEYWORDS = re.compile(
+    r'^(\s*)((?:END_)?(?:PROCESS|RUN|PARAMETERS|SELECTORS|HISTOGRAMS|HISTOGRAM_SELECTORS|SCALES|CHANNELS'
+    r'|FASTJET|COMPOSITE|OR)|REWEIGHT|PDF_INTERPOLATION)\b', re.M)
+
+
+def highlight_code(pre: lhtml.HtmlElement) -> None:
+    """Mark shell prompts, and runcard comments and block keywords, in a code block."""
+    if len(pre):
+        return  # already contains markup
+    code = pre.text or ''
+    out = []
+    if re.search(r'^\s*\$ ', code, re.M):
+        for line in code.splitlines(keepends=True):
+            m = re.match(r'(\s*)\$ (.*)', line, re.S)
+            out.append(f'{m[1]}<span class="prompt">$ </span>{html.escape(m[2])}' if m else html.escape(line))
+    else:
+        for line in code.splitlines(keepends=True):
+            body, bang, comment = line.partition('!')
+            body = RUNCARD_KEYWORDS.sub(r'\1<span class="keyword">\2</span>', html.escape(body))
+            if bang:
+                end = '\n' if comment.endswith('\n') else ''
+                body += f'<span class="comment">!{html.escape(comment.rstrip(chr(10)))}</span>{end}'
+            out.append(body)
+    new = lhtml.fragment_fromstring(f'<pre>{"".join(out)}</pre>')
+    pre.text = new.text
+    pre.extend(list(new))
+
+
 def mark_list_terms(doc: lhtml.HtmlElement) -> None:
     """Highlight the runcard options defined by list items, e.g. `pol = DBLE`: ...
 
@@ -169,6 +197,12 @@ def main() -> None:
         # This replaces the old host-dependent Tidy pass with an explicit local parser.
         doc = lhtml.fragment_fromstring(text, create_parent='div')
         mark_list_terms(doc)
+        for pre in doc.xpath('.//pre[contains(@class, "programlisting")]'):
+            highlight_code(pre)
+        # Links to this website itself stay on the site (and work in a local preview).
+        for link in doc.xpath('.//a[starts-with(@href, "https://nnlojet.github.io")]'):
+            link.set('href', link.get('href').removeprefix('https://nnlojet.github.io').lstrip('/') or 'index.html')
+            link.attrib.pop('target', None)
         if old_name == 'manual.html':
             blocks = [div for div in doc.xpath('.//div[@class="center"]')
                       if div.xpath('.//b[contains(., "NNLOJET Manual")] | .//img[contains(@src, "nnlogo")]')]
