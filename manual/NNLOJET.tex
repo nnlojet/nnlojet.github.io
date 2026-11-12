@@ -1869,11 +1869,11 @@ The final results of the calculation are saved to \command{<run-path>/result/fin
 %
 During the workflow execution, a summary table together with logging information will be displayed to the user, see Fig.~\ref{fig:workflow_table}, which is updated in real-time as the jobs are submitted and completed.
 
-As the \command{submit} command continuously monitors running jobs and dispatches new ones, it is preferrable to keep it running for the entire duration of the calculation. If necessary, it can be stopped by pressing \texttt{Ctrl+C} and re-launched at a later time. In this case, the calculation will resume from the last saved state. Jobs that are already submitted to the cluster will continue to run.
+As the \command{submit} command continuously monitors running jobs and dispatches new ones, it is preferable to keep it running for the entire duration of the calculation. If necessary, it can be stopped by pressing \texttt{Ctrl+C} and re-launched at a later time. In this case, the calculation will resume from the last saved state. Jobs that are already submitted to the cluster will continue to run.
 If the previous execution terminated exceptionally, e.g.\ due to a lost \command{ssh} connection, the workflow will automatically attempt to recover the state and prompt the user how to proceed with the resurrection of previously active jobs.
 %Multiple instances of \command{nnlojet-run} with the same \command{<run-path>} should not be run in parallel.
 
-Inbetween executions of \command{submit}, the settings of a run can be modified, see the \command{config} sub-command below. This is especially useful to increase the target accuracy, or to increase the maximal number of jobs, in case too few where initially specified. It is also possible to change the perturbative order in this way, e.g.\ to compute the NNLO corrections to a run that was previously calculated to NLO.
+In between executions of \command{submit}, the settings of a run can be modified, see the \command{config} sub-command below. This is especially useful to increase the target accuracy, or to increase the maximal number of jobs, in case too few were initially specified. It is also possible to change the perturbative order in this way, e.g.\ to compute the NNLO corrections to a run that was previously calculated to NLO.
 
 
 \subsubsection{\texorpdfstring{\command{finalize}}{finalize}}
