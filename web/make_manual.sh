@@ -39,7 +39,6 @@ cd "$build/html"
 cp NNLOJET.tex manual.tex
 "$PYTHON" - <<'PREPARE'
 from pathlib import Path
-import re
 p = Path('SciPost.cls')
 s = p.read_text(encoding='utf-8')
 marker = r'\LoadClass[11pt,a4paper]{article}'
@@ -51,19 +50,6 @@ s = s.replace(marker, marker + '\n' + r'''
 \boolfalse{FileSectionNames}
 ''')
 s = s.replace(r'\let\ps@plain\ps@fancy', r'\warpprintonly{\let\ps@plain\ps@fancy}')
-p.write_text(s, encoding='utf-8')
-# Flatten the publisher's nested placeholder box, retaining its wording.
-p = Path('manual.tex')
-s = p.read_text(encoding='utf-8')
-match = re.search(r'(?s)(%%%%%%%%%% BLOCK: Copyright information).*?\1', s)
-if match:
-    paragraphs = re.findall(
-        r'(?s)\\begin\{minipage\}.*?\{\\small (.*?)\}\s*%?\s*\\end\{minipage\}',
-        match.group())
-    if len(paragraphs) != 2:
-        raise SystemExit('Publisher notice has changed; review its HTML conversion.')
-    replacement = '\\begin{quote}\n' + '\\par\n'.join(paragraphs) + '\n\\end{quote}\n'
-    s = s[:match.start()] + replacement + s[match.end():]
 p.write_text(s, encoding='utf-8')
 PREPARE
 # Insert placeholders in multirow tables
@@ -79,9 +65,6 @@ ${MYSED} -i '/\\bibliography{NNLOJET.bib}/i\\\warpHTMLonly{\\section{References}
 
 # Change format of bibliography references, so they can be turned into clickable links
 ${MYSED} -i '/\\begin{document}/i\\\warpHTMLonly{\\renewcommand{\\citeleft}{[[[}}\n\\warpHTMLonly{\\renewcommand{\\citeright}{]]]}}' manual.tex
-
-# Remove some line breaks
-${MYSED} -i 's:\\\\ \\lstinline:\\\warpprintonly{\\\\} \\lstinline:' manual.tex
 
 # Fix some math-related incompatibilities
 ${MYSED} -i '/\\DeclareRobustCommand{\\rd}{\\ensuremathrm{d}}/d                      ; s/\\rd\b/\\mathrm{d}/g' manual.tex
@@ -115,9 +98,6 @@ ${MYSED} -i '/\\DeclareRobustCommand{\\alphas}{\\ensuremath{\\alpha_\\rs}}/d    
 ${MYSED} -i 's/\\mathrm{d} \\text{\\runcard{<obs>}}\$/\\mathrm{d}\$\\runcard{<obs>}/' manual.tex
 ${MYSED} -i 's/\\text{\\runcard{ptz_bin1}}/\\text{\\texttt{ptz\\_bin1}}/' manual.tex
 ${MYSED} -i -E '/DeclareRobustCommand/s/\\makebox\{(.*)\}$/\1/' manual.tex
-
-# Drop the \TeV macro (harmless if unused).
-${MYSED} -i '/\\DeclareRobustCommand{\\TeV}{\\ensuremathrm{TeV}\\xspace}/d ; s/\\TeV\b/\\mathrm{TeV}/g' manual.tex
 
 # SVG versions of PDF figures for the browser. No source PDF is modified.
 for figure in ./*.pdf; do
